@@ -79,7 +79,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Mexicanal Aplication
+                    Mexicanal Application
                 </div>
 
                 <div class="links">
