@@ -79,7 +79,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Mexicanal Aplication
                 </div>
 
                 <div class="links">
