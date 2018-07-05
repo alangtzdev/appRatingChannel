@@ -11,6 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('login.login');
-});
+Route::get('/', 'Controller@getLogin');
+Route::get('/login', 'Controller@getLogin');
+Route::get('/restorepassword', 'Controller@getRestorePassword');
+Route::get('/createacount', 'Controller@getCreateAcount');

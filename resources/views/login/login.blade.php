@@ -1,4 +1,5 @@
 @extends('templates.logintemplate')
+@section('title', 'Login')
 @section('content-login')
 <!-- BEGIN LOGIN FORM -->
 <form class="login-form" action="index.html" method="post">
@@ -30,13 +31,13 @@
    <div class="forget-password">
       <h4>Forgot your password ?</h4>
       <p> no worries, click
-         <a href="javascript:;" id="forget-password"> here </a> to reset your password. </p>
+         <a href="restorepassword"> here </a> to reset your password. </p>
    </div>
    <div class="create-account">
       <p> Don't have an account yet ?&nbsp;
-         <a href="javascript:;" id="register-btn"> Create an account </a>
+         <a href="createacount"> Create an account </a>
       </p>
    </div>
 </form>
 <!-- END LOGIN FORM -->
-@stop
+@endsection
