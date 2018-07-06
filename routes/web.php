@@ -15,3 +15,8 @@ Route::get('/', 'Controller@getLogin');
 Route::get('/login', 'Controller@getLogin');
 Route::get('/restorepassword', 'Controller@getRestorePassword');
 Route::get('/createacount', 'Controller@getCreateAcount');
+
+Route::get('/dashboard', 'Controller@getDashboard');
+Route::get('/userprofile', 'Controller@getUserProfle');
+Route::get('/lockscreen', 'Controller@getLockScreen');
+Route::get('/logout', 'Controller@getLogOut');

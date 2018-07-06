@@ -6,6 +6,7 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <title>Mexicanal | @yield('title')</title>
       <link rel="stylesheet" href="">
+      <meta name="csrf-token" content="{{ csrf_token() }}">
       <meta name="description" content="">
       <meta name="viewport" content="width=device-width, initial-scale=1" name="viewport">
       <!-- BEGIN GLOBAL MANDATORY STYLES -->
@@ -14,7 +15,6 @@
       <link href="{{asset('assets/global/plugins/simple-line-icons/simple-line-icons.min.css')}}" rel="stylesheet" type="text/css"/>
       <link href="{{asset('assets/global/plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
       <link href="{{asset('assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css')}}" rel="stylesheet" type="text/css" />
-      <!--<link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css" />-->
       <!-- END GLOBAL MANDATORY STYLES -->
       <!-- BEGIN PAGE LEVEL PLUGINS -->
       <link href="{{asset('assets/global/plugins/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
@@ -48,8 +48,7 @@
       <!-- BEGIN CORE PLUGINS -->
       <script src="{{asset('assets/global/plugins/jquery.min.js')}}" type="text/javascript"></script>
       <script src="{{asset('assets/global/plugins/jquery-ui/jquery-ui.min.js')}}" type="text/javascript"></script>
-      <script src="{{asset('assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript')}}"></script>
-      <!--<script src="{{ asset('js/app.js') }}" type="text/javascript"></script>-->
+      <script src="{{asset('assets/global/plugins/bootstrap/js/bootstrap.min.js')}}" type="text/javascript"></script>
       <script src="{{asset('assets/global/plugins/js.cookie.min.js')}}" type="text/javascript"></script>
       <script src="{{asset('assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js')}}" type="text/javascript"></script>
       <script src="{{asset('assets/global/plugins/jquery.blockui.min.js')}}" type="text/javascript"></script>
@@ -62,7 +61,7 @@
       <script src="{{asset('assets/global/plugins/backstretch/jquery.backstretch.min.js')}}" type="text/javascript"></script>
       <!-- END PAGE LEVEL PLUGINS -->
       <!-- BEGIN THEME GLOBAL SCRIPTS -->
-      <!--      <script src="{{asset('assets/global/scripts/app.min.js')}}" type="text/javascript"></script>-->
+      <script src="{{asset('assets/global/scripts/app.min.js')}}" type="text/javascript"></script>
       <!-- END THEME GLOBAL SCRIPTS -->
       <!-- BEGIN PAGE LEVEL SCRIPTS -->
       <script src="{{asset('assets/pages/scripts/login-4.min.js')}}" type="text/javascript"></script>
