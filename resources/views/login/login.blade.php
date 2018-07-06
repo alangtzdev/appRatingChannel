@@ -26,7 +26,7 @@
          <input type="checkbox" name="remember" value="1" /> Remember me
          <span></span>
       </label>
-      <button type="submit" class="btn green pull-right"> Login </button>
+      <a href="dashboard" class="btn green pull-right"> Login </a>
    </div>
    <div class="forget-password">
       <h4>Forgot your password ?</h4>

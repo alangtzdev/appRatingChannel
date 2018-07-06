@@ -81,13 +81,6 @@
                         </ul>
                      </li>
                      <!-- END USER LOGIN DROPDOWN -->
-                     <!-- BEGIN QUICK SIDEBAR TOGGLER -->
-                     <li class="dropdown dropdown-quick-sidebar-toggler">
-                        <a href="javascript:;" class="dropdown-toggle">
-                           <i class="icon-logout"></i>
-                        </a>
-                     </li>
-                     <!-- END QUICK SIDEBAR TOGGLER -->
                   </ul>
                </div>
                <!-- END TOP NAVIGATION MENU -->
@@ -122,7 +115,7 @@
                         </a>
                         <ul class="sub-menu">
                            <li class="nav-item start active open">
-                              <a href="dashboard_3.html" class="nav-link ">
+                              <a href="dashboard" class="nav-link ">
                                  <i class="icon-graph"></i>
                                  <span class="title">Dashboard 3</span>
                                  <span class="selected"></span>
@@ -142,7 +135,7 @@
                         </a>
                         <ul class="sub-menu">
                            <li class="nav-item  ">
-                              <a href="ui_colors.html" class="nav-link ">
+                              <a href="dashboard" class="nav-link ">
                                  <span class="title">Color Library</span>
                               </a>
                            </li>
@@ -156,7 +149,7 @@
                         </a>
                         <ul class="sub-menu">
                            <li class="nav-item  ">
-                              <a href="components_date_time_pickers.html" class="nav-link ">
+                              <a href="dashboard" class="nav-link ">
                                  <span class="title">Date & Time Pickers</span>
                               </a>
                            </li>
@@ -175,7 +168,7 @@
                <div class="page-content">
                   <!-- BEGIN PAGE HEADER-->
                   <!-- BEGIN PAGE TITLE-->
-                  <h1 class="page-title"> Dashboard
+                  <h1 class="page-title"> @yield('title')
                      <small>dashboard & statistics</small>
                   </h1>
                   <!-- END PAGE TITLE-->
