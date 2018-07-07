@@ -36,14 +36,14 @@
       <!-- BEGIN LOGO -->
       <div class="logo">
          <a href="index.html">
-            <img src="{{asset('assets/pages/img/logo-big.png')}}" alt="" /> </a>
+            <img src="{{asset('assets/pages/img/logo-big_.png')}}" alt="" /> </a>
       </div>
       <!-- END LOGO -->
       <div class="content">
          @yield('content-login')
       </div>
       <!-- BEGIN COPYRIGHT -->
-      <div class="copyright"> 2014 &copy; Metronic - Admin Dashboard Template. </div>
+      <div class="copyright"> 2018 &copy; Covenant Software - Admin Dashboard. </div>
       <!-- END COPYRIGHT -->
       <!-- BEGIN CORE PLUGINS -->
       <script src="{{asset('assets/global/plugins/jquery.min.js')}}" type="text/javascript"></script>
