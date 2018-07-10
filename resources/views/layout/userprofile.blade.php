@@ -1,5 +1,6 @@
 @extends('templates.mastertemplate')
-@section('title', 'User profile')
+@section('title', 'Perfil de usuario')
+@section('bar', 'Perfil de usuario')
 @section('content-master')
 <div class="row">
    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

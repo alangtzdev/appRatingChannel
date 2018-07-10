@@ -59,4 +59,18 @@ class Controller extends BaseController
       return view('login.login');
    }
    /*--- END LOG OUT ---*/
+   
+   /*--- USERS ---*/
+   public function getUsers()
+   {
+      return view('layout.users');
+   }
+   /*--- END USERS ---*/
+   
+   /*--- LOG REPORTS ---*/
+   public function getReports()
+   {
+      return view('layout.reports');
+   }
+   /*--- END REPORTS ---*/
 }

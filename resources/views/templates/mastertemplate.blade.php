@@ -67,16 +67,16 @@
                         <ul class="dropdown-menu dropdown-menu-default">
                            <li>
                               <a href="userprofile">
-                                 <i class="icon-user"></i> My Profile </a>
+                                 <i class="icon-user"></i> Mi perfil</a>
                            </li>
                            <li class="divider"> </li>
                            <li>
                               <a href="lockscreen">
-                                 <i class="icon-lock"></i> Lock Screen </a>
+                                 <i class="icon-lock"></i> Bloquear pantalla </a>
                            </li>
                            <li>
                               <a href="logout">
-                                 <i class="icon-key"></i> Log Out </a>
+                                 <i class="icon-key"></i> Salir </a>
                            </li>
                         </ul>
                      </li>
@@ -98,69 +98,66 @@
                <!-- BEGIN SIDEBAR -->
                <div class="page-sidebar navbar-collapse collapse">
                   <!-- BEGIN SIDEBAR MENU -->
-                  <div class="page-sidebar navbar-collapse collapse">
-                    
-                     <ul class="page-sidebar-menu  page-header-fixed page-sidebar-menu-light" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
-                        <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-                        <li class="sidebar-toggler-wrapper hide">
-                           <div class="sidebar-toggler">
-                              <span></span>
-                           </div>
-                        </li>
-                        <!-- END SIDEBAR TOGGLER BUTTON -->
-                        <li class="nav-item start active open">
-                           <a href="javascript:;" class="nav-link nav-toggle">
-                              <i class="icon-home"></i>
-                              <span class="title">Dashboard</span>
-                              <span class="selected"></span>
-                              <span class="arrow open"></span>
-                           </a>
-                           <ul class="sub-menu">
-                              <li class="nav-item start active open">
-                                 <a href="dashboard" class="nav-link ">
-                                    <i class="icon-graph"></i>
-                                    <span class="title">Dashboard 3</span>
-                                    <span class="selected"></span>
-                                    <span class="badge badge-danger">5</span>
-                                 </a>
-                              </li>
-                           </ul>
-                        </li>
-                        <li class="heading">
-                           <h3 class="uppercase">Herramientas</h3>
-                        </li>
-                        <li class="nav-item">
-                           <a href="javascript:;" class="nav-link nav-toggle">
-                              <i class="icon-users"></i>
-                              <span class="title">Usuarios</span>
-                              <span class="arrow"></span>
-                           </a>
-                           <ul class="sub-menu">
-                              <li class="nav-item  ">
-                                 <a href="dashboard" class="nav-link ">
-                                    <span class="title">Alta</span>
-                                 </a>
-                              </li>
-                           </ul>
-                        </li>
-                        <li class="nav-item  ">
-                           <a href="javascript:;" class="nav-link nav-toggle">
-                              <i class="icon-pie-chart"></i>
-                              <span class="title">Reportes</span>
-                              <span class="arrow"></span>
-                           </a>
-                           <ul class="sub-menu">
-                              <li class="nav-item  ">
-                                 <a href="dashboard" class="nav-link ">
-                                    <span class="title">Date & Time Pickers</span>
-                                 </a>
-                              </li>
-                           </ul>
-                        </li>
-                     </ul>
-                     <!-- END SIDEBAR MENU -->
-                     <!-- END SIDEBAR MENU -->
-                  </div>
+                  <ul class="page-sidebar-menu  page-header-fixed" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
+                     <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                     <li class="sidebar-toggler-wrapper hide">
+                        <div class="sidebar-toggler">
+                           <span></span>
+                        </div>
+                     </li>
+                     <!-- END SIDEBAR TOGGLER BUTTON -->
+                     <li class="nav-item start active">
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                           <i class="icon-home"></i>
+                           <span class="title">Dashboard</span>
+                           <span class="selected"></span>
+                           <span class="arrow open"></span>
+                        </a>
+                        <ul class="sub-menu">
+                           <li class="nav-item start active open">
+                              <a href="dashboard" class="nav-link ">
+                                 <i class="icon-graph"></i>
+                                 <span class="title">Dashboard</span>
+                                 <span class="selected"></span>
+                                 <span class="badge badge-danger">5</span>
+                              </a>
+                           </li>
+                        </ul>
+                     </li>
+                     <li class="heading">
+                        <h3 class="uppercase">Herramientas</h3>
+                     </li>
+                     <li class="nav-item">
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                           <i class="icon-users"></i>
+                           <span class="title">Usuarios</span>
+                           <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                           <li class="nav-item  ">
+                              <a href="users" class="nav-link ">
+                                 <span class="title">Alta</span>
+                              </a>
+                           </li>
+                        </ul>
+                     </li>
+                     <li class="nav-item  ">
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                           <i class="icon-pie-chart"></i>
+                           <span class="title">Reportes</span>
+                           <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                           <li class="nav-item  ">
+                              <a href="reports" class="nav-link ">
+                                 <span class="title">Date & Time Pickers</span>
+                              </a>
+                           </li>
+                        </ul>
+                     </li>
+                  </ul>
+                  <!-- END SIDEBAR MENU -->
+                  <!-- END SIDEBAR MENU -->
                   <!-- END SIDEBAR -->
                </div>
             </div>
@@ -172,18 +169,18 @@
                   <!-- BEGIN PAGE HEADER-->
                   <!-- BEGIN PAGE TITLE-->
                   <h1 class="page-title"> @yield('title')
-                     <small>dashboard & statistics</small>
+                     <small></small>
                   </h1>
                   <!-- END PAGE TITLE-->
                   <!-- BEGIN PAGE BAR -->
                   <div class="page-bar">
                      <ul class="page-breadcrumb">
                         <li>
-                           <a href="index.html">Home</a>
+                           <a href="dashboard">Dashboard</a>
                            <i class="fa fa-angle-right"></i>
                         </li>
                         <li>
-                           <span>Dashboard</span>
+                           <span>@yield('bar')</span>
                         </li>
                      </ul>
                      {{-- <div class="page-toolbar">
