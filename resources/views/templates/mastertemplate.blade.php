@@ -125,26 +125,26 @@
                         </ul>
                      </li>
                      <li class="heading">
-                        <h3 class="uppercase">Features</h3>
+                        <h3 class="uppercase">Herramientas</h3>
                      </li>
                      <li class="nav-item  ">
                         <a href="javascript:;" class="nav-link nav-toggle">
-                           <i class="icon-diamond"></i>
-                           <span class="title">UI Features</span>
+                           <i class="icon-users"></i>
+                           <span class="title">Usuarios</span>
                            <span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">
                            <li class="nav-item  ">
                               <a href="dashboard" class="nav-link ">
-                                 <span class="title">Color Library</span>
+                                 <span class="title">Alta</span>
                               </a>
                            </li>
                         </ul>
                      </li>
                      <li class="nav-item  ">
                         <a href="javascript:;" class="nav-link nav-toggle">
-                           <i class="icon-puzzle"></i>
-                           <span class="title">Components</span>
+                           <i class="icon-pie-chart"></i>
+                           <span class="title">Reportes</span>
                            <span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">
