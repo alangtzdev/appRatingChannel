@@ -106,7 +106,7 @@
                         </div>
                      </li>
                      <!-- END SIDEBAR TOGGLER BUTTON -->
-                     <li class="nav-item start active">
+                     <li class="nav-item {{Request::is('dashboard') ? 'start active' : 'null'}}">
                         <a href="javascript:;" class="nav-link nav-toggle">
                            <i class="icon-home"></i>
                            <span class="title">Dashboard</span>
@@ -114,7 +114,7 @@
                            <span class="arrow open"></span>
                         </a>
                         <ul class="sub-menu">
-                           <li class="nav-item start active open">
+                           <li class="nav-item {{Request::is('dashboard') ? 'start active open' : 'null'}}">
                               <a href="dashboard" class="nav-link ">
                                  <i class="icon-graph"></i>
                                  <span class="title">Dashboard</span>
@@ -127,28 +127,30 @@
                      <li class="heading">
                         <h3 class="uppercase">Herramientas</h3>
                      </li>
-                     <li class="nav-item">
+                     <li class="nav-item {{Request::is('users') ? 'start active' : 'null'}}">
                         <a href="javascript:;" class="nav-link nav-toggle">
                            <i class="icon-users"></i>
                            <span class="title">Usuarios</span>
+                           <span class="selected"></span>
                            <span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">
-                           <li class="nav-item  ">
+                           <li class="nav-item {{Request::is('users') ? 'start active open' : 'null'}}">
                               <a href="users" class="nav-link ">
                                  <span class="title">Alta</span>
                               </a>
                            </li>
                         </ul>
                      </li>
-                     <li class="nav-item  ">
+                     <li class="nav-item {{Request::is('reports') ? 'start active' : 'null'}}">
                         <a href="javascript:;" class="nav-link nav-toggle">
                            <i class="icon-pie-chart"></i>
                            <span class="title">Reportes</span>
+                           <span class="selected"></span>
                            <span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">
-                           <li class="nav-item  ">
+                           <li class="nav-item {{Request::is('reports') ? 'start active open' : 'null'}}">
                               <a href="reports" class="nav-link ">
                                  <span class="title">Date & Time Pickers</span>
                               </a>
