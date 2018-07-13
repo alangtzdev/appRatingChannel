@@ -1,0 +1,9 @@
+{
+    "/css/globalMandatoryStyle.css": "/css/globalMandatoryStyle.css",
+    "/css/pageLevelPluginStyle.css": "/css/pageLevelPluginStyle.css",
+    "/css/themeGlobalStyle.css": "/css/themeGlobalStyle.css",
+    "/css/themeLayoutStyle.css": "/css/themeLayoutStyle.css",
+    "/js/corePlugins.js": "/js/corePlugins.js",
+    "/js/pageLevelScript.js": "/js/pageLevelScript.js",
+    "/js/themeLayoutScript.js": "/js/themeLayoutScript.js"
+}
