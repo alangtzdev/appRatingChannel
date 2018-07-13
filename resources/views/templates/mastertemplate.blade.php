@@ -27,7 +27,7 @@
       <link href="{{asset('assets/global/css/plugins-md.min.css')}}" rel="stylesheet" type="text/css" /> --}}
       <!-- END THEME GLOBAL STYLES -->
       <!-- BEGIN PAGE LEVEL STYLES -->
-      <link href="{{asset('../resources/assets/pages/css/login-4.min.css')}}" rel="stylesheet" type="text/css" />
+      <link href="{{asset('assets/pages/css/login-4.min.css')}}" rel="stylesheet" type="text/css" />
       <!-- END PAGE LEVEL STYLES -->
       <!-- BEGIN THEME LAYOUT STYLES -->
       <link rel="stylesheet" href="{{'css/themeLayoutStyle.css'}}">
@@ -47,7 +47,7 @@
                <!-- BEGIN LOGO -->
                <div class="page-logo">
                   <a href="index.html">
-                     <img src="{{asset('../resources/assets/layouts/layout/img/logo.png')}}" alt="logo" class="logo-default" /> </a>
+                     <img src="{{asset('assets/layouts/layout/img/logo.png')}}" alt="logo" class="logo-default" /> </a>
                   <div class="menu-toggler sidebar-toggler">
                      <span></span>
                   </div>
@@ -64,7 +64,7 @@
                      <!-- BEGIN USER LOGIN DROPDOWN -->
                      <li class="dropdown dropdown-user">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                           <img alt="" class="img-circle" src="{{asset('../resources/assets/layouts/layout/img/avatar3_small.jpg')}}" />
+                           <img alt="" class="img-circle" src="{{asset('assets/layouts/layout/img/avatar3_small.jpg')}}" />
                            <span class="username username-hide-on-mobile"> Nick </span>
                            <i class="fa fa-angle-down"></i>
                         </a>
@@ -239,7 +239,7 @@
       <script src="{{asset('../resources/assets/global/scripts/app.min.js')}}" type="text/javascript"></script>
       <!-- END THEME GLOBAL SCRIPTS -->
       <!-- BEGIN PAGE LEVEL SCRIPTS -->
-      <!--      <script src="{{asset('../resources/assets/pages/scripts/dashboard.min.js')}}" type="text/javascript"></script>-->
+      <!--      <script src="{{asset('assets/pages/scripts/dashboard.min.js')}}" type="text/javascript"></script>-->
       <!-- END PAGE LEVEL SCRIPTS -->
       <!-- BEGIN THEME LAYOUT SCRIPTS -->
       <script src="{{'js/themeLayoutScript.js'}}"></script>
@@ -247,6 +247,6 @@
       <script src="{{asset('assets/layouts/layout/scripts/demo.min.js')}}" type="text/javascript"></script>
       <script src="{{asset('assets/layouts/global/scripts/quick-sidebar.min.js')}}" type="text/javascript"></script> --}}
       <!-- END THEME LAYOUT SCRIPTS -->
-      <script src="{{asset('../resources/assets/layouts/layout/scripts/frameload.js')}}" type="text/javascript"></script>
+      <script src="{{asset('assets/layouts/layout/scripts/frameload.js')}}" type="text/javascript"></script>
    </body>
 </html>

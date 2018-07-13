@@ -28,7 +28,7 @@
       <link href="{{asset('assets/global/css/plugins-md.min.css')}}" rel="stylesheet" type="text/css" /> --}}
       <!-- END THEME GLOBAL STYLES -->
       <!-- BEGIN PAGE LEVEL STYLES -->
-      <link href="{{asset('../resources/assets/pages/css/login-4.min.css')}}" rel="stylesheet" type="text/css" />
+      <link href="{{asset('assets/pages/css/login-4.min.css')}}" rel="stylesheet" type="text/css" />
       <!-- END PAGE LEVEL STYLES -->
       <!-- BEGIN THEME LAYOUT STYLES -->
       <!-- END THEME LAYOUT STYLES -->
@@ -39,7 +39,7 @@
       <!-- BEGIN LOGO -->
       <div class="logo">
          <a href="index.html">
-            <img src="{{asset('../resources/assets/pages/img/logo-big_.png')}}" alt="" /> </a>
+            <img src="{{asset('assets/pages/img/logo-big_.png')}}" alt="" /> </a>
       </div>
       <!-- END LOGO -->
       <div class="content">
@@ -68,10 +68,10 @@
       
       <!-- END PAGE LEVEL PLUGINS -->
       <!-- BEGIN THEME GLOBAL SCRIPTS -->
-      <script src="{{asset('../resources/assets/global/scripts/app.min.js')}}" type="text/javascript"></script>
+      <script src="{{asset('assets/global/scripts/app.min.js')}}" type="text/javascript"></script>
       <!-- END THEME GLOBAL SCRIPTS -->
       <!-- BEGIN PAGE LEVEL SCRIPTS -->
-      <script src="{{asset('../resources/assets/pages/scripts/login-4.min.js')}}" type="text/javascript"></script>
+      <script src="{{asset('assets/pages/scripts/login-4.min.js')}}" type="text/javascript"></script>
       <!-- END PAGE LEVEL SCRIPTS -->
       <!-- BEGIN THEME LAYOUT SCRIPTS -->
       <!-- END THEME LAYOUT SCRIPTS -->
