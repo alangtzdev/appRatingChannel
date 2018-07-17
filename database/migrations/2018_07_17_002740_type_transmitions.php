@@ -13,7 +13,13 @@ class TypeTransmitions extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('typeTransmition', function (Blueprint $table) {
+            $table->increments('id_TypeTransmition');
+            $table->string('nameTransmition', 50);
+            $table->datetime('dateTimeDrop');
+            $table->timestamp('created_at');
+            $table->timestamp('updated_at');
+        });
     }
 
     /**
