@@ -15,14 +15,17 @@ class Programs extends Migration
    {
       Schema::create('programs', function (Blueprint $table) {
          $table->increments('id_Program');
+         $table->unsignedInteger('id_Gender');
          $table->string('name');
          $table->string('description', 100);
          $table->dateTime('dateTimeDrop');
          $table->timestamps();
          
-         $table->unsignedInteger('id_Gender');
-         $table->foreign('id_Gender')->references('id_Gender')->on('genders');
       });
+
+      Schema::table('programs', function (Blueprint $table) {
+        $table->foreign('id_Gender')->references('id_Gender')->on('genders');
+     });
    }
 
    /**

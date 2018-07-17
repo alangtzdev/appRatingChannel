@@ -15,17 +15,9 @@ class Transmitions extends Migration
     {
         Schema::create('transmitions', function (Blueprint $table) {
             $table->increments('id_Transmition');
-
-            
             $table->unsignedInteger('id_Program');
-            $table->foreign('id_Program')->references('id')->on('programs');
-
             $table->unsignedInteger('id_TypeTransmition');
-            $table->foreign('id_TypeTransmition')->references('id')->on('typeTransmitions');
-
             $table->unsignedInteger('id_City');
-            $table->foreign('id_City')->references('id')->on('cities');
-
             $table->date('day');
             $table->time('nationalTime');
             $table->decimal('RTG', 8, 2);
@@ -35,10 +27,15 @@ class Transmitions extends Migration
             $table->integer('HH');
             $table->integer('AA');
             $table->integer('totalHoursViewed');
-            $table->timestamp('created_at');
-            $table->timestamp('updated_at');
+            $table->timestamps();
         });
         //
+        Schema::table('transmitions', function (Blueprint $table) {
+            $table->foreign('id_Program')->references('id_Program')->on('programs');
+            $table->foreign('id_TypeTransmition')->references('id_TypeTransmition')->on('typeTransmition');
+            $table->foreign('id_City')->references('id_City')->on('cities');
+
+        });
     }
 
     /**
