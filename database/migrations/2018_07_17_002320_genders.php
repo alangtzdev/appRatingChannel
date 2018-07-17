@@ -13,7 +13,12 @@ class Genders extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('genders', function (Blueprint $table) {
+            $table->increments('id_Gender');
+            $table->string('name');
+            $table->dateTime('dateTimeDrop');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +28,6 @@ class Genders extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('genders');
     }
 }
