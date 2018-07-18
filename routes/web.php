@@ -22,3 +22,5 @@ Route::get('/lockscreen', 'Controller@getLockScreen');
 Route::get('/logout', 'Controller@getLogOut');
 Route::get('/users', 'Controller@getUsers');
 Route::get('/reports', 'Controller@getReports');
+
+Route::get('/transmitionsVw', 'TransmitionController@index');
