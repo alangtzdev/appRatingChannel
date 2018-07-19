@@ -8,5 +8,5 @@ class City extends Model
 {
    protected $table = 'cities';
    protected $primarykey = 'id_City';
-   protected $fillable = [];
+   protected $fillable = ['nameCity', 'dateTimeDrop'];
 }

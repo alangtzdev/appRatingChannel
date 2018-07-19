@@ -8,5 +8,5 @@ class Gender extends Model
 {
    protected $table = 'genders';
    protected $primarykey = 'id_Gender';
-   protected $fillable = [];
+   protected $fillable = ['name', 'dateTimeDrop'];
 }

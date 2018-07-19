@@ -8,5 +8,5 @@ class Rol extends Model
 {
    protected $table = 'roles';
    protected $primarykey = 'id_Rol';
-   protected $fillable = [];
+   protected $fillable = ['name', 'description', 'status'];
 }

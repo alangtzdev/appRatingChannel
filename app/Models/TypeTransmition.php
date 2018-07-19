@@ -8,5 +8,5 @@ class TypeTransmition extends Model
 {
    protected $table = 'typetransmition';
    protected $primarykey = 'id_TypeTransmition';
-   protected $fillable = [];
+   protected $fillable = ['nameTransmition', 'dateTimeDrop'];
 }
