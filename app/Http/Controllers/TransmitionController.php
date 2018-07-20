@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\TransmitionModel;
+use App\Models\Transmition;
 
 class TransmitionController extends Controller
 {
@@ -14,7 +14,7 @@ class TransmitionController extends Controller
      */
     public function index()
     {
-        $transmitions = TransmitionModel::all();
+        $transmitions = Transmition::all();
         return $transmitions;
     }
 
