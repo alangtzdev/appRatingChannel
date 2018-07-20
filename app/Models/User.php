@@ -26,4 +26,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+   
+    public function rol(){
+      return $this->belongsTo('App\Models\Rol')
+   }
+   
+    public function employee(){
+      return $this->belongsTo('App\Models\Empoyee')
+   }
+   
+   
 }
