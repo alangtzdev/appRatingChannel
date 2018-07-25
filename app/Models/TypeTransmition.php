@@ -11,6 +11,6 @@ class TypeTransmition extends Model
    protected $fillable = ['nameTransmition', 'dateTimeDrop'];
    
    public function transmitions(){
-      return $this->hasMany('App\Models\Transmition')
+      return $this->hasMany('App\Models\Transmition');
    }
 }

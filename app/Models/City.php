@@ -11,6 +11,6 @@ class City extends Model
    protected $fillable = ['nameCity', 'dateTimeDrop'];
    
    public function transmitions(){
-      return $this->hasMany('App\Models\Transmition')
+      return $this->hasMany('App\Models\Transmition');
    }
 }

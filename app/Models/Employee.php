@@ -10,7 +10,9 @@ class Employee extends Model
    protected $primarykey = 'id_Employee';
    protected $fillable = ['name', 'apPaterno', 'apMaterno', 'gender', 'dateBirth'];
    
-   public function user(){
-      return $this->hasOne('App\Models\User')
+   public function user()
+   {
+
+      return $this->hasOne('App\Models\User');
    }
 }
