@@ -227,6 +227,8 @@
       <script src="{{asset('assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js')}}" type="text/javascript"></script>
       <script src="{{asset('assets/global/plugins/jquery.blockui.min.js')}}" type="text/javascript"></script>
       <script src="{{asset('assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js')}}" type="text/javascript"></script>
+      <script src="{{asset('assets/global/plugins/Chart.min.js')}}" type="text/javascript"></script>
+      <script src="{{asset('assets/global/plugins/moment.js')}}" type="text/javascript"></script>
       <!-- END CORE PLUGINS -->
       <!-- BEGIN PAGE LEVEL PLUGINS -->
       {{--<script src="{{'js/pageLevelScript.js'}}"></script>--}}
@@ -248,5 +250,6 @@
       <script src="{{asset('assets/layouts/global/scripts/quick-sidebar.min.js')}}" type="text/javascript"></script>
       <!-- END THEME LAYOUT SCRIPTS -->
       <script src="{{asset('assets/layouts/layout/scripts/frameload.js')}}" type="text/javascript"></script>
+      <script src="{{asset('js/graphics.js')}}" type="text/javascript"></script>
    </body>
 </html>
