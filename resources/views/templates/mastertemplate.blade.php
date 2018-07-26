@@ -250,6 +250,7 @@
       <!-- END THEME GLOBAL SCRIPTS -->
       <!-- BEGIN PAGE LEVEL SCRIPTS -->
       {{--<script src="{{asset('assets/pages/scripts/dashboard.min.js')}}" type="text/javascript"></script>--}}
+      <script src="{{asset('assets/pages/scripts/components-date-time-pickers.min.js')}}" type="text/javascript"></script>
       <!-- END PAGE LEVEL SCRIPTS -->
       <!-- BEGIN THEME LAYOUT SCRIPTS -->
       {{--<script src="{{'js/themeLayoutScript.js'}}"></script>--}}
