@@ -14,6 +14,10 @@
       <link href="{{asset('assets/global/plugins/simple-line-icons/simple-line-icons.min.css')}}" rel="stylesheet" type="text/css"/>
       <link href="{{asset('assets/global/plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
       <link href="{{asset('assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css')}}" rel="stylesheet" type="text/css" />
+      <link href="{{asset('assets/global/plugins/bootstrap-select/css/bootstrap-select.min.css')}}" rel="stylesheet" type="text/css" />
+      <link href="{{asset('assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css')}}" rel="stylesheet" type="text/css" />
+      <link href="{{asset('assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css')}}" rel="stylesheet" type="text/css" />
+      <link href="{{asset('assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css')}}" rel="stylesheet" type="text/css" />
       {{--<link rel="stylesheet" href="{{'css/globalMandatoryStyle.css'}}">--}}
       <!-- END GLOBAL MANDATORY STYLES -->
       <!-- BEGIN PAGE LEVEL PLUGINS -->
@@ -146,7 +150,7 @@
                            </li>
                         </ul>
                      </li>
-                     <li class="nav-item {{Request::is('reports') ? 'start active' : 'null'}}">
+                     <li class="nav-item {{Request::is('datetimepickers') ? 'start active' : 'null'}}">
                         <a href="javascript:;" class="nav-link nav-toggle">
                            <i class="icon-pie-chart"></i>
                            <span class="title">Reportes</span>
@@ -154,8 +158,8 @@
                            <span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">
-                           <li class="nav-item {{Request::is('reports') ? 'start active open' : 'null'}}">
-                              <a href="reports" class="nav-link ">
+                           <li class="nav-item {{Request::is('datetimepickers') ? 'start active open' : 'null'}}">
+                              <a href="datetimepickers" class="nav-link ">
                                  <span class="title">Date & Time Pickers</span>
                               </a>
                            </li>
@@ -229,6 +233,10 @@
       <script src="{{asset('assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js')}}" type="text/javascript"></script>
       <script src="{{asset('assets/global/plugins/Chart.min.js')}}" type="text/javascript"></script>
       <script src="{{asset('assets/global/plugins/moment.js')}}" type="text/javascript"></script>
+      <script src="{{asset('assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js')}}" type="text/javascript"></script>
+      <script src="{{asset('assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}" type="text/javascript"></script>
+      <script src="{{asset('assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js')}}" type="text/javascript"></script>
+      <script src="{{asset('assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js')}}" type="text/javascript"></script>
       <!-- END CORE PLUGINS -->
       <!-- BEGIN PAGE LEVEL PLUGINS -->
       {{--<script src="{{'js/pageLevelScript.js'}}"></script>--}}

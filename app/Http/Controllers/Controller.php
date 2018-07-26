@@ -68,9 +68,9 @@ class Controller extends BaseController
    /*--- END USERS ---*/
    
    /*--- LOG REPORTS ---*/
-   public function getReports()
+   public function getDateTimePickers()
    {
-      return view('layout.reports');
+      return view('layout.datetimepickers');
    }
    /*--- END REPORTS ---*/
 }

@@ -21,6 +21,6 @@ Route::get('/userprofile', 'Controller@getUserProfle');
 Route::get('/lockscreen', 'Controller@getLockScreen');
 Route::get('/logout', 'Controller@getLogOut');
 Route::get('/users', 'Controller@getUsers');
-Route::get('/reports', 'Controller@getReports');
+Route::get('/datetimepickers', 'Controller@getDateTimePickers');
 
 Route::get('/transmitionsVw', 'TransmitionController@index');
