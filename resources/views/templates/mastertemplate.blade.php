@@ -35,6 +35,7 @@
       <!-- END PAGE LEVEL STYLES -->
       <!-- BEGIN THEME LAYOUT STYLES -->
       {{--<link rel="stylesheet" href="{{'css/themeLayoutStyle.css'}}">--}}
+      <link rel="stylesheet" href="{{'css/mastertemplate.css'}}">
       <link href="{{asset('assets/layouts/layout/css/layout.min.css')}}" rel="stylesheet" type="text/css" />
       <link href="{{asset('assets/layouts/layout/css/themes/darkblue.min.css')}}" rel="stylesheet" type="text/css" id="style_color" />
       <link href="{{asset('assets/layouts/layout/css/custom.min.css')}}" rel="stylesheet" type="text/css" />
@@ -259,6 +260,6 @@
       <script src="{{asset('assets/layouts/global/scripts/quick-sidebar.min.js')}}" type="text/javascript"></script>
       <!-- END THEME LAYOUT SCRIPTS -->
       <script src="{{asset('assets/layouts/layout/scripts/frameload.js')}}" type="text/javascript"></script>
-      <script src="{{asset('js/graphics.js')}}" type="text/javascript"></script>
+      <script src="{{asset('js/datetimepickers.js')}}" type="text/javascript"></script>
    </body>
 </html>
