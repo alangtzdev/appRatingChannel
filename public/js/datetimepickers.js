@@ -1,5 +1,17 @@
 $( document ).ready(function() {
    datetimepickers();
+
+   $('.selectpicker').selectpicker({
+      title: 'Seleccione...',
+      liveSearch: true,
+      actionsBox: true,
+      selectAllText: '<i class="fa fa-check fa-1x" aria-hidden="true"></i> Todo',
+      deselectAllText: '<i class="fa fa-times fa-1x" aria-hidden="true"></i> Todo',
+      size: 5,
+      windowPadding: ['top', 'right', 'bottom', 'left'],
+      dropdownAlignRight: true,
+      style: 'multiple-select'
+   });
 });
 
 function datetimepickers(){

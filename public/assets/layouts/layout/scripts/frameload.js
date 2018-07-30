@@ -1,6 +1,7 @@
-$(document).on('ready',function(e){
-//   $(".sub-menu").on('click', 'li', function() {
-//      $("li.active").removeClass("active");
-//      //$(this).addClass("active");
-//   });
+$(document).ready(function(){
+   $.ajaxSetup({
+      headers: {
+         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+   });
 });

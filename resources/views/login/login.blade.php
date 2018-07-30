@@ -26,7 +26,7 @@
          <input type="checkbox" name="remember" value="1" /> Recordarme
          <span></span>
       </label>
-      <a href="dashboard" class="btn green pull-right"> Ingresar </a>
+      <a href="{{ route('dashboard')}}" class="btn green pull-right"> Ingresar </a>
    </div>
    <div class="forget-password">
       <h4>Olvidaste tu contraseña ?</h4>

@@ -1,6 +1,5 @@
 @extends('templates.mastertemplate')
 @section('title', 'Date & Time Pickers')
-@section('bar', 'Date & Time Pickers')
 @section('content-master')
 <div class="row">
    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -10,7 +9,7 @@
                <i class="fa fa-filter"></i>Filters
             </div>
             <div class="tools">
-               <a href="" class="collapse" data-original-title="" title=""><i class="fa fa-window-minimize" aria-hidden="true"></i></a>
+               <a href="" class="collapse" data-original-title="" title=""></a>
             </div>
          </div>
          <div class="portlet-body form">
@@ -18,34 +17,36 @@
             <form action="#" class="form-horizontal form-bordered">
                <div class="form-body">
                   <div class="form-group">
-                     <div class="col-md-2 col-lg-2 text-center"></div>
-                     <div class="col-md-2 col-lg-2 text-center">
-                        <label>Año</label>
+                     <div class="col-md-2 col-lg-2 text-center hidden-xs hidden-sm"></div>
+                     <div class="col-md-2 col-lg-2 text-center hidden-xs hidden-sm">
+                        <label><strong>Año</strong></label>
                      </div>
-                     <div class="col-md-2 col-lg-2 text-center">
-                        <label>Meses</label>
+                     <div class="col-md-2 col-lg-2 text-center hidden-xs hidden-sm">
+                        <label><strong>Meses</strong></label>
                      </div>
-                     <div class="col-md-2 col-lg-2 text-center">
-                        <label>Hora inicia</label>
+                     <div class="col-md-2 col-lg-2 text-center hidden-xs hidden-sm">
+                        <label><strong>Hora inicia</strong></label>
                      </div>
-                     <div class="col-md-2 col-lg-2 text-center">
-                        <label>Duración</label>
+                     <div class="col-md-2 col-lg-2 text-center hidden-xs hidden-sm">
+                        <label><strong>Duración</strong></label>
                      </div>
-                     <div class="col-md-2 col-lg-2 text-center">
-                        <label>Programas</label>
+                     <div class="col-md-2 col-lg-2 text-center hidden-xs hidden-sm">
+                        <label><strong>Programas</strong></label>
                      </div>
                   </div>
                   <div class="form-group last">
-                     <div class="col-md-2 col-lg-2 text-center"></div>
+                     <div class="col-md-2 col-lg-2 text-center hidden-xs hidden-sm"></div>
                      <div class="col-md-2 col-lg-2 text-center">
+                       <label class="hidden-md hidden-lg"><strong>Año</strong></label>
                         <div class="form-group form-md-line-input has-info">
                            <select class="form-control">
                               <option value="2018">2018</option>
                            </select>
                         </div>
                      </div>
-                     <div class="col-md-2 col-lg-2 text-center multiple-select">
-                        <select class="form-control selectpicker show-tick" data-actions-box="true" multiple title="Seleccione...">
+                     <div class="col-md-2 col-lg-2 text-center">
+                       <label class="hidden-md hidden-lg"><strong>Meses</strong></label>
+                        <select class="form-control selectpicker show-tick" multiple data-selected-text-format="count > 3" data-count-selected-text="{0} seleccionados">
                            <option value="1">Enero</option>
                            <option value="2">Febrero</option>
                            <option value="3">Marzo</option>
@@ -61,6 +62,7 @@
                         </select>
                      </div>
                      <div class="col-md-2 col-lg-2 text-center">
+                       <label class="hidden-md hidden-lg"><strong>Hora inicia</strong></label>
                         <div class="input-group">
                            <input type="text" class="form-control timepicker timepicker-24">
                            <span class="input-group-btn">
@@ -70,14 +72,16 @@
                            </span>
                         </div>
                      </div>
-                     <div class="col-md-2 col-lg-2 text-center multiple-select">
-                        <select class="form-control selectpicker show-tick" multiple title="Seleccione...">
+                     <div class="col-md-2 col-lg-2 text-center">
+                       <label class="hidden-md hidden-lg"><strong>Duración</strong></label>
+                        <select class="form-control selectpicker show-tick" multiple data-selected-text-format="count > 3" data-count-selected-text="{0} seleccionados">
                            <option value="30">30 min.</option>
                            <option value="60">60 min.</option>
                         </select>
                      </div>
-                     <div class="col-md-2 col-lg-2 text-center multiple-select">
-                        <select class="form-control selectpicker show-tick" multiple data-live-search="true" data-actions-box="true" title="Seleccione...">
+                     <div class="col-md-2 col-lg-2 text-center">
+                       <label class="hidden-md hidden-lg"><strong>Programas</strong></label>
+                        <select class="form-control selectpicker show-tick" multiple data-selected-text-format="count > 3" data-count-selected-text="{0} seleccionados">
                            <option value="Ahí viene la Marimba">Ahí viene la Marimba</option>
                            <option value="Con el son de la marimba">Con el son de la marimba</option>
                            <option value="Café Nostalgia">Café Nostalgia</option>
@@ -198,4 +202,9 @@
       <canvas id="dateTimePicker"></canvas>
    </div>
 </div>
+@endsection
+
+
+@section('scripts')
+<script src="{{asset('js/datetimepickers.js')}}" type="text/javascript"></script>
 @endsection

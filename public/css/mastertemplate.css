@@ -2,9 +2,11 @@
    padding-top: 0px;
 }
 
-.multiple-select .btn.dropdown-toggle.bs-placeholder.btn-default{
+.multiple-select{
    border: 0 !important;
    border-bottom: 1px solid #327ad5 !important;
+   color: #555 !important;
+   background-color: white;
 }
 
 .btn-group>.btn:not(.md-skip) {

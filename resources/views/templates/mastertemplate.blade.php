@@ -35,7 +35,7 @@
       <!-- END PAGE LEVEL STYLES -->
       <!-- BEGIN THEME LAYOUT STYLES -->
       {{--<link rel="stylesheet" href="{{'css/themeLayoutStyle.css'}}">--}}
-      <link rel="stylesheet" href="{{'css/mastertemplate.css'}}">
+      <link href="{{asset('css/mastertemplate.css')}}" rel="stylesheet" type="text/css">
       <link href="{{asset('assets/layouts/layout/css/layout.min.css')}}" rel="stylesheet" type="text/css" />
       <link href="{{asset('assets/layouts/layout/css/themes/darkblue.min.css')}}" rel="stylesheet" type="text/css" id="style_color" />
       <link href="{{asset('assets/layouts/layout/css/custom.min.css')}}" rel="stylesheet" type="text/css" />
@@ -115,7 +115,7 @@
                         </div>
                      </li>
                      <!-- END SIDEBAR TOGGLER BUTTON -->
-                     <li class="nav-item {{Request::is('dashboard') ? 'start active' : 'null'}}">
+                     <li class="nav-item {{Request::is('admin/dashboard') ? 'start active' : 'null'}}">
                         <a href="javascript:;" class="nav-link nav-toggle">
                            <i class="icon-home"></i>
                            <span class="title">Dashboard</span>
@@ -123,8 +123,8 @@
                            <span class="arrow open"></span>
                         </a>
                         <ul class="sub-menu">
-                           <li class="nav-item {{Request::is('dashboard') ? 'start active open' : 'null'}}">
-                              <a href="dashboard" class="nav-link ">
+                           <li class="nav-item {{Request::is('admin/dashboard') ? 'start active open' : 'null'}}">
+                              <a href="{{ route('dashboard') }}" class="nav-link ">
                                  <i class="icon-graph"></i>
                                  <span class="title">Dashboard</span>
                                  <span class="selected"></span>
@@ -136,31 +136,33 @@
                      <li class="heading">
                         <h3 class="uppercase">Herramientas</h3>
                      </li>
-                     <li class="nav-item {{Request::is('users') ? 'start active' : 'null'}}">
+                     <li class="nav-item {{Request::is('admin/users') ? 'start active' : 'null'}}">
                         <a href="javascript:;" class="nav-link nav-toggle">
-                           <i class="icon-users"></i>
-                           <span class="title">Usuarios</span>
+                           <i class="fa fa-archive" aria-hidden="true"></i>
+                           <span class="title">Administrar</span>
                            <span class="selected"></span>
                            <span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">
-                           <li class="nav-item {{Request::is('users') ? 'start active open' : 'null'}}">
-                              <a href="users" class="nav-link ">
-                                 <span class="title">Alta</span>
+                           <li class="nav-item {{Request::is('admin/users') ? 'start active open' : 'null'}}">
+                              <a href="{{ route('users') }}" class="nav-link ">
+                                 <i class="fa fa-users" aria-hidden="true"></i>
+                                 <span class="title">Usuarios</span>
                               </a>
                            </li>
                         </ul>
                      </li>
-                     <li class="nav-item {{Request::is('datetimepickers') ? 'start active' : 'null'}}">
+                     <li class="nav-item {{Request::is('admin/reports/datetimepickers') ? 'start active' : 'null'}}">
                         <a href="javascript:;" class="nav-link nav-toggle">
-                           <i class="icon-pie-chart"></i>
+                           <i class="fa fa-files-o" aria-hidden="true"></i>
                            <span class="title">Reportes</span>
                            <span class="selected"></span>
                            <span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">
-                           <li class="nav-item {{Request::is('datetimepickers') ? 'start active open' : 'null'}}">
-                              <a href="datetimepickers" class="nav-link ">
+                           <li class="nav-item {{Request::is('admin/reports/datetimepickers') ? 'start active open' : 'null'}}">
+                              <a href="{{ route('datetimepickers') }}" class="nav-link ">
+                                 <i class="fa fa-bar-chart" aria-hidden="true"></i> 
                                  <span class="title">Date & Time Pickers</span>
                               </a>
                            </li>
@@ -189,9 +191,6 @@
                         <li>
                            <a href="dashboard">Dashboard</a>
                            <i class="fa fa-angle-right"></i>
-                        </li>
-                        <li>
-                           <span>@yield('bar')</span>
                         </li>
                      </ul>
                      {{-- <div class="page-toolbar">
@@ -250,8 +249,10 @@
       <script src="{{asset('assets/global/scripts/app.min.js')}}" type="text/javascript"></script>
       <!-- END THEME GLOBAL SCRIPTS -->
       <!-- BEGIN PAGE LEVEL SCRIPTS -->
-      {{--<script src="{{asset('assets/pages/scripts/dashboard.min.js')}}" type="text/javascript"></script>--}}
+      <script src="{{asset('assets/global/plugins/bootstrap-growl/jquery.bootstrap-growl.min.js')}}" type="text/javascript"></script>
       <script src="{{asset('assets/pages/scripts/components-date-time-pickers.min.js')}}" type="text/javascript"></script>
+      <script src="{{asset('assets/pages/scripts/ui-modals.min.js')}}" type="text/javascript"></script>
+      <script src="{{asset('assets/pages/scripts/ui-bootstrap-growl.min.js')}}" type="text/javascript"></script>
       <!-- END PAGE LEVEL SCRIPTS -->
       <!-- BEGIN THEME LAYOUT SCRIPTS -->
       {{--<script src="{{'js/themeLayoutScript.js'}}"></script>--}}
@@ -260,6 +261,7 @@
       <script src="{{asset('assets/layouts/global/scripts/quick-sidebar.min.js')}}" type="text/javascript"></script>
       <!-- END THEME LAYOUT SCRIPTS -->
       <script src="{{asset('assets/layouts/layout/scripts/frameload.js')}}" type="text/javascript"></script>
-      <script src="{{asset('js/datetimepickers.js')}}" type="text/javascript"></script>
+
+      @yield('scripts')
    </body>
 </html>

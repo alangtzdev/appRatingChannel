@@ -16,11 +16,18 @@ Route::get('/login', 'Controller@getLogin');
 Route::get('/restorepassword', 'Controller@getRestorePassword');
 Route::get('/createacount', 'Controller@getCreateAcount');
 
-Route::get('/dashboard', 'Controller@getDashboard');
-Route::get('/userprofile', 'Controller@getUserProfle');
 Route::get('/lockscreen', 'Controller@getLockScreen');
 Route::get('/logout', 'Controller@getLogOut');
-Route::get('/users', 'Controller@getUsers');
-Route::get('/datetimepickers', 'Controller@getDateTimePickers');
 
 Route::get('/transmitionsVw', 'TransmitionController@index');
+Route::post('/roles', 'RolesController@store');
+Route::post('/users', 'UsersController@postUsers');
+Route::post('/registerUsers', 'UsersController@postRegisterUsers');
+
+Route::prefix('admin')->group(function () {
+   Route::get('/dashboard', 'Controller@getDashboard')->name('dashboard');
+   Route::get('users', 'UsersController@create')->name('users');
+   Route::get('reports/datetimepickers', 'ReportsController@getDateTimePickers')->name('datetimepickers');
+   
+   Route::post('registerusers', 'UsersController@postRegisterUsers')->name('registerusers');
+});

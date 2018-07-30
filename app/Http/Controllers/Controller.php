@@ -25,31 +25,17 @@ class Controller extends BaseController
    }
    /*--- ENDE RESTORE PASSWORD ---*/
    
-   /*--- CREATE ACOUNT ---*/
-   public function getCreateAcount()
-   {
-      return view('login.createacount');
-   }
-   /*--- END CREATE ACOUNT ---*/
-   
    /*--- DASHBOARD ---*/
    public function getDashboard()
    {
-      return view('layout.dashboard');
+      return view('layout.principals.dashboard');
    }
    /*--- END DASHBOARD ---*/
-   
-   /*--- USER PROFILE ---*/
-   public function getUserProfle()
-   {
-      return view('layout.userprofile');
-   }
-   /*--- END USER PROFILE ---*/
-   
+      
    /*--- LOCK SCREEN ---*/
    public function getLockScreen()
    {
-      return view('layout.lockscreen');
+      return view('layout.principals.lockscreen');
    }
    /*--- END LOCK SCREEN ---*/
    
@@ -59,14 +45,7 @@ class Controller extends BaseController
       return view('login.login');
    }
    /*--- END LOG OUT ---*/
-   
-   /*--- USERS ---*/
-   public function getUsers()
-   {
-      return view('layout.users');
-   }
-   /*--- END USERS ---*/
-   
+      
    /*--- LOG REPORTS ---*/
    public function getDateTimePickers()
    {
