@@ -115,9 +115,18 @@
    <!-- /.modal-dialog -->
 </div>
 
-@if(session('info'))
+@if(Session::has('error'))
+<div class="alert alert-warning">
+   <ul>
+      @foreach (Session::get('error')->all() as $error)
+      <li>{{ $error }}</li>
+      @endforeach
+   </ul>
+</div>
+@endif
+@if(Session::has('info'))
 <div class="alert alert-success">
-   {{ session('info') }}
+   {{Session::get('info')}}
 </div>
 @endif
 <!-- /.modal -->

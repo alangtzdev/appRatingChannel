@@ -1,74 +1,76 @@
 $(document).ready(function(){
-   //   $("#frm_users").validate({
-   //      rules:{
-   //         "D_U[usuario]":{
-   //            required:true
-   //         },
-   //         "D_U[email]":{
-   //            required:true
-   //         },
-   //         "D_U[tipousuario]":{
-   //            required:true
-   //         },
-   //         "D_E[nombre]":{
-   //            required:true
-   //         },
-   //         "D_E[apPaterno]":{
-   //            required:true
-   //         },
-   //         "D_E[apMaterno]":{
-   //            required:true
-   //         },
-   //         "D_E[sexo]":{
-   //            required:true
-   //         },
-   //         "D_E[fechanacimiento]":{
-   //            required:true
-   //         }
-   //      },
-   //      messages:{
-   //         "D_A[usuario]":{
-   //            required:"Este campo es requerido"
-   //         },
-   //         "D_A[email]":{
-   //            required:"Este campo es requerido"
-   //         },
-   //         "D_A[tipousuario]":{
-   //            required:"Este campo es requerido"
-   //         },
-   //         "D_A[nombre]":{
-   //            required:"Este campo es requerido"
-   //         },
-   //         "D_A[apPaterno]":{
-   //            required:"Este campo es requerido"
-   //         },
-   //         "D_A[apMaterno]":{
-   //            required:"Este campo es requerido"
-   //         },
-   //         "D_A[sexo]":{
-   //            required:"Este campo es requerido"
-   //         },
-   //         "D_D[fechanacimiento]":{
-   //            required:"Este campo es requerido"
-   //         }
-   //      },
-   //      highlight: function(element, errorClass, validClass) {
-   //         $('.element').closest('.form-group').addClass('has-error');
-   //      },
-   //      unhighlight: function(element, errorClass, validClass) {
-   //         $('.element').closest('.form-group').removeClass('has-error');
-   //      },
-   //      errorElement: "span",
-   //      errorClass: "help-block",
-   //      errorPlacement: function(error, element) {
-   //         if(element.parent('.input-group').length) {
-   //            error.insertAfter(element.parent());
-   //         }
-   //         else {
-   //            error.insertAfter(element);
-   //         }
-   //      }
-   //   });
+   $("#frm_users").validate({
+      rules:{
+         "D_U[usuario]":{
+            required:true
+         },
+         "D_U[email]":{
+            required:true,
+            email:true
+         },
+         "D_U[tipousuario]":{
+            required:true
+         },
+         "D_E[nombre]":{
+            required:true
+         },
+         "D_E[apPaterno]":{
+            required:true
+         },
+         "D_E[apMaterno]":{
+            required:true
+         },
+         "D_E[sexo]":{
+            required:true
+         },
+         "D_E[fechanacimiento]":{
+            required:true
+         }
+      },
+      messages:{
+         "D_A[usuario]":{
+            required:"Este campo es requerido"
+         },
+         "D_A[email]":{
+            required:"Este campo es requerido",
+            email: "Este campo requiere correo"
+         },
+         "D_A[tipousuario]":{
+            required:"Este campo es requerido"
+         },
+         "D_A[nombre]":{
+            required:"Este campo es requerido"
+         },
+         "D_A[apPaterno]":{
+            required:"Este campo es requerido"
+         },
+         "D_A[apMaterno]":{
+            required:"Este campo es requerido"
+         },
+         "D_A[sexo]":{
+            required:"Este campo es requerido"
+         },
+         "D_D[fechanacimiento]":{
+            required:"Este campo es requerido"
+         }
+      },
+      highlight: function(element, errorClass, validClass) {
+         $('.element').closest('.form-group').addClass('has-error');
+      },
+      unhighlight: function(element, errorClass, validClass) {
+         $('.element').closest('.form-group').removeClass('has-error');
+      },
+      errorElement: "span",
+      errorClass: "help-block",
+      errorPlacement: function(error, element) {
+         if(element.parent('.input-group').length) {
+            error.insertAfter(element.parent());
+         }
+         else {
+            error.insertAfter(element);
+         }
+      }
+   });
 
    $.ajax({
       "url":"/users",
@@ -81,6 +83,7 @@ $(document).ready(function(){
       }
       else
       {
+         console.log(datos);
          $.bootstrapGrowl("Error: usuarios no cargados.", {
             ele: 'body', // which element to append to
             type: 'danger', // (null, 'info', 'danger', 'success')

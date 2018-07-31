@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redirect;
 
 class UsersController extends Controller
 {
@@ -38,37 +40,40 @@ class UsersController extends Controller
 
    public function postRegisterUsers(Request $request)
    {
-      //      $datos = array_merge((array)Input::get('D_U'), (array)Input::get('D_E'));
-      //
-      //      $rules = array(
-      //         "usuario"=>"required",
-      //         "email"=>"required",
-      //         "tipousuario"=>"required",
-      //         "nombre"=>"required",
-      //         "apPaterno"=>"required",
-      //         "apMaterno"=>"required",
-      //         "sexo"=>"required",
-      //         "fechanacimiento"=>"required"
-      //      );
-      //
-      //      $messages = array(
-      //         "required"=>"Este campo (:attribute) es requerido",
-      //      );
-      //
-      //      $validacion = Validator::make($datos,$rules,$messages);
-      //
-      //      if($validacion->fails()){
-      //         $val = $validacion->messages();
-      //         return Redirect::back()->with('Error', $val);
-      //      }
-      //      else{
-      //         //            $direccion = (array) Input::get('D_D');
-      //         //            $alumno    = new Alumno((array)Input::get('D_A'));
-      //         //            $direccion = Direccion::create($direccion);
-      //         //            $val = $direccion->alumno()->save($alumno);
-      //         return redirect('admin/users')->with('Info', '¡¡El usuario ha sido Registrado Exitosamente!!');
-      //      }
-      return redirect('admin/users')->with('info', '¡¡El usuario ha sido Registrado Exitosamente!!');
+      $d_u = array_get($request, 'D_U');
+      $d_e = array_get($request, 'D_E');
+      $datas = array_collapse([$d_u,$d_e]);
+      //      dd($datas);
+
+      $rules = [
+         "usuario"=>"required",
+         "email"=>"required|email",
+         "tipousuario"=>"required",
+         "nombre"=>"required",
+         "apPaterno"=>"required",
+         "apMaterno"=>"required",
+         "sexo"=>"required",
+         "fechanacimiento"=>"required"
+      ];
+
+      $messages = [
+         "required"=>"El campo :attribute es requerido",
+         "email"=>"El campo :attribute requiere correo",
+      ];
+
+      $validator = Validator::make($datas,$rules,$messages);
+
+      if($validator->fails()){
+         $errors = $validator->messages();
+         return redirect('admin/users')->with('error', $errors);
+      }
+      else{
+         //$direccion = (array) Input::get('D_D');
+         //$alumno    = new Alumno((array)Input::get('D_A'));
+         //$direccion = Direccion::create($direccion);
+         //$val = $direccion->alumno()->save($alumno);
+         return redirect('admin/users')->with('info', '¡¡El usuario ha sido Registrado Exitosamente!!');
+      }
    }
 
    public function postUsers()
@@ -76,7 +81,7 @@ class UsersController extends Controller
       $users = DB::table('users')
          ->join('roles', 'users.id_Rol', '=', 'roles.id_Rol')
          ->join('employees', 'users.id_Employee', '=', 'employees.id_Employee')
-         ->select('users.id_User', 'users.name', 'users.email', 'roles.id_Rol', 'roles.name', 'employees.id_Employee', 'employees.name', 'employees.apPaterno', 'employees.apMaterno', 'employees.gender', 'employees.dateBirth')->orderBy('users.name')->get();
+         ->select('users.id_User', 'users.name', 'users.email', 'roles.id_Rol', 'roles.name', 'employees.id_Employee', 'employees.name', 'employees.apPaterno', 'employees.apMaterno', 'employees.gender', 'employees.dateBirth')->orderBy('users.name', 'acs')->get();
       return $users;
    }
 
