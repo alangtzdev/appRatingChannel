@@ -13,14 +13,14 @@ class Transmition extends Model
     'HH','AA','totalHoursViewed'];
    
    public function program(){
-      return $this->belongsTo('App\Models\Program');
+      return $this->belongsTo('App\Models\Program', 'id_Program');
    }
    
    public function typetransmition(){
-      return $this->belongsTo('App\Models\TypeTransmition');
+      return $this->belongsTo('App\Models\TypeTransmition', 'id_TypeTransmition');
    }
    
    public function city(){
-      return $this->belongsTo('App\Models\City');
+      return $this->belongsTo('App\Models\City', 'id_City');
    }
 }

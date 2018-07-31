@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Empoyee;
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\{User, Employee};
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 
@@ -43,17 +44,17 @@ class UsersController extends Controller
       $d_u = array_get($request, 'D_U');
       $d_e = array_get($request, 'D_E');
       $datas = array_collapse([$d_u,$d_e]);
-      //      dd($datas);
+      //dd($datas);
 
       $rules = [
-         "usuario"=>"required",
+         "name"=>"required",
          "email"=>"required|email",
-         "tipousuario"=>"required",
-         "nombre"=>"required",
+         "id_Rol"=>"required",
+         "name"=>"required",
          "apPaterno"=>"required",
          "apMaterno"=>"required",
-         "sexo"=>"required",
-         "fechanacimiento"=>"required"
+         "gender"=>"required",
+         "dateBirth"=>"required"
       ];
 
       $messages = [
@@ -68,10 +69,10 @@ class UsersController extends Controller
          return redirect('admin/users')->with('error', $errors);
       }
       else{
-         //$direccion = (array) Input::get('D_D');
-         //$alumno    = new Alumno((array)Input::get('D_A'));
-         //$direccion = Direccion::create($direccion);
-         //$val = $direccion->alumno()->save($alumno);
+         $user = new User($d_u);
+         $user->password = bcrypt(array_get($d_u, 'password'));
+         $employee = Employee::create($d_e);
+         $employee->user()->save($user);
          return redirect('admin/users')->with('info', '¡¡El usuario ha sido Registrado Exitosamente!!');
       }
    }

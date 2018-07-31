@@ -1,17 +1,21 @@
 $(document).ready(function(){
    $("#frm_users").validate({
       rules:{
-         "D_U[usuario]":{
+         "D_U[name]":{
             required:true
          },
          "D_U[email]":{
             required:true,
             email:true
          },
-         "D_U[tipousuario]":{
+         "D_U[password]":{
+            required:true,
+            password:true
+         },
+         "D_U[id_Rol]":{
             required:true
          },
-         "D_E[nombre]":{
+         "D_E[name]":{
             required:true
          },
          "D_E[apPaterno]":{
@@ -20,37 +24,41 @@ $(document).ready(function(){
          "D_E[apMaterno]":{
             required:true
          },
-         "D_E[sexo]":{
+         "D_E[gender]":{
             required:true
          },
-         "D_E[fechanacimiento]":{
+         "D_E[dateBirth]":{
             required:true
          }
       },
       messages:{
-         "D_A[usuario]":{
+         "D_U[name]":{
             required:"Este campo es requerido"
          },
-         "D_A[email]":{
+         "D_U[email]":{
             required:"Este campo es requerido",
-            email: "Este campo requiere correo"
+            email: "Este campo debe ser tipo correo"
          },
-         "D_A[tipousuario]":{
+         "D_U[password]":{
+            required:"Este campo es requerido",
+            password: "Este campo debe ser tipo contraseña"
+         },
+         "D_U[id_Rol]":{
             required:"Este campo es requerido"
          },
-         "D_A[nombre]":{
+         "D_E[name]":{
             required:"Este campo es requerido"
          },
-         "D_A[apPaterno]":{
+         "D_E[apPaterno]":{
             required:"Este campo es requerido"
          },
-         "D_A[apMaterno]":{
+         "D_E[apMaterno]":{
             required:"Este campo es requerido"
          },
-         "D_A[sexo]":{
+         "D_E[gender]":{
             required:"Este campo es requerido"
          },
-         "D_D[fechanacimiento]":{
+         "D_E[dateBirth]":{
             required:"Este campo es requerido"
          }
       },

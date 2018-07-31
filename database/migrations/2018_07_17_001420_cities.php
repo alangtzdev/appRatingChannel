@@ -15,8 +15,8 @@ class Cities extends Migration
     {
         Schema::create('cities', function (Blueprint $table) {
             $table->increments('id_City');
-            $table->string('nameCity', 50);
-            $table->datetime('dateTimeDrop');
+            $table->string('nameCity', 50)->nullable();
+            $table->datetime('dateTimeDrop')->nullable();
             $table->timestamps();
         });
     }

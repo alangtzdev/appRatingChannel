@@ -15,18 +15,18 @@ class Transmitions extends Migration
    {
       Schema::create('transmitions', function (Blueprint $table) {
          $table->increments('id_Transmition');
-         $table->unsignedInteger('id_Program');
-         $table->unsignedInteger('id_TypeTransmition');
-         $table->unsignedInteger('id_City');
-         $table->date('day');
-         $table->time('nationalTime');
-         $table->decimal('RTG', 8, 2);
-         $table->decimal('SH', 8, 2);
-         $table->decimal('percentReach', 8, 2);
-         $table->integer('AVGpercentViewed');
-         $table->integer('HH');
-         $table->integer('AA');
-         $table->integer('totalHoursViewed');
+         $table->unsignedInteger('id_Program')->nullable();
+         $table->unsignedInteger('id_TypeTransmition')->nullable();
+         $table->unsignedInteger('id_City')->nullable();
+         $table->date('day')->nullable();
+         $table->time('nationalTime')->nullable();
+         $table->decimal('RTG', 8, 2)->nullable();
+         $table->decimal('SH', 8, 2)->nullable();
+         $table->decimal('percentReach', 8, 2)->nullable();
+         $table->integer('AVGpercentViewed')->nullable();
+         $table->integer('HH')->nullable();
+         $table->integer('AA')->nullable();
+         $table->integer('totalHoursViewed')->nullable();
          $table->timestamps();
       });
       //

@@ -15,10 +15,10 @@ class Programs extends Migration
    {
       Schema::create('programs', function (Blueprint $table) {
          $table->increments('id_Program');
-         $table->unsignedInteger('id_Gender');
-         $table->string('name');
-         $table->string('description', 100);
-         $table->dateTime('dateTimeDrop');
+         $table->unsignedInteger('id_Gender')->nullable();
+         $table->string('name')->nullable();
+         $table->string('description', 100)->nullable();
+         $table->dateTime('dateTimeDrop')->nullable();
          $table->timestamps();
          
       });

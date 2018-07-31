@@ -15,8 +15,8 @@ class TypeTransmitions extends Migration
    {
       Schema::create('typeTransmition', function (Blueprint $table) {
          $table->increments('id_TypeTransmition');
-         $table->string('nameTransmition', 50);
-         $table->datetime('dateTimeDrop');
+         $table->string('nameTransmition', 50)->nullable();
+         $table->datetime('dateTimeDrop')->nullable();
          $table->timestamps();
       });
    }

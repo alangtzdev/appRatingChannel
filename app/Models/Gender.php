@@ -11,6 +11,6 @@ class Gender extends Model
    protected $fillable = ['name', 'dateTimeDrop'];
    
    public function programs(){
-      return $this->hasMany('App\Models\Program');
+      return $this->hasMany('App\Models\Program', 'id_Gender');
    }
 }

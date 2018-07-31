@@ -15,8 +15,8 @@ class Genders extends Migration
     {
         Schema::create('genders', function (Blueprint $table) {
             $table->increments('id_Gender');
-            $table->string('name');
-            $table->dateTime('dateTimeDrop');
+            $table->string('name')->nullable();
+            $table->dateTime('dateTimeDrop')->nullable();
             $table->timestamps();
         });
     }

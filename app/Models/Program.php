@@ -11,10 +11,10 @@ class Program extends Model
     protected $fillable = ['id_Gender','name','description','dateTimeDrop'];
    
    public function transmitions(){
-      return $this->hasMany('App\Models\Transmition');
+      return $this->hasMany('App\Models\Transmition', 'id_Program');
    }
    
    public function gender(){
-      return $this->belongsTo('App\Models\Gender');
+      return $this->belongsTo('App\Models\Gender', 'id_Gender');
    }
 }

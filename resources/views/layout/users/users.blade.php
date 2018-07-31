@@ -24,21 +24,27 @@
                   </div>
                   <div class="panel-body">
                      <div class="row">
-                        <div class="col-md-4 col-lg-4">
+                        <div class="col-md-3 col-lg-3">
                            <div class="form-group form-md-line-input form-md-floating-label has-info">
-                              <input type="text" class="form-control" id="usuario" name="D_U[usuario]" maxlength="30">
+                              <input type="text" class="form-control" id="usuario" name="D_U[name]" maxlength="30">
                               <label for="usuario">Nombre usuario</label>
                            </div>
                         </div>
-                        <div class="col-md-4 col-lg-4">
+                        <div class="col-md-3 col-lg-3">
                            <div class="form-group form-md-line-input form-md-floating-label has-info">
                               <input type="text" class="form-control" id="email" name="D_U[email]" maxlength="100">
                               <label for="email">Correo electronico</label>
                            </div>
                         </div>
-                        <div class="col-md-4 col-lg-4">
+                        <div class="col-md-3 col-lg-3">
                            <div class="form-group form-md-line-input form-md-floating-label has-info">
-                              <select class="form-control" id="tipousuario" name="D_U[tipousuario]">
+                              <input type="password" class="form-control" id="contraseña" name="D_U[password]" maxlength="20">
+                              <label for="contraseña">Contraseña</label>
+                           </div>
+                        </div>
+                        <div class="col-md-3 col-lg-3">
+                           <div class="form-group form-md-line-input form-md-floating-label has-info">
+                              <select class="form-control" id="tipousuario" name="D_U[id_Rol]">
                                  <option value=""></option>
                               </select>
                               <label for="tipousuario">Tipo usuario</label>
@@ -55,7 +61,7 @@
                      <div class="row">
                         <div class="col-md-4 col-lg-4">
                            <div class="form-group form-md-line-input form-md-floating-label has-info">
-                              <input type="text" class="form-control" id="nombre" name="D_E[nombre]" maxlength="20">
+                              <input type="text" class="form-control" id="nombre" name="D_E[name]" maxlength="20">
                               <label for="nombre">Nombre completo</label>
                            </div>
                         </div>
@@ -74,7 +80,7 @@
                         <div class="col-md-4 col-lg-4">
                            <div class="md-radio-inline">
                               <div class="md-radio">
-                                 <input type="radio" id="rdMasculino" name="D_E[sexo]" class="md-radiobtn" checked="" value="M">
+                                 <input type="radio" id="rdMasculino" name="D_E[gender]" class="md-radiobtn" checked="" value="M">
                                  <label for="rdMasculino">
                                     <span></span>
                                     <span class="check"></span>
@@ -91,7 +97,7 @@
                         </div>
                         <div class="col-md-4 col-lg-4">
                            <div class="input-group date date-picker" data-date-format="dd/mm/yyyy">
-                              <input type="text" class="form-control" name="D_E[fechanacimiento]">
+                              <input type="text" class="form-control" name="D_E[dateBirth]">
                               <span class="input-group-btn">
                                  <button class="btn default" type="button">
                                     <i class="fa fa-calendar"></i>

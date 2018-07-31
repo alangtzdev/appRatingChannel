@@ -15,11 +15,11 @@ class Employees extends Migration
    {
       Schema::create('employees', function (Blueprint $table) {
          $table->increments('id_Employee');
-         $table->string('name');
-         $table->string('apPaterno');
-         $table->string('apMaterno');
-         $table->char('gender', 1);
-         $table->date('dateBirth');
+         $table->string('name')->nullable();
+         $table->string('apPaterno')->nullable();
+         $table->string('apMaterno')->nullable();
+         $table->char('gender', 1)->nullable();
+         $table->string('dateBirth')->nullable();
          $table->timestamps();
       });
    }

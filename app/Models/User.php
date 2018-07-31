@@ -7,33 +7,35 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
-
-    /**
+   use Notifiable;
+   
+   protected $table = 'users';
+   protected $primarykey = 'id_User';
+   /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+   protected $fillable = [
+      'id_Rol', 'id_Employee', 'name', 'email', 'password',
+   ];
 
-    /**
+   /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
-   
-    public function rol(){
-      return $this->belongsTo('App\Models\Rol');
+   protected $hidden = [
+      'password', 'remember_token',
+   ];
+
+   public function rol(){
+      return $this->belongsTo('App\Models\Rol', 'id_Rol');
    }
-   
-    public function employee(){
-      return $this->belongsTo('App\Models\Empoyee');
+
+   public function employee(){
+      return $this->belongsTo('App\Models\Employee', 'id_Employee');
    }
-   
-   
+
+
 }
