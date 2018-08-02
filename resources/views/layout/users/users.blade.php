@@ -3,14 +3,25 @@
 @section('content-master')
 <div class="row">
    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-      <a class="btn purple btn-outline sbold" data-toggle="modal" href="#mdUser"> Crear usuario </a>
+      <a class="btn purple btn-outline sbold" data-toggle="modal" href="#mdUser" data-action="create"> Crear usuario </a>
+   </div>
+</div>
+<br>
+<div class="row">
+   <div class="col-md-12 col-lg-12">
+      <table id="tableUsers" class="table table-striped table-bordered table-hover table-checkable order-column dataTable no-footer" role="grid" aria-describedby="sample_1_info">
+         <thead>
+         </thead>
+         <tbody id="tooltip">
+         </tbody>
+      </table>
    </div>
 </div>
 
 <!-- modal user -->
 <div class="modal fade bs-modal-lg" id="mdUser" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
    <div class="modal-dialog modal-lg">
-      <form action="/registerUsers" id="frm_users" method="post">
+      <form action="/registerusers" id="frm_users" method="post">
          @csrf
          <div class="modal-content">
             <div class="modal-header">
@@ -120,21 +131,7 @@
    </div>
    <!-- /.modal-dialog -->
 </div>
-
-@if(Session::has('error'))
-<div class="alert alert-warning">
-   <ul>
-      @foreach (Session::get('error')->all() as $error)
-      <li>{{ $error }}</li>
-      @endforeach
-   </ul>
-</div>
-@endif
-@if(Session::has('info'))
-<div class="alert alert-success">
-   {{Session::get('info')}}
-</div>
-@endif
+@include('layout.alerts')
 <!-- /.modal -->
 @endsection
 @section('scripts')

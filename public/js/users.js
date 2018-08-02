@@ -80,56 +80,25 @@ $(document).ready(function(){
       }
    });
 
-   $.ajax({
-      "url":"/users",
-      "type":"post",
-      "datatype":"json"
-   }).done(function(datos){
-      if(datos.length>0)
-      {
-         console.log(datos);
+   bindTable("#tableUsers", typeTablesUsers.adminUsers)
+
+   $('#mdUser').on('shown.bs.modal', function (event) {
+      let button = event.relatedTarget;
+      let action = button.dataset.action;
+
+      if(action == "edit") {
+         let idUser = button.dataset.iduser;
+         let idRol = button.dataset.idrol;
+         
+         bindCboRoles('#tipousuario', idRol);
+         bindUserById(idUser);
       }
-      else
-      {
-         console.log(datos);
-         $.bootstrapGrowl("Error: usuarios no cargados.", {
-            ele: 'body', // which element to append to
-            type: 'danger', // (null, 'info', 'danger', 'success')
-            offset: {from: 'top', amount: 20}, // 'top', or 'bottom'
-            align: 'right', // ('left', 'right', or 'center')
-            width: 250, // (integer, or 'auto')
-            delay: 4000, // Time while the message will be displayed. It's not equivalent to the *demo* timeOut!
-            allow_dismiss: true, // If true then will display a cross to close the popup.
-            stackup_spacing: 10 // spacing between consecutively stacked growls.
-         });
+      else{
+         bindCboRoles('#tipousuario');
       }
    });
 
-   $.ajax({
-      "url":"/roles",
-      "type":"post",
-      "datatype":"json"
-   }).done(function(datos){
-      if(datos.length>0)
-      {
-         var item='<option value=""></option>';
-         $.each(datos,function(index,objeto){
-            item +='<option value="'+ objeto.id_Rol +'">'+objeto.name+'</option>';
-         });
-         $("#tipousuario").html(item);
-      }
-      else
-      {
-         $.bootstrapGrowl("Error: roles no cargados.", {
-            ele: 'body', // which element to append to
-            type: 'danger', // (null, 'info', 'danger', 'success')
-            offset: {from: 'top', amount: 20}, // 'top', or 'bottom'
-            align: 'right', // ('left', 'right', or 'center')
-            width: 250, // (integer, or 'auto')
-            delay: 4000, // Time while the message will be displayed. It's not equivalent to the *demo* timeOut!
-            allow_dismiss: true, // If true then will display a cross to close the popup.
-            stackup_spacing: 10 // spacing between consecutively stacked growls.
-         });
-      }
+   $('#mdUser').on('hidden.bs.modal', function () {
+      limpiarCampos();
    });
 });

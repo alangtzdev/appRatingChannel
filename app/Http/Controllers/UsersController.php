@@ -44,7 +44,6 @@ class UsersController extends Controller
       $d_u = array_get($request, 'D_U');
       $d_e = array_get($request, 'D_E');
       $datas = array_collapse([$d_u,$d_e]);
-      //dd($datas);
 
       $rules = [
          "name"=>"required",
@@ -71,9 +70,10 @@ class UsersController extends Controller
       else{
          $user = new User($d_u);
          $user->password = bcrypt(array_get($d_u, 'password'));
+         $user->status = 'ACTIVO';
          $employee = Employee::create($d_e);
          $employee->user()->save($user);
-         return redirect('admin/users')->with('info', '¡¡El usuario ha sido Registrado Exitosamente!!');
+         return redirect('admin/users')->with('info', '¡¡El usuario ' . $user->name . ' ha sido Registrado Exitosamente!!');
       }
    }
 
@@ -82,7 +82,9 @@ class UsersController extends Controller
       $users = DB::table('users')
          ->join('roles', 'users.id_Rol', '=', 'roles.id_Rol')
          ->join('employees', 'users.id_Employee', '=', 'employees.id_Employee')
-         ->select('users.id_User', 'users.name', 'users.email', 'roles.id_Rol', 'roles.name', 'employees.id_Employee', 'employees.name', 'employees.apPaterno', 'employees.apMaterno', 'employees.gender', 'employees.dateBirth')->orderBy('users.name', 'acs')->get();
+         ->select('users.id_User', 'users.name as username', 'users.email', 'roles.id_Rol', 'roles.name as rol', 'employees.id_Employee', 'employees.name', 'employees.apPaterno', 'employees.apMaterno', 'employees.gender', 'employees.dateBirth')->where('users.status', '=', 'ACTIVO')
+         ->orderBy('users.name', 'acs')
+         ->get();
       return $users;
    }
 
@@ -103,9 +105,14 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-   public function edit($id)
+   public function postUserById($id)
    {
-      //
+      $user = DB::table('users')
+         ->join('roles', 'users.id_Rol', '=', 'roles.id_Rol')
+         ->join('employees', 'users.id_Employee', '=', 'employees.id_Employee')
+         ->select('users.id_User', 'users.name as username', 'users.email', 'roles.id_Rol', 'roles.name as rol', 'employees.id_Employee', 'employees.name', 'employees.apPaterno', 'employees.apMaterno', 'employees.gender', 'employees.dateBirth')->where('users.id_User', '=', $id)
+         ->get();
+      dd($user);
    }
 
    /**
@@ -128,6 +135,10 @@ class UsersController extends Controller
      */
    public function destroy($id)
    {
-      //
+      $user = DB::table('users')
+         ->where('id_User', $id)
+         ->update(['status' => 'BAJA']);
+
+      return redirect('admin/users')->with('warning', '¡¡El usuario ha sido dado de baja Exitosamente!!');
    }
 }
