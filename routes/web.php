@@ -22,9 +22,10 @@ Route::get('/logout', 'Controller@getLogOut');
 Route::get('/transmitionsVw', 'TransmitionController@index');
 Route::post('/roles', 'RolesController@store');
 Route::post('/users', 'UsersController@postUsers');
-Route::post('/registerusers', 'UsersController@postRegisterUsers')->name('registerusers');
 Route::post('/usersbyid/{id}', 'UsersController@postUserById')->name('usersbyid');
-Route::get('/destroyusers/{id}', 'UsersController@destroy')->name('destroyusers');
+Route::post('/registerusers', 'UsersController@postRegisterUsers')->name('registerusers');
+Route::post('/updateuser', 'UsersController@postUpdateUsers')->name('updateusers');
+Route::get('/destroyusers/{id}', 'UsersController@getDestroyUser')->name('destroyusers');
 
 Route::prefix('admin')->group(function () {
    Route::get('/dashboard', 'Controller@getDashboard')->name('dashboard');

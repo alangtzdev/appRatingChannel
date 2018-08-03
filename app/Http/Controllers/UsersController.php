@@ -122,7 +122,7 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-   public function update(Request $request, $id)
+   public function postUpdateUsers(Request $request, $id)
    {
       //
    }
@@ -133,7 +133,7 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-   public function destroy($id)
+   public function getDestroyUser($id)
    {
       $user = DB::table('users')
          ->where('id_User', $id)
