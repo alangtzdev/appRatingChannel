@@ -85,7 +85,7 @@
                         <div class="col-md-4 col-lg-4">
                            <div class="form-group form-md-line-input form-md-floating-label has-info">
                               <input type="text" class="form-control" id="apMaterno" name="D_E[apMaterno]" maxlength="20">
-                              <label for="nombre">Apellido Materno</label>
+                              <label for="apMaterno">Apellido Materno</label>
                            </div>
                         </div>
                         <div class="col-md-4 col-lg-4">
@@ -108,7 +108,7 @@
                         </div>
                         <div class="col-md-4 col-lg-4">
                            <div class="input-group date date-picker" data-date-format="dd/mm/yyyy">
-                              <input type="text" class="form-control" name="D_E[dateBirth]">
+                              <input type="text" class="form-control" name="D_E[dateBirth]" id="dateBirth">
                               <span class="input-group-btn">
                                  <button class="btn default" type="button">
                                     <i class="fa fa-calendar"></i>

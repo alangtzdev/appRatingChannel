@@ -112,7 +112,7 @@ class UsersController extends Controller
          ->join('employees', 'users.id_Employee', '=', 'employees.id_Employee')
          ->select('users.id_User', 'users.name as username', 'users.email', 'roles.id_Rol', 'roles.name as rol', 'employees.id_Employee', 'employees.name', 'employees.apPaterno', 'employees.apMaterno', 'employees.gender', 'employees.dateBirth')->where('users.id_User', '=', $id)
          ->get();
-      dd($user);
+      return $user;
    }
 
    /**

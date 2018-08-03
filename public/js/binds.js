@@ -38,7 +38,15 @@ function bindUserById(idUser){
 
    let fnSuccess = (data) => {
       $.each(data,function(i , val){
+         $('input').addClass('edited');
+         $('#contraseña').prop('readonly',true);
          
+         $('#usuario').val(val.username);
+         $('#email').val(val.email);
+         $('#nombre').val(val.name);
+         $('#apPaterno').val(val.apPaterno);
+         $('#apMaterno').val(val.apMaterno);
+         $('#dateBirth').val(val.dateBirth);
       });
    }
 

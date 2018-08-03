@@ -26,7 +26,7 @@ function bindTableHeaders(table, arrColumns) {
 };
 
 function bindTable(idTable, typeTable){
-   let $table = $(idTable);
+   var $table = $(idTable);
 
    if (typeTable.isDinamycColumns) {
       bindTableHeaders($table, typeTable.columns);
