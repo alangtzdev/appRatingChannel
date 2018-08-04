@@ -169,9 +169,9 @@ class UsersController extends Controller
                'apPaterno' => array_get($d_e, 'apPaterno'),
                'apMaterno' => array_get($d_e, 'apMaterno'),
                'gender' => array_get($d_e, 'gender'),
-               'dateBirth' => array_get($d_u, 'dateBirth')
+               'dateBirth' => array_get($d_e, 'dateBirth')
             ]);
-         return redirect('admin/users')->with('info', '¡¡El usuario ha sido Registrado Exitosamente!!');
+         return redirect('admin/users')->with('info', '¡¡El usuario ha sido Actualizado Exitosamente!!');
       }
    }
 
