@@ -10,14 +10,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-   
-   /*--- LOGIN ---*/
-   public function getLogin()
-   {
-      return view('login.login');
-   }
-   /*--- END LOGIN ---*/
-   
+      
    /*--- RESTORE PASSWORD ---*/
    public function getRestorePassword()
    {
@@ -31,21 +24,7 @@ class Controller extends BaseController
       return view('layout.principals.dashboard');
    }
    /*--- END DASHBOARD ---*/
-      
-   /*--- LOCK SCREEN ---*/
-   public function getLockScreen()
-   {
-      return view('layout.principals.lockscreen');
-   }
-   /*--- END LOCK SCREEN ---*/
    
-   /*--- LOG OUT ---*/
-   public function getLogOut()
-   {
-      return view('login.login');
-   }
-   /*--- END LOG OUT ---*/
-      
    /*--- LOG REPORTS ---*/
    public function getDateTimePickers()
    {

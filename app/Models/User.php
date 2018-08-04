@@ -9,6 +9,8 @@ class User extends Authenticatable
 {
    use Notifiable;
    
+   protected $guard = 'admin';
+   
    protected $table = 'users';
    protected $primarykey = 'id_User';
    /**

@@ -11,24 +11,29 @@
 |
 */
 
-Route::get('/', 'Controller@getLogin');
-Route::get('/login', 'Controller@getLogin');
-Route::get('/restorepassword', 'Controller@getRestorePassword');
-Route::get('/createacount', 'Controller@getCreateAcount');
+Route::get('/', 'Auth\LoginController@getLogin');
 
-Route::get('/lockscreen', 'Controller@getLockScreen');
-Route::get('/logout', 'Controller@getLogOut');
+Auth::routes();
+
+Route::get('/login', 'Auth\LoginController@getLogin')->name('getLogin');
+Route::post('postLogin', 'Auth\LoginController@postLogin')->name('postLogin');
+//Route::get('/restorepassword', 'Controller@getRestorePassword');
 
 Route::get('/transmitionsVw', 'TransmitionController@index');
 Route::post('/roles', 'RolesController@store');
 Route::post('/users', 'UsersController@postUsers');
-Route::post('/usersbyid/{id}', 'UsersController@postUserById')->name('usersbyid');
 Route::post('/registerusers', 'UsersController@postRegisterUsers')->name('registerusers');
-Route::post('/updateuser', 'UsersController@postUpdateUsers')->name('updateusers');
+Route::put('/updateuser/{iduser}/{idemployee}', 'UsersController@putUpdateUsers')->name('updateusers');
 Route::get('/destroyusers/{id}', 'UsersController@getDestroyUser')->name('destroyusers');
 
 Route::prefix('admin')->group(function () {
    Route::get('/dashboard', 'Controller@getDashboard')->name('dashboard');
-   Route::get('users', 'UsersController@create')->name('users');
+   Route::get('users', 'UsersController@getUsers')->name('users');
+   Route::get('usercreate', 'UsersController@getUserCreate')->name('usercreate');
+   Route::get('useredit/{id}', 'UsersController@getUserEdit')->name('useredit');
    Route::get('reports/datetimepickers', 'ReportsController@getDateTimePickers')->name('datetimepickers');
+   Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

@@ -3,7 +3,7 @@
 @section('content-master')
 <div class="row">
    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-      <a class="btn purple btn-outline sbold" data-toggle="modal" href="#mdUser" data-action="create"> Crear usuario </a>
+      <a href="/admin/usercreate" class="btn purple btn-outline sbold"> Crear usuario </a>
    </div>
 </div>
 <br>
@@ -17,12 +17,6 @@
       </table>
    </div>
 </div>
-<!-- CREATE USER -->
-@include('layout.users.createuser')
-<!-- END CREATE USER -->
-<!-- EDIT USER -->
-@include('layout.users.createuser')
-<!-- END EDIT USER -->
 <!-- ALERTS -->
 @include('layout.alerts')
 <!-- END ALERTS -->

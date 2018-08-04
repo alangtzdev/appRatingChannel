@@ -27,11 +27,14 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-   public function create()
+   public function getUsers()
    {
       return view('layout.users.users');
    }
-
+   public function getUserCreate()
+   {
+      return view('layout.users.createuser');
+   }
    /**
      * Store a newly created resource in storage.
      *
@@ -47,18 +50,19 @@ class UsersController extends Controller
 
       $rules = [
          "name"=>"required",
-         "email"=>"required|email",
+         "email"=>"required|email|unique:users",
          "id_Rol"=>"required",
          "name"=>"required",
          "apPaterno"=>"required",
          "apMaterno"=>"required",
          "gender"=>"required",
-         "dateBirth"=>"required"
+         "dateBirth"=>"required",
+         "password"=>"required"
       ];
 
       $messages = [
          "required"=>"El campo :attribute es requerido",
-         "email"=>"El campo :attribute requiere correo",
+         "unique"=>"El :attribute ya equiste.",
       ];
 
       $validator = Validator::make($datas,$rules,$messages);
@@ -105,14 +109,14 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-   public function postUserById($id)
+   public function getUserEdit($id)
    {
       $user = DB::table('users')
          ->join('roles', 'users.id_Rol', '=', 'roles.id_Rol')
          ->join('employees', 'users.id_Employee', '=', 'employees.id_Employee')
-         ->select('users.id_User', 'users.name as username', 'users.email', 'roles.id_Rol', 'roles.name as rol', 'employees.id_Employee', 'employees.name', 'employees.apPaterno', 'employees.apMaterno', 'employees.gender', 'employees.dateBirth')->where('users.id_User', '=', $id)
-         ->get();
-      return $user;
+         ->select('users.id_User', 'users.name as username', 'users.email', 'roles.id_Rol', 'roles.name as rol', 'employees.id_Employee', 'employees.name', 'employees.apPaterno', 'employees.apMaterno', 'employees.gender', 'employees.dateBirth')->where('users.id_User', '=', $id)->get();
+
+      return view('layout.users.edituser')->with('useredit', $user);
    }
 
    /**
@@ -122,9 +126,53 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-   public function postUpdateUsers(Request $request, $id)
+   public function putUpdateUsers(Request $request, $iduser, $idemployee)
    {
-      //
+      $d_u = array_get($request, 'D_U');
+      $d_e = array_get($request, 'D_E');
+      $datas = array_collapse([$d_u,$d_e]);
+      //dd($datas);
+      $rules = [
+         "name"=>"required",
+         "email"=>"required|email",
+         "id_Rol"=>"required",
+         "name"=>"required",
+         "apPaterno"=>"required",
+         "apMaterno"=>"required",
+         "gender"=>"required",
+         "dateBirth"=>"required"
+      ];
+
+      $messages = [
+         "required"=>"El campo :attribute es requerido",
+         "email"=>"El campo :attribute requiere correo",
+      ];
+
+      $validator = Validator::make($datas,$rules,$messages);
+
+      if($validator->fails()){
+         $errors = $validator->messages();
+         return redirect('admin/users')->with('error', $errors);
+      }
+      else{
+         DB::table('users')
+            ->where('id_User', $iduser)
+            ->update([
+               'name' => array_get($d_u, 'name'),
+               'email' => array_get($d_u, 'email')
+            ]);
+
+         DB::table('employees')
+            ->where('id_Employee', $idemployee)
+            ->update([
+               'name' => array_get($d_e, 'name'),
+               'apPaterno' => array_get($d_e, 'apPaterno'),
+               'apMaterno' => array_get($d_e, 'apMaterno'),
+               'gender' => array_get($d_e, 'gender'),
+               'dateBirth' => array_get($d_u, 'dateBirth')
+            ]);
+         return redirect('admin/users')->with('info', '¡¡El usuario ha sido Registrado Exitosamente!!');
+      }
    }
 
    /**

@@ -51,7 +51,7 @@ const typeColumnUsers = {
       headName: 'Acciones',
       data: null,
       mRender: function (data, type, full) {
-         return `<a type="button" class="btn btn-xs green"  data-toggle="modal" href="#mdUser" data-action="edit" data-iduser="${full.id_User}" data-idrol="${full.id_Rol}"><i class="fa fa-pencil" aria-hidden="true"></i></a><a href="/destroyusers/${full.id_User}" type="button" class="btn btn-xs red-mint"><i class="fa fa-trash-o" aria-hidden="true"></i></a>`;
+         return `<a type="button" class="btn btn-xs green" href="/admin/useredit/${full.id_User}"><i class="fa fa-pencil" aria-hidden="true"></i></a><a href="/destroyusers/${full.id_User}" type="button" class="btn btn-xs red-mint"><i class="fa fa-trash-o" aria-hidden="true"></i></a>`;
       },
       className: 'text-center',
       width: "5%"
