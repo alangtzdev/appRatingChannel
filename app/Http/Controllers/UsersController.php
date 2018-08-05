@@ -56,7 +56,6 @@ class UsersController extends Controller
          "apPaterno"=>"required",
          "apMaterno"=>"required",
          "gender"=>"required",
-         "dateBirth"=>"required",
          "password"=>"required"
       ];
 
@@ -86,7 +85,7 @@ class UsersController extends Controller
       $users = DB::table('users')
          ->join('roles', 'users.id_Rol', '=', 'roles.id_Rol')
          ->join('employees', 'users.id_Employee', '=', 'employees.id_Employee')
-         ->select('users.id_User', 'users.name as username', 'users.email', 'roles.id_Rol', 'roles.name as rol', 'employees.id_Employee', 'employees.name', 'employees.apPaterno', 'employees.apMaterno', 'employees.gender', 'employees.dateBirth')->where('users.status', '=', 'ACTIVO')
+         ->select('users.id_User', 'users.name as username', 'users.email', 'roles.id_Rol', 'roles.name as rol', 'employees.id_Employee', 'employees.name', 'employees.apPaterno', 'employees.apMaterno', 'employees.gender')->where('users.status', '=', 'ACTIVO')
          ->orderBy('users.name', 'acs')
          ->get();
       return $users;
@@ -114,7 +113,7 @@ class UsersController extends Controller
       $user = DB::table('users')
          ->join('roles', 'users.id_Rol', '=', 'roles.id_Rol')
          ->join('employees', 'users.id_Employee', '=', 'employees.id_Employee')
-         ->select('users.id_User', 'users.name as username', 'users.email', 'roles.id_Rol', 'roles.name as rol', 'employees.id_Employee', 'employees.name', 'employees.apPaterno', 'employees.apMaterno', 'employees.gender', 'employees.dateBirth')->where('users.id_User', '=', $id)->get();
+         ->select('users.id_User', 'users.name as username', 'users.email', 'roles.id_Rol', 'roles.name as rol', 'employees.id_Employee', 'employees.name', 'employees.apPaterno', 'employees.apMaterno', 'employees.gender')->where('users.id_User', '=', $id)->get();
 
       return view('layout.users.edituser')->with('useredit', $user);
    }
@@ -134,13 +133,12 @@ class UsersController extends Controller
       //dd($datas);
       $rules = [
          "name"=>"required",
-         "email"=>"required|email",
+         "email"=>"required|email|unique:users",
          "id_Rol"=>"required",
          "name"=>"required",
          "apPaterno"=>"required",
          "apMaterno"=>"required",
-         "gender"=>"required",
-         "dateBirth"=>"required"
+         "gender"=>"required"
       ];
 
       $messages = [
@@ -168,8 +166,7 @@ class UsersController extends Controller
                'name' => array_get($d_e, 'name'),
                'apPaterno' => array_get($d_e, 'apPaterno'),
                'apMaterno' => array_get($d_e, 'apMaterno'),
-               'gender' => array_get($d_e, 'gender'),
-               'dateBirth' => array_get($d_e, 'dateBirth')
+               'gender' => array_get($d_e, 'gender')
             ]);
          return redirect('admin/users')->with('info', '¡¡El usuario ha sido Actualizado Exitosamente!!');
       }

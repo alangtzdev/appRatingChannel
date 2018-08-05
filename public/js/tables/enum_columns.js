@@ -41,17 +41,11 @@ const typeColumnUsers = {
       className: 'text-left',
       width: "5%"
    },
-   dateBirth: {
-      headName: 'F. Nacimiento',
-      data: 'dateBirth',
-      className: 'text-center',
-      width: "10%"
-   },
    acciones: {
       headName: 'Acciones',
       data: null,
       mRender: function (data, type, full) {
-         return `<a type="button" class="btn btn-xs green" href="/admin/useredit/${full.id_User}"><i class="fa fa-pencil" aria-hidden="true"></i></a><a href="/destroyusers/${full.id_User}" type="button" class="btn btn-xs red-mint"><i class="fa fa-trash-o" aria-hidden="true"></i></a>`;
+         return `<a type="button" class="btn btn-xs btn-warning" href="/admin/useredit/${full.id_User}"><i class="fa fa-pencil" aria-hidden="true"></i></a><a href="/destroyusers/${full.id_User}" type="button" class="btn btn-xs btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>`;
       },
       className: 'text-center',
       width: "5%"

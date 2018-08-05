@@ -28,7 +28,7 @@ Route::get('/destroyusers/{id}', 'UsersController@getDestroyUser')->name('destro
 
 Route::prefix('admin')->group(function () {
    Route::get('/dashboard', 'Controller@getDashboard')->name('dashboard');
-   Route::get('users', 'UsersController@getUsers')->name('users');
+   Route::get('/users', 'UsersController@getUsers')->name('users');
    Route::get('usercreate', 'UsersController@getUserCreate')->name('usercreate');
    Route::get('useredit/{id}', 'UsersController@getUserEdit')->name('useredit');
    Route::get('reports/datetimepickers', 'ReportsController@getDateTimePickers')->name('datetimepickers');

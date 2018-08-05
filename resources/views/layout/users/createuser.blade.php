@@ -14,7 +14,7 @@
          </div>
          <div class="portlet-body form">
             <!-- BEGIN FORM-->
-            <form action="{{route('registerusers')}}" id="frm_create_users" method="post">
+            <form action="{{ route('registerusers') }}" id="frm_create_users" method="post">
                @csrf
                <div class="form-body">
                   <div class="panel panel-success">
@@ -94,16 +94,6 @@
                                  </div>
                               </div>
                            </div>
-                           <div class="col-md-4 col-lg-4">
-                              <div class="input-group date date-picker" data-date-format="dd/mm/yyyy">
-                                 <input type="text" class="form-control" name="D_E[dateBirth]" id="dateBirth">
-                                 <span class="input-group-btn">
-                                    <button class="btn default" type="button">
-                                       <i class="fa fa-calendar"></i>
-                                    </button>
-                                 </span>
-                              </div>
-                           </div>
                         </div>
                      </div>
                   </div>
@@ -111,8 +101,10 @@
                <div class="form-actions">
                   <div class="row">
                      <div class="col-md-offset-9 col-md-3 text-right">
-                        <button type="submit" class="btn green">Aceptar</button>
-                        <a href="/admin/users" type="button" class="btn dark btn-outline">Cancelar</a>
+                        <button type="submit" class="btn btn-success">
+                           <i class="fa fa-check"></i> Aceptar
+                        </button>
+                        <a href="{{ route('users') }}" type="button" class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i> Cancelar</a>
                      </div>
                   </div>
                </div>

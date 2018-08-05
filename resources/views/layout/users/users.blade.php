@@ -3,7 +3,7 @@
 @section('content-master')
 <div class="row">
    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-      <a href="/admin/usercreate" class="btn purple btn-outline sbold"> Crear usuario </a>
+      <a href="{{ route('usercreate' )}}" class="btn blue"> Crear usuario </a>
    </div>
 </div>
 <br>

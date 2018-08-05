@@ -9,7 +9,6 @@ const typeTablesUsers = {
          typeColumnUsers.apPaterno,
          typeColumnUsers.apMaterno,
          typeColumnUsers.gender,
-         typeColumnUsers.dateBirth,
          typeColumnUsers.acciones
       ],
       fnGet: getUsers

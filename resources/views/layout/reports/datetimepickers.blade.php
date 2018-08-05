@@ -1,5 +1,8 @@
 @extends('templates.mastertemplate')
 @section('title', 'Date & Time Pickers')
+@section('css')
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+@endsection
 @section('content-master')
 <div class="row">
    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -17,11 +20,7 @@
             <form action="#" class="form-horizontal form-bordered">
                <div class="form-body">
                   <div class="form-group">
-                     <div class="col-md-2 col-lg-2 text-center hidden-xs hidden-sm"></div>
-                     <div class="col-md-2 col-lg-2 text-center hidden-xs hidden-sm">
-                        <label><strong>Año</strong></label>
-                     </div>
-                     <div class="col-md-2 col-lg-2 text-center hidden-xs hidden-sm">
+                     <div class="col-md-3 col-lg-3 text-center hidden-xs hidden-sm">
                         <label><strong>Meses</strong></label>
                      </div>
                      <div class="col-md-2 col-lg-2 text-center hidden-xs hidden-sm">
@@ -30,39 +29,23 @@
                      <div class="col-md-2 col-lg-2 text-center hidden-xs hidden-sm">
                         <label><strong>Duración</strong></label>
                      </div>
-                     <div class="col-md-2 col-lg-2 text-center hidden-xs hidden-sm">
+                     <div class="col-md-5 col-lg-5 text-center hidden-xs hidden-sm">
                         <label><strong>Programas</strong></label>
                      </div>
                   </div>
                   <div class="form-group last">
-                     <div class="col-md-2 col-lg-2 text-center hidden-xs hidden-sm"></div>
-                     <div class="col-md-2 col-lg-2 text-center">
-                       <label class="hidden-md hidden-lg"><strong>Año</strong></label>
-                        <div class="form-group form-md-line-input has-info">
-                           <select class="form-control">
-                              <option value="2018">2018</option>
-                           </select>
+                     <div class="col-md-3 col-lg-3 text-center">
+                        <div class="input-group">
+                           <input type="text" name="daterange"  class="form-control" />
+                           <span class="input-group-btn">
+                              <button class="btn default" type="button">
+                                 <i class="fa fa-calendar"></i>
+                              </button>
+                           </span>
                         </div>
                      </div>
                      <div class="col-md-2 col-lg-2 text-center">
-                       <label class="hidden-md hidden-lg"><strong>Meses</strong></label>
-                        <select class="form-control selectpicker show-tick" multiple data-selected-text-format="count > 3" data-count-selected-text="{0} seleccionados">
-                           <option value="1">Enero</option>
-                           <option value="2">Febrero</option>
-                           <option value="3">Marzo</option>
-                           <option value="4">Abril</option>
-                           <option value="5">Mayo</option>
-                           <option value="6">Junio</option>
-                           <option value="7">Julio</option>
-                           <option value="8">Agosto</option>
-                           <option value="9">Septiembre</option>
-                           <option value="10">Octubre</option>
-                           <option value="11">Noviembre</option>
-                           <option value="12">Diciembre</option>
-                        </select>
-                     </div>
-                     <div class="col-md-2 col-lg-2 text-center">
-                       <label class="hidden-md hidden-lg"><strong>Hora inicia</strong></label>
+                        <label class="hidden-md hidden-lg"><strong>Hora inicia</strong></label>
                         <div class="input-group">
                            <input type="text" class="form-control timepicker timepicker-24">
                            <span class="input-group-btn">
@@ -73,15 +56,15 @@
                         </div>
                      </div>
                      <div class="col-md-2 col-lg-2 text-center">
-                       <label class="hidden-md hidden-lg"><strong>Duración</strong></label>
-                        <select class="form-control selectpicker show-tick" multiple data-selected-text-format="count > 3" data-count-selected-text="{0} seleccionados">
+                        <label class="hidden-md hidden-lg"><strong>Duración</strong></label>
+                        <select id="cboTimeInit" class="form-control selectpicker show-tick" multiple data-selected-text-format="count > 3" data-count-selected-text="{0} seleccionados">
                            <option value="30">30 min.</option>
                            <option value="60">60 min.</option>
                         </select>
                      </div>
-                     <div class="col-md-2 col-lg-2 text-center">
-                       <label class="hidden-md hidden-lg"><strong>Programas</strong></label>
-                        <select class="form-control selectpicker show-tick" multiple data-selected-text-format="count > 3" data-count-selected-text="{0} seleccionados">
+                     <div class="col-md-5 col-lg-5 text-center">
+                        <label class="hidden-md hidden-lg"><strong>Programas</strong></label>
+                        <select id="cboPrograms" class="form-control selectpicker show-tick" multiple data-selected-text-format="count > 3" data-count-selected-text="{0} seleccionados">
                            <option value="Ahí viene la Marimba">Ahí viene la Marimba</option>
                            <option value="Con el son de la marimba">Con el son de la marimba</option>
                            <option value="Café Nostalgia">Café Nostalgia</option>
@@ -184,10 +167,10 @@
                <div class="form-actions">
                   <div class="row">
                      <div class="col-md-offset-9 col-md-3 text-right">
-                        <button type="submit" class="btn green">
+                        <button type="submit" class="btn btn-success">
                            <i class="fa fa-check"></i> Aceptar
                         </button>
-                        <button type="button" class="btn red">Cancel</button>
+                        <button type="button" class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i> Cancel</button>
                      </div>
                   </div>
                </div>
@@ -203,8 +186,7 @@
    </div>
 </div>
 @endsection
-
-
-@section('scripts')
+@section('scripts')   
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script src="{{asset('js/datetimepickers.js')}}" type="text/javascript"></script>
 @endsection
