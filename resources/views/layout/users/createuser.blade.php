@@ -14,7 +14,7 @@
          </div>
          <div class="portlet-body form">
             <!-- BEGIN FORM-->
-            <form action="{{ route('registerusers') }}" id="frm_create_users" method="post">
+            <form action="{{ route('registerusers') }}" class="frm_create_users" method="post">
                @csrf
                <div class="form-body">
                   <div class="panel panel-success">

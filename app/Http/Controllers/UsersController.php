@@ -61,7 +61,7 @@ class UsersController extends Controller
 
       $messages = [
          "required"=>"El campo :attribute es requerido",
-         "unique"=>"El :attribute ya equiste.",
+         "unique"=>"El :attribute ya existe.",
       ];
 
       $validator = Validator::make($datas,$rules,$messages);
@@ -143,7 +143,7 @@ class UsersController extends Controller
 
       $messages = [
          "required"=>"El campo :attribute es requerido",
-         "email"=>"El campo :attribute requiere correo",
+         "unique"=>"El :attribute ya existe.",
       ];
 
       $validator = Validator::make($datas,$rules,$messages);

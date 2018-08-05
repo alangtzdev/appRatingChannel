@@ -1,5 +1,8 @@
 $(document).ready(function(){
-   $("#frm_create_users").validate({
+   $(".frm_create_users").validate({
+      errorElement: 'span', //default input error message container
+      errorClass: 'help-block', // default input error message class
+      focusInvalid: false, // do not focus the last invalid input
       rules:{
          "D_U[name]":{
             required:true
@@ -62,21 +65,30 @@ $(document).ready(function(){
             required:"Este campo es requerido"
          }
       },
-      highlight: function(element, errorClass, validClass) {
-         $('.element').closest('.form-group').addClass('has-error');
+      invalidHandler: function (event, validator) { //display error alert on form submit   
+         $('.alert-danger', $('.frm_create_users')).show();
       },
-      unhighlight: function(element, errorClass, validClass) {
-         $('.element').closest('.form-group').removeClass('has-error');
+
+      highlight: function (element) { // hightlight error inputs
+         $(element)
+            .closest('.form-group').removeClass('has-info').addClass('has-error'); // set error class to the control group
       },
-      errorElement: "span",
-      errorClass: "help-block",
-      errorPlacement: function(error, element) {
-         if(element.parent('.input-group').length) {
-            error.insertAfter(element.parent());
-         }
-         else {
-            error.insertAfter(element);
-         }
+
+      unhighlight: function (element) {
+         $(element)
+            .closest('.form-group').removeClass('has-error').addClass('has-info');
+      },
+
+      success: function (label) {
+         label.closest('.form-group').removeClass('has-error');
+      },
+
+      errorPlacement: function (error, element) {
+         error.insertAfter(element.closest('.form-control'));
+      },
+
+      submitHandler: function (form) {
+         form.submit();
       }
    });
 
