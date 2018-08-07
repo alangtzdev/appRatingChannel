@@ -8,8 +8,8 @@ class Transmition extends Model
 {
     protected $table = 'transmitions';
     protected $primarykey = 'id_Transmition';
-    protected $fillable = ['id_Program','id_TypeTransmition','id_City',
-    'day','nationalTime','RTG','SH','percentReach','AVGpercentViewed',
+    protected $fillable = ['id_Program','id_TypeTransmition',
+    'day','nationalTime','runTime','RTG','SH','percentReach','AVGpercentViewed',
     'HH','AA','totalHoursViewed'];
    
    public function program(){
@@ -20,7 +20,4 @@ class Transmition extends Model
       return $this->belongsTo('App\Models\TypeTransmition', 'id_TypeTransmition');
    }
    
-   public function city(){
-      return $this->belongsTo('App\Models\City', 'id_City');
-   }
 }
