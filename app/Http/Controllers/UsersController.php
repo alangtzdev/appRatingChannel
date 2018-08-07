@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\{User, Employee};
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
+use Carbon\Carbon;
 
 class UsersController extends Controller
 {
@@ -29,6 +30,10 @@ class UsersController extends Controller
      */
    public function getUsers()
    {
+      //      $now = Carbon::now();
+      //      if($now->dayOfWeek == Carbon::TUESDAY){
+      //         dd("MARTES");   
+      //      } 
       return view('layout.users.users');
    }
    public function getUserCreate()
