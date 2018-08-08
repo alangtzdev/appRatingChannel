@@ -20,9 +20,9 @@ class Transmitions extends Migration
          $table->date('day')->nullable();
          $table->time('nationalTime')->nullable();
          $table->integer('runTime')->nullable();
-         $table->decimal('RTG', 8, 2)->nullable();
-         $table->decimal('SH', 8, 2)->nullable();
-         $table->decimal('percentReach', 8, 2)->nullable();
+         $table->decimal('RTG', 8, 4)->nullable();
+         $table->decimal('SH', 8, 4)->nullable();
+         $table->decimal('percentReach', 8, 5)->nullable();
          $table->integer('AVGpercentViewed')->nullable();
          $table->integer('HH')->nullable();
          $table->integer('AA')->nullable();
