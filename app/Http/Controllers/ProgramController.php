@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Program;
 
 class ProgramController extends Controller
 {
@@ -32,9 +35,10 @@ class ProgramController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
+        $programs = DB::table('programs')->orderBy('name', 'asc')->get();
+      return $programs;
     }
 
     /**

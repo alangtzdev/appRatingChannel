@@ -21,10 +21,12 @@ Route::post('postLogin', 'Auth\LoginController@postLogin')->name('postLogin');
 
 Route::get('/transmitionsVw', 'TransmitionController@index');
 Route::post('/roles', 'RolesController@store');
+Route::post('/programs', 'ProgramController@store');
 Route::post('/users', 'UsersController@postUsers');
 Route::post('/registerusers', 'UsersController@postRegisterUsers')->name('registerusers');
 Route::put('/updateuser/{iduser}/{idemployee}', 'UsersController@putUpdateUsers')->name('updateusers');
 Route::get('/destroyusers/{id}', 'UsersController@getDestroyUser')->name('destroyusers');
+Route::post('/datetime', 'TransmitionController@show')->name('datetime');
 
 Route::prefix('admin')->group(function () {
    Route::get('/dashboard', 'Controller@getDashboard')->name('dashboard');

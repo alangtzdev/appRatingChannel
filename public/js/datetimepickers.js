@@ -1,4 +1,5 @@
 $( document ).ready(function() {
+   bindCboPrograms('#cboPrograms');
    datetimepickers();
 
    $('input[name="daterange"]').daterangepicker({
@@ -32,7 +33,7 @@ $( document ).ready(function() {
       style: 'multiple-select'
    });
    
-   $('#cboTimeInit').selectpicker('val', [30, 60]);
+   $('#cboRunTime').selectpicker('selectAll');
    $('#cboPrograms').selectpicker('selectAll');
 });
 
