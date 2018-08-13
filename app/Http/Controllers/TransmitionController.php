@@ -54,60 +54,39 @@ class TransmitionController extends Controller
       $dates = explode(' - ',$request->daterange);
       $date_start = Carbon::parse($dates[0]);
       $date_end = Carbon::parse($dates[1]);
-      $national_Time = Carbon::parse($request->nationalTime)->format('H:i:s');
-      $run_Time = $request->runTime;
-
+      $nationalTime = Carbon::parse($request->nationalTime)->format('H:i:s');
+      $runTime = $request->runTime;
+      $programs = $request->programs;
       $transmitions = DB::table('transmitions')
          ->join('programs', 'transmitions.id_Program', '=', 'programs.id_Program')
          ->join('typetransmition', 'transmitions.id_TypeTransmition', '=', 'typetransmition.id_TypeTransmition')
-         ->select('programs.name', 'typetransmition.nameTransmition', 'transmitions.day', 'transmitions.nationalTime', 'transmitions.runTime', 'transmitions.AA')
+         ->select('programs.id_Program', 'programs.name', 'typetransmition.id_TypeTransmition', 'typetransmition.nameTransmition', 'transmitions.id_Transmition', 'transmitions.day', 'transmitions.nationalTime', 'transmitions.runTime', 'transmitions.AA')
          ->whereDate('transmitions.day', '>=', $date_start)
          ->whereDate('transmitions.day', '<=', $date_end)
-         ->whereTime('transmitions.nationalTime', '=', $national_Time)
-         ->where('transmitions.runTime', '=', $run_Time)
+         ->whereTime('transmitions.nationalTime', '=', $nationalTime)
+         ->whereIn('programs.id_Program', $programs)
+         ->whereIn('transmitions.runTime', $runTime)
          ->get();
-      $array = [
-         'LUNES' => ['AA' => 0, 'DAY' => 'LUNES'],
-         'MARTES' => ['AA' => 0, 'DAY' => 'MARTES'],
-         'MIERCOLES' => ['AA' => 0, 'DAY' => 'MIERCOLES'],
-         'JUEVES' => ['AA' => 0, 'DAY' => 'JUEVES'],
-         'VIERNES' => ['AA' => 0, 'DAY' => 'VIERNES'],
-         'SABADO' => ['AA' => 0, 'DAY' => 'SABADO'],
-         'DOMINDO' => ['AA' => 0, 'DAY' => 'DOMINGO']
-      ];
-      $sumLun = 0;
-      $sumMar = 0;
-      $sumMier = 0;
-      $sumJue = 0;
-      $sumVie = 0;
-      $sumSab = 0;
-      $sumDom = 0;
+      
+      $array = [];
 
       foreach($transmitions as $transmition){
          $day = Carbon::parse($transmition->day);
-
+         
          if($day->dayOfWeek == Carbon::MONDAY){
-            $sumLun += $transmition->AA;
-            array_set($array, 'LUNES.AA', $sumLun);
-         }
-         else if($day->dayOfWeek == Carbon::TUESDAY){
-            $sumMar += $transmition->AA;
-            array_set($array, 'MARTES.AA', $sumMar);
+            
+         }else if($day->dayOfWeek == Carbon::TUESDAY){
+            
          }else if($day->dayOfWeek == Carbon::WEDNESDAY){
-            $sumMier += $transmition->AA;
-            array_set($array, 'MIERCOLES.AA', $sumMier);
+            
          }else if($day->dayOfWeek == Carbon::THURSDAY){
-            $sumJue += $transmition->AA;
-            array_set($array, 'JUEVES.AA', $sumJue);
+            
          }else if($day->dayOfWeek == Carbon::FRIDAY){
-            $sumVie += $transmition->AA;
-            array_set($array, 'VIERNES.AA', $sumVie);
+            
          }else if($day->dayOfWeek == Carbon::SATURDAY){
-            $sumSab += $transmition->AA;
-            array_set($array, 'SABADO.AA', $sumSab);
+            
          }else if($day->dayOfWeek == Carbon::SUNDAY){
-            $sumDom += $transmition->AA;
-            array_set($array, 'DOMINDO.AA', $sumDom);
+            
          }
       }
 

@@ -58,7 +58,7 @@
                      </div>
                      <div class="col-md-2 col-lg-2 text-center">
                         <label class="hidden-md hidden-lg"><strong>Duración</strong></label>
-                        <select id="cboRunTime" class="form-control selectpicker show-tick" multiple data-selected-text-format="count > 3" data-count-selected-text="{0} seleccionados" name="runTime">
+                        <select id="cboRunTime" class="form-control selectpicker show-tick" multiple data-selected-text-format="count > 3" data-count-selected-text="{0} seleccionados" name="runTime[]">
                            <option value="30">30 min.</option>
                            <option value="60">60 min.</option>
                            <option value="90">90 min.</option>
@@ -67,7 +67,7 @@
                      </div>
                      <div class="col-md-5 col-lg-5 text-center">
                         <label class="hidden-md hidden-lg"><strong>Programas</strong></label>
-                        <select id="cboPrograms" class="form-control selectpicker show-tick" multiple data-selected-text-format="count > 3" data-count-selected-text="{0} seleccionados" name="programs">
+                        <select id="cboPrograms" class="form-control selectpicker show-tick" multiple data-selected-text-format="count > 3" data-count-selected-text="{0} seleccionados" name="programs[]">
                         </select>
                      </div>
                   </div>
