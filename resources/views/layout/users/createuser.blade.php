@@ -61,7 +61,7 @@
                            <div class="col-md-4 col-lg-4">
                               <div class="form-group form-md-line-input form-md-floating-label has-info">
                                  <input type="text" class="form-control" id="nombre" name="D_E[name]" maxlength="20">
-                                 <label for="nombre">Nombre completo</label>
+                                 <label for="nombre">Nombre(s)</label>
                               </div>
                            </div>
                            <div class="col-md-4 col-lg-4">

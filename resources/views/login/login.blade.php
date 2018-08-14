@@ -14,7 +14,7 @@
       <label class="control-label visible-ie8 visible-ie9">Usuario</label>
       <div class="input-icon">
          <i class="fa fa-user"></i>
-         <input class="form-control placeholder-no-fix" type="email" autocomplete="off" placeholder="Correo" id="email" name="email" value="{{ old('email')}}" /> </div>
+         <input class="form-control placeholder-no-fix" type="email" autocomplete="off" placeholder="Correo electronico" id="email" name="email" value="{{ old('email')}}" /> </div>
          <span class="help-block">{{ $errors->first('email', ':message') }}</span>
    </div>
    <div class="form-group {{ $errors->has('password') ? 'has-error' : ''}}">

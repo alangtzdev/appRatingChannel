@@ -167,6 +167,14 @@
                               </a>
                            </li>
                         </ul>
+                        <ul class="sub-menu">
+                           <li class="nav-item {{Request::is('admin/reports/mapaReport') ? 'start active open' : 'null'}}">
+                              <a href="{{ route('datetimepickers') }}" class="nav-link ">
+                                 <i class="fa fa-map" aria-hidden="true"></i> 
+                                 <span class="title">Report Mapa</span>
+                              </a>
+                           </li>
+                        </ul>
                      </li>
                   </ul>
                   <!-- END SIDEBAR MENU -->
