@@ -1,5 +1,5 @@
 @extends('templates.mastertemplate')
-@section('title', 'Date & Time Pickers')
+@section('title', 'Day Time')
 @section('css')
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 @endsection

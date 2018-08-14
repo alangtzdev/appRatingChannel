@@ -163,7 +163,7 @@
                            <li class="nav-item {{Request::is('admin/reports/datetimepickers') ? 'start active open' : 'null'}}">
                               <a href="{{ route('datetimepickers') }}" class="nav-link ">
                                  <i class="fa fa-bar-chart" aria-hidden="true"></i> 
-                                 <span class="title">Date & Time Pickers</span>
+                                 <span class="title">Day Time</span>
                               </a>
                            </li>
                         </ul>
