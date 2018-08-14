@@ -60,37 +60,127 @@ class TransmitionController extends Controller
       $transmitions = DB::table('transmitions')
          ->join('programs', 'transmitions.id_Program', '=', 'programs.id_Program')
          ->join('typetransmition', 'transmitions.id_TypeTransmition', '=', 'typetransmition.id_TypeTransmition')
-         ->select('programs.id_Program', 'programs.name', 'typetransmition.id_TypeTransmition', 'typetransmition.nameTransmition', 'transmitions.id_Transmition', 'transmitions.day', 'transmitions.nationalTime', 'transmitions.runTime', 'transmitions.AA')
+         ->select('programs.name as program_name', 'transmitions.day', 'transmitions.AA')
          ->whereDate('transmitions.day', '>=', $date_start)
          ->whereDate('transmitions.day', '<=', $date_end)
          ->whereTime('transmitions.nationalTime', '=', $nationalTime)
          ->whereIn('programs.id_Program', $programs)
          ->whereIn('transmitions.runTime', $runTime)
          ->get();
-      
-      $array = [];
+
+      $graphics = collect([]);
 
       foreach($transmitions as $transmition){
          $day = Carbon::parse($transmition->day);
-         
+
          if($day->dayOfWeek == Carbon::MONDAY){
-            
+            if($graphics->contains('Dia', 'Lunes'))
+            {
+               
+            }else{
+               $graphics->prepend([
+                  'Dia' => 'Lunes',
+                  'Datos' => [
+                     [
+                        'Programa' => $transmition->program_name,
+                        'AA' => $transmition->AA
+                     ]
+                  ]
+               ]);
+            }
          }else if($day->dayOfWeek == Carbon::TUESDAY){
-            
+            if($graphics->contains('Dia', 'Martes'))
+            {
+               
+            }else{
+               $graphics->prepend([
+                  'Dia' => 'Martes',
+                  'Datos' => [
+                     [
+                        'Programa' => $transmition->program_name,
+                        'AA' => $transmition->AA
+                     ]
+                  ]
+               ]);
+            }
          }else if($day->dayOfWeek == Carbon::WEDNESDAY){
-            
+            if($graphics->contains('Dia', 'Miercoles'))
+            {
+               
+            }else{
+               $graphics->prepend([
+                  'Dia' => 'Miercoles',
+                  'Datos' => [
+                     [
+                        'Programa' => $transmition->program_name,
+                        'AA' => $transmition->AA
+                     ]
+                  ]
+               ]);
+            }
          }else if($day->dayOfWeek == Carbon::THURSDAY){
-            
+            if($graphics->contains('Dia', 'Jueves'))
+            {
+               
+            }else{
+               $graphics->prepend([
+                  'Dia' => 'Jueves',
+                  'Datos' => [
+                     [
+                        'Programa' => $transmition->program_name,
+                        'AA' => $transmition->AA
+                     ]
+                  ]
+               ]);
+            }
          }else if($day->dayOfWeek == Carbon::FRIDAY){
-            
+            if($graphics->contains('Dia', 'Viernes'))
+            {
+               
+            }else{
+               $graphics->prepend([
+                  'Dia' => 'Viernes',
+                  'Datos' => [
+                     [
+                        'Programa' => $transmition->program_name,
+                        'AA' => $transmition->AA
+                     ]
+                  ]
+               ]);
+            }
          }else if($day->dayOfWeek == Carbon::SATURDAY){
-            
+            if($graphics->contains('Dia', 'Sabado'))
+            {
+               
+            }else{
+               $graphics->prepend([
+                  'Dia' => 'Sabado',
+                  'Datos' => [
+                     [
+                        'Programa' => $transmition->program_name,
+                        'AA' => $transmition->AA
+                     ]
+                  ]
+               ]);
+            }
          }else if($day->dayOfWeek == Carbon::SUNDAY){
-            
+            if($graphics->contains('Dia', 'Domingo'))
+            {
+               
+            }else{
+               $graphics->prepend([
+                  'Dia' => 'Domingo',
+                  'Datos' => [
+                     [
+                        'Programa' => $transmition->program_name,
+                        'AA' => $transmition->AA
+                     ]
+                  ]
+               ]);
+            }
          }
       }
-
-      dd($array);
+      dd($graphics);
    }
 
    /**
