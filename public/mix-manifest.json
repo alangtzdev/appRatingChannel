@@ -1,4 +1,6 @@
 {
+    "/js/app.js": "/js/app.js",
+    "/css/app.css": "/css/app.css",
     "/css/globalMandatoryStyle.css": "/css/globalMandatoryStyle.css",
     "/css/pageLevelPluginStyle.css": "/css/pageLevelPluginStyle.css",
     "/css/themeGlobalStyle.css": "/css/themeGlobalStyle.css",

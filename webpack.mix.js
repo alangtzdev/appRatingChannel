@@ -59,3 +59,6 @@ mix.scripts([
     'assets/layouts/layout/scripts/demo.min.js',
     'assets/layouts/global/scripts/quick-sidebar.min.js'
 ], 'public/js/themeLayoutScript.js');
+
+mix.js('resources/assets/js/app.js', 'public/js')
+   .sass('resources/assets/sass/app.scss', 'public/css');
