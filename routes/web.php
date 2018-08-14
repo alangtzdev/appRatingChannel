@@ -34,7 +34,7 @@ Route::prefix('admin')->group(function () {
    Route::get('usercreate', 'UsersController@getUserCreate')->name('usercreate');
    Route::get('useredit/{id}', 'UsersController@getUserEdit')->name('useredit');
    Route::get('reports/datetimepickers', 'ReportsController@getDateTimePickers')->name('datetimepickers');
-//    Route::get('reports/mapaReport', )
+   Route::get('reports/mapaReport', 'ReportsController@getmapaReports')->name('mapaReport');
    Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 });
 Auth::routes();

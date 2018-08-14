@@ -25,7 +25,15 @@ class ReportsController extends Controller
     {
         return view('layout.reports.datetimepickers');
     }
-
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getmapaReports()
+    {
+        return view('layout.reports.mapaReport');
+    }
     /**
      * Store a newly created resource in storage.
      *
