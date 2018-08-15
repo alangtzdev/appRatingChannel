@@ -152,6 +152,22 @@
                            </li>
                         </ul>
                      </li>
+                     <li class="nav-item {{Request::is('admin/datos/importData') ? 'start active' : 'null'}}">
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                           <i class="fa fa-database" aria-hidden="true"></i>
+                           <span class="title">Datos</span>
+                           <span class="selected"></span>
+                           <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                           <li class="nav-item {{Request::is('admin/datos/importData') ? 'start active open' : 'null'}}">
+                              <a href="{{ route('importData') }}" class="nav-link ">
+                                 <i class="fa fa-upload" aria-hidden="true"></i> 
+                                 <span class="title">Importar Datos</span>
+                              </a>
+                           </li>
+                        </ul>
+                     </li>
                      <li class="nav-item {{Request::is('admin/reports/datetimepickers') ? 'start active' : 'null'}}">
                         <a href="javascript:;" class="nav-link nav-toggle">
                            <i class="fa fa-files-o" aria-hidden="true"></i>
