@@ -17,8 +17,8 @@
          </div>
          <div class="portlet-body form">
             <!-- BEGIN FORM-->
-            <form action="{{ route('datetime') }}" class="form-horizontal form-bordered" method="POST">
-              @csrf
+            <form action="#" class="form-horizontal form-bordered frm_date_time">
+              <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                <div class="form-body">
                   <div class="form-group">
                      <div class="col-md-3 col-lg-3 text-center hidden-xs hidden-sm">
@@ -37,7 +37,7 @@
                   <div class="form-group last">
                      <div class="col-md-3 col-lg-3 text-center">
                         <div class="input-group">
-                           <input id="inDateRange" type="text" name="daterange" class="form-control" />
+                           <input id="dateRange" type="text" name="daterange" class="form-control" />
                            <span class="input-group-btn">
                               <button class="btn default" type="button">
                                  <i class="fa fa-calendar"></i>
@@ -48,7 +48,7 @@
                      <div class="col-md-2 col-lg-2 text-center">
                         <label class="hidden-md hidden-lg"><strong>Hora inicia</strong></label>
                         <div class="input-group">
-                           <input type="text" class="form-control timepicker timepicker-24" name="nationalTime">
+                           <input id="nationalTime" type="text" class="form-control timepicker timepicker-24" name="nationalTime">
                            <span class="input-group-btn">
                               <button class="btn default" type="button">
                                  <i class="fa fa-clock-o"></i>
@@ -75,7 +75,7 @@
                <div class="form-actions">
                   <div class="row">
                      <div class="col-md-offset-9 col-md-3 text-right">
-                        <button type="submit" class="btn btn-success">
+                        <button id="btnFilterDateTime" type="button" class="btn btn-success">
                            <i class="fa fa-check"></i> Aceptar
                         </button>
                         <button type="button" class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i> Cancel</button>

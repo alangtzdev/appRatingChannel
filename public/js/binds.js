@@ -64,12 +64,9 @@ function bindCboPrograms(idCbo, idProgram){
       $.each(data,function(i , val){
          $(idCbo).append($('<option>').text(val.name).attr('value', val.id_Program));
       });
-
-      if (idProgram) {
-         $(idCbo).val(idProgram);
-      }
-
+      
       $('.selectpicker').selectpicker('refresh');
+      $('#cboRunTime').selectpicker('selectAll');
    }
 
    let fnError = (data) => {
@@ -86,4 +83,29 @@ function bindCboPrograms(idCbo, idProgram){
    }
 
    getPrograms(fnBeforeSend, fnSuccess, fnError);
+}
+
+function bindDateTimeFilter(jParams){
+   let fnBeforeSend = () => {
+   };
+
+   let fnSuccess = (data) => {
+      console.log(data);
+      datetimepickers(data);
+   }
+
+   let fnError = (data) => {
+      $.bootstrapGrowl("Error: datos para la grafica no cargados.", {
+         ele: 'body', // which element to append to
+         type: 'danger', // (null, 'info', 'danger', 'success')
+         offset: {from: 'top', amount: 20}, // 'top', or 'bottom'
+         align: 'right', // ('left', 'right', or 'center')
+         width: 250, // (integer, or 'auto')
+         delay: 4000, // Time while the message will be displayed. It's not equivalent to the *demo* timeOut!
+         allow_dismiss: true, // If true then will display a cross to close the popup.
+         stackup_spacing: 10 // spacing between consecutively stacked growls.
+      });
+   }
+
+   getDateTimeFilter(jParams, fnBeforeSend, fnSuccess, fnError);
 }

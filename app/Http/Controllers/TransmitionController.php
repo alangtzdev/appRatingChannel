@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Transmition;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Carbon\Carbon;
 
 class TransmitionController extends Controller
@@ -51,45 +52,70 @@ class TransmitionController extends Controller
      */
    public function show(Request $request)
    {
-      $dates = explode(' - ',$request->daterange);
-      $date_start = Carbon::parse($dates[0]);
-      $date_end = Carbon::parse($dates[1]);
-      $nationalTime = Carbon::parse($request->nationalTime)->format('H:i:s');
-      $runTime = $request->runTime;
-      $programs = $request->programs;
-      $transmitions = DB::table('transmitions')
-         ->join('programs', 'transmitions.id_Program', '=', 'programs.id_Program')
-         ->join('typetransmition', 'transmitions.id_TypeTransmition', '=', 'typetransmition.id_TypeTransmition')
-         ->select('programs.name as program_name', 'transmitions.day', 'transmitions.AA')
-         ->whereDate('transmitions.day', '>=', $date_start)
-         ->whereDate('transmitions.day', '<=', $date_end)
-         ->whereTime('transmitions.nationalTime', '=', $nationalTime)
-         ->whereIn('programs.id_Program', $programs)
-         ->whereIn('transmitions.runTime', $runTime)
-         ->get();
+      if($request->ajax()){
+         $dates = explode(' - ',$request->daterange);
+         $date_start = Carbon::parse($dates[0]);
+         $date_end = Carbon::parse($dates[1]);
+         $nationalTime = Carbon::parse($request->nationalTime)->format('H:i:s');
+         $runTime = $request->runTime;
+         $programs = $request->programs;
+         $transmitions = DB::table('transmitions')
+            ->join('programs', 'transmitions.id_Program', '=', 'programs.id_Program')
+            ->join('typetransmition', 'transmitions.id_TypeTransmition', '=', 'typetransmition.id_TypeTransmition')
+            ->select('programs.name as program_name', 'transmitions.day', 'transmitions.AA')
+            ->whereDate('transmitions.day', '>=', $date_start)
+            ->whereDate('transmitions.day', '<=', $date_end)
+            ->whereTime('transmitions.nationalTime', '=', $nationalTime)
+            ->whereIn('programs.id_Program', $programs)
+            ->whereIn('transmitions.runTime', $runTime)
+            ->get();
 
-      $graphics = collect([]);
+         $graphics = collect([]);
+         
+         $dias = [
+            0 => 'Domingo',
+            1 => 'Lunes',
+            2 => 'Martes',
+            3 => 'Miercoles',
+            4 => 'Jueves',
+            5 => 'Viernes',
+            6 => 'Sábado'
+         ];
 
-      foreach($transmitions as $transmition){
-         $day = Carbon::parse($transmition->day);
+         foreach($transmitions as $transmition){
+            $day = Carbon::parse($transmition->day);
 
-         if($graphics->isNotEmpty()){
-            if($graphics->contains('Dia', $day->dayOfWeek))
-            {  
-               if($graphics->contains('Datos.0.label',  $transmition->program_name))
+            if($graphics->isNotEmpty()){
+               if($graphics->contains('DiaInt', $day->dayOfWeek))
                {  
+                  if($graphics->contains('Datos.0.label',  $transmition->program_name))
+                  {  
 
-               }
-               else{
-//                  $graphics->prepend([
-//                     'label' => $transmition->program_name,
-//                     'data' => [$transmition->AA],
-//                     'backgroundColor' => 'rgba(54, 162, 235, 1)'
-//                  ]);
+                  }
+                  else{
+                     //                  $graphics->prepend([
+                     //                     'label' => $transmition->program_name,
+                     //                     'data' => [$transmition->AA],
+                     //                     'backgroundColor' => 'rgba(54, 162, 235, 1)'
+                     //                  ]);
+                  }
+               }else{
+                  $graphics->prepend([
+                     'DiaInt' => $day->dayOfWeek,
+                     'DiaString' => array_get($dias, $day->dayOfWeek),
+                     'Datos' => [
+                        [
+                           'label' => $transmition->program_name,
+                           'data' => [$transmition->AA],
+                           'backgroundColor' => 'rgba(54, 162, 235, 1)'
+                        ]
+                     ]
+                  ]);
                }
             }else{
                $graphics->prepend([
-                  'Dia' => $day->dayOfWeek,
+                  'DiaInt' => $day->dayOfWeek,
+                  'DiaString' => array_get($dias, $day->dayOfWeek),
                   'Datos' => [
                      [
                         'label' => $transmition->program_name,
@@ -99,21 +125,12 @@ class TransmitionController extends Controller
                   ]
                ]);
             }
-         }else{
-            $graphics->prepend([
-               'Dia' => $day->dayOfWeek,
-               'Datos' => [
-                  [
-                     'label' => $transmition->program_name,
-                     'data' => [$transmition->AA],
-                     'backgroundColor' => 'rgba(54, 162, 235, 1)'
-                  ]
-               ]
-            ]);
          }
-      }
 
-      dd($graphics);
+         $sorted = $graphics->sortBy('DiaInt');
+         
+         return $sorted->values()->all();
+      }
    }
 
    /**
