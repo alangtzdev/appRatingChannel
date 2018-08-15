@@ -113,7 +113,8 @@ function datetimepickers(datosGrafica){
 
    for(i of arrDatos){
       for (j in mDia){
-         if(j < mDia.length){
+         var sum = parseInt(j) + 2;
+         if(sum < mDia.length){
             i.data.push(random());
          }
       }
