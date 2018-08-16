@@ -35,6 +35,7 @@ Route::prefix('admin')->group(function () {
    Route::get('useredit/{id}', 'UsersController@getUserEdit')->name('useredit');
    Route::get('reports/datetimepickers', 'ReportsController@getDateTimePickers')->name('datetimepickers');
    Route::get('datos/importData', 'ImportDatosController@getImportData')->name('importData');
+   Route::post('datos/importData', 'ImportDatosController@importarDatosExcel');
    Route::get('reports/mapaReport', 'ReportsController@getmapaReports')->name('mapaReport');
    Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 });
