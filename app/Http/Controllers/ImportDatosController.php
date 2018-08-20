@@ -30,10 +30,10 @@ class ImportDatosController extends Controller
 
     public function importarDatosExcel(Request $request){
         $request->validate([
-            'archivo' => 'required'
+            'fileinput' => 'required'
         ]);
  
-        $path = $request->file('import_file')->getRealPath();
+        $path = $request->file('fileinput')->getRealPath();
         $data = Excel::load($path)->get();
  
         if($data->count()){

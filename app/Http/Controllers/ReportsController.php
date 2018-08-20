@@ -34,6 +34,15 @@ class ReportsController extends Controller
     {
         return view('layout.reports.mapaReport');
     }
+      /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getReportTable()
+    {
+        return view('layout.reports.reportTable');
+    }
     /**
      * Store a newly created resource in storage.
      *

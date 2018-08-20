@@ -15,7 +15,7 @@
             </div>
             <div class="portlet-body form">
                 <!-- BEGIN FORM-->
-                <form action="{{ URL::to('admin/datos/importarDatosExcel') }}" class="form-horizontal form-bordered" method="post" enctype="multipart/form-data"> @csrf
+                <form action="{{ route('importarDatosExcel') }}" class="form-horizontal form-bordered" method="post" enctype="multipart/form-data"> @csrf
  
                     @if ($errors->any())
                         <div class="alert alert-danger">

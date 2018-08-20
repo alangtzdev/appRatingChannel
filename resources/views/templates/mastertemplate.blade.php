@@ -191,6 +191,14 @@
                               </a>
                            </li>
                         </ul>
+                        <ul class="sub-menu">
+                              <li class="nav-item {{Request::is('admin/reports/reportTable') ? 'start active open' : 'null'}}">
+                                 <a href="{{ route('reportTable') }}" class="nav-link ">
+                                    <i class="fa fa-table" aria-hidden="true"></i> 
+                                    <span class="title">Report Tabla</span>
+                                 </a>
+                              </li>
+                           </ul>
                      </li>
                   </ul>
                   <!-- END SIDEBAR MENU -->

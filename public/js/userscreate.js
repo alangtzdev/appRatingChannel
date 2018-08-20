@@ -1,4 +1,7 @@
 $(document).ready(function(){
+      $('#usuario').val('');
+      $('#contraseña').val('');
+      
    $(".frm_create_users").validate({
       errorElement: 'span', //default input error message container
       errorClass: 'help-block', // default input error message class

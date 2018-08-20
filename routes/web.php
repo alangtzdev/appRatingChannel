@@ -27,6 +27,7 @@ Route::post('/registerusers', 'UsersController@postRegisterUsers')->name('regist
 Route::put('/updateuser/{iduser}/{idemployee}', 'UsersController@putUpdateUsers')->name('updateusers');
 Route::get('/destroyusers/{id}', 'UsersController@getDestroyUser')->name('destroyusers');
 Route::post('/datetime', 'TransmitionController@show')->name('datetime');
+Route::post('importData', 'ImportDatosController@importarDatosExcel')->name('importarDatosExcel');
 
 Route::prefix('admin')->group(function () {
    Route::get('/dashboard', 'Controller@getDashboard')->name('dashboard');
@@ -34,8 +35,8 @@ Route::prefix('admin')->group(function () {
    Route::get('usercreate', 'UsersController@getUserCreate')->name('usercreate');
    Route::get('useredit/{id}', 'UsersController@getUserEdit')->name('useredit');
    Route::get('reports/datetimepickers', 'ReportsController@getDateTimePickers')->name('datetimepickers');
+   Route::get('reports/reportTable', 'ReportsController@getReportTable')->name('reportTable');
    Route::get('datos/importData', 'ImportDatosController@getImportData')->name('importData');
-   Route::post('datos/importData', 'ImportDatosController@importarDatosExcel');
    Route::get('reports/mapaReport', 'ReportsController@getmapaReports')->name('mapaReport');
    Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 });
