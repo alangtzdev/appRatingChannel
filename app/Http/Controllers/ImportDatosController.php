@@ -32,13 +32,16 @@ class ImportDatosController extends Controller
         $request->validate([
             'fileTransmition' => 'required'
         ]);
+        
 
         $path = $request->file('fileTransmition')->getRealPath();
-        $data = Excel::load($path)->get();
- 
+        //$data = Excel::load($path)->get();
+        $data = \Excel::load($path)->get();
+        $parseData = $data->toArray();   
          // dd($data);
         if($data->count()){
-            foreach ($data as $key => $value) {
+            dd($parseData);
+            foreach ($parseData as $key => $value) {
                 // $arrTransmition[] = ['title' => $value->title, 'description' => $value->description];
                 $arrTransmition[] = 
                 ['id_Program' => $value->id_Program,
@@ -54,10 +57,14 @@ class ImportDatosController extends Controller
                 'AA' => $value->AA,
                 'totalHoursViewed' => $value->totalHoursViewed];
             }
-            dd($arrTransmition);
+            // dd($arrTransmition);
 
-            if(!empty($arr)){
-                Transmition::insert($arr);
+            if(!empty($arrTransmition)){
+                $insertValidate = Transmition::insert($arrTransmition);
+                if($insertValidate->fails()){
+                    return back()->with('erro', 'Insert Record successfully.', $arrTransmition);
+                }
+                
             }
         }
  
