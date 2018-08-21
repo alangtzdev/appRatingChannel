@@ -37,39 +37,48 @@ class ImportDatosController extends Controller
         $path = $request->file('fileTransmition')->getRealPath();
         //$data = Excel::load($path)->get();
         $data = \Excel::load($path)->get();
-        $parseData = $data->toArray();   
+        $parseData = $data->toArray();  
+        $arrTransmition[]= array();
          // dd($data);
         if($data->count()){
-            dd($parseData);
-            foreach ($parseData as $key => $value) {
+            // dd($parseData);
+            foreach ($parseData as $key => $row) {
+                //dd($row);
                 // $arrTransmition[] = ['title' => $value->title, 'description' => $value->description];
-                $arrTransmition[] = 
-                ['id_Program' => $value->id_Program,
-                'id_TypeTransmition' => $value->id_TypeTransmition,
-                'day' => $value->day,
-                'nationalTime' => $value->nationalTime,
-                'runTime' => $value->runTime,
-                'RTG' => $value->RTG,
-                'SH' => $value->SH,
-                'percentReach' => $value->percentReach,
-                'AVGpercentViewed' => $value->AVGpercentViewed,
-                'HH' => $value->HH,
-                'AA' => $value->AA,
-                'totalHoursViewed' => $value->totalHoursViewed];
+                $arrTransmition = 
+                [
+                'id_Program' => $row['id_program'],
+                'id_TypeTransmition' => $row['id_typetransmition'],
+                'day' => $row['day'],
+                'nationalTime' => $row['nationaltime'],
+                'runTime' => $row['runtime'],
+                'RTG' => $row['rtg'],
+                'SH' => $row['sh'],
+                'percentReach' => $row['percentreach'],
+                'AVGpercentViewed' => $row['avgpercentviewed'],
+                'HH' => $row['hh'],
+                'AA' => $row['aa'],
+                'totalHoursViewed' => $row['totalhoursviewed']
+                ];
+                
+                echo implode("\n OK",$arrTransmition);
+                
             }
-            // dd($arrTransmition);
+            dd($arrTransmition);
+             
 
             if(!empty($arrTransmition)){
-                $insertValidate = Transmition::insert($arrTransmition);
-                if($insertValidate->fails()){
-                    return back()->with('erro', 'Insert Record successfully.', $arrTransmition);
-                }
+                DB::table('Transmitions')->insert($arrTransmition);
+                // $insertValidate = Transmition::insert($arrTransmition);
+                // if($insertValidate->fails()){
+                //     return back()->with('erro', 'Insert Record successfully.', $arrTransmition);
+                // }
                 
             }
         }
  
         return back()->with('success', 'Insert Record successfully.');
-    
+    // FIXME: BORRAR CODIGO DESPUES DE REVISARLO
         // $archivo = $request->file('archivo');
         // $nomOriginal=$archivo->getClientOriginalName();
         // $extension=$archivo->getClienteOriginalExtension();
