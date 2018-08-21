@@ -57,11 +57,11 @@ class ImportDatosController extends Controller
             $hh = array_get($flattened, 'hh');
             $aa = array_get($flattened, 'aa');
             $totalhoursviewed = array_get($flattened, 'totalhoursviewed');
-
+            
             $arrTransmition = array_prepend($arrTransmition,
                                             [
-                                               'id_Program' => array_get($flattened, 'id_program'),
-                                               'id_TypeTransmition' => array_get($flattened, 'id_typetransmition'),
+                                               'id_Program' => (int)array_get($flattened, 'id_program'),
+                                               'id_TypeTransmition' => (int)array_get($flattened, 'id_typetransmition'),
                                                'day' => array_get($row, 'day'),
                                                'nationalTime' => $nationaltime,
                                                'runTime' => array_get($flattened, 'runtime'),
