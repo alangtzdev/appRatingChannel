@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use  Maatwebsite\Excel\Excel;
+use Excel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Transmition;
@@ -30,19 +30,34 @@ class ImportDatosController extends Controller
 
     public function importarDatosExcel(Request $request){
         $request->validate([
-            'fileinput' => 'required'
+            'fileTransmition' => 'required'
         ]);
- 
-        $path = $request->file('fileinput')->getRealPath();
+
+        $path = $request->file('fileTransmition')->getRealPath();
         $data = Excel::load($path)->get();
  
+         // dd($data);
         if($data->count()){
             foreach ($data as $key => $value) {
-                $arr[] = ['title' => $value->title, 'description' => $value->description];
+                // $arrTransmition[] = ['title' => $value->title, 'description' => $value->description];
+                $arrTransmition[] = 
+                ['id_Program' => $value->id_Program,
+                'id_TypeTransmition' => $value->id_TypeTransmition,
+                'day' => $value->day,
+                'nationalTime' => $value->nationalTime,
+                'runTime' => $value->runTime,
+                'RTG' => $value->RTG,
+                'SH' => $value->SH,
+                'percentReach' => $value->percentReach,
+                'AVGpercentViewed' => $value->AVGpercentViewed,
+                'HH' => $value->HH,
+                'AA' => $value->AA,
+                'totalHoursViewed' => $value->totalHoursViewed];
             }
- 
+            dd($arrTransmition);
+
             if(!empty($arr)){
-                Item::insert($arr);
+                Transmition::insert($arr);
             }
         }
  

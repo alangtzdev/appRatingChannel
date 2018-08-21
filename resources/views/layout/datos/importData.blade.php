@@ -47,7 +47,7 @@
                                         <span class="input-group-addon btn default btn-file">
                                             <span class="fileinput-new">Seleccionar archivo...</span>
                                             <span class="fileinput-exists"> Cambiar </span>
-                                            <input type="file" name="..." accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" /> </span>
+                                            <input type="file" name="fileTransmition" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" /> </span>
                                         <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput">Remover </a>
                                     </div>
                                 </div>
@@ -57,7 +57,7 @@
                     <div class="form-actions">
                         <div class="row">
                             <div class="col-md-offset-5 col-md-4">
-                                <button href="javascript:;" class="btn green" type="file" name="archivo">
+                                <button href="javascript:;" class="btn green">
                                     <i class="fa fa-check"></i> Subir archivo</button>
                                 <a href="javascript:;" class="btn btn-outline grey-salsa">Cancelar</a>
                             </div>
