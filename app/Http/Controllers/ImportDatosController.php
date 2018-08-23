@@ -67,7 +67,7 @@ class ImportDatosController extends Controller
                                                'RTG' => array_get($flattened, 'rtg'),
                                                'SH' => array_get($flattened, 'sh'),
                                                'percentReach' => array_get($flattened, 'percentreach'),
-                                               'AVGpercentViewed' => array_get($flattened, 'avgpercentview'),
+                                               'AVGpercentViewed' => array_get($flattened, 'avgpercentviewed'),
                                                'HH' => array_get($flattened, 'hh'),
                                                'AA' => array_get($flattened, 'aa'),
                                                'totalHoursViewed' => array_get($flattened, 'totalhoursviewed')
