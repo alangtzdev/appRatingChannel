@@ -107,7 +107,8 @@ class TransmitionController extends Controller
                         [
                            'label' => $transmition->program_name,
                            'data' => [$transmition->AA],
-                           'backgroundColor' => 'rgba(54, 162, 235, 1)'
+                           'backgroundColor' => 'rgba(54, 162, 235, 1)',
+                           'count' => 1
                         ]
                      ]
                   ]);
@@ -120,7 +121,8 @@ class TransmitionController extends Controller
                      [
                         'label' => $transmition->program_name,
                         'data' => [$transmition->AA],
-                        'backgroundColor' => 'rgba(54, 162, 235, 1)'
+                        'backgroundColor' => 'rgba(54, 162, 235, 1)',
+                        'count' => 1
                      ]
                   ]
                ]);

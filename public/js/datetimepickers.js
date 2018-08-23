@@ -45,11 +45,7 @@ $( document ).ready(function(){
          runTime: $('#cboRunTime').val(),
          programs: $('#cboPrograms').val(),
       });
-
-      //      $.post('/datetime', jParams, function(data){
-      //         console.log(data);
-      //      });
-
+      
       bindDateTimeFilter(jParams);
    });
 });
@@ -111,14 +107,14 @@ function datetimepickers(datosGrafica){
       }
    };
 
-   for(i of arrDatos){
-      for (j in mDia){
-         var sum = parseInt(j) + 2;
-         if(sum < mDia.length){
-            i.data.push(random());
-         }
-      }
-   };
+//   for(i of arrDatos){
+//      for (j in mDia){
+//         var sum = parseInt(j) + 2;
+//         if(sum < mDia.length){
+//            i.data.push(random());
+//         }
+//      }
+//   };
 
    myChart = new Chart(ctx, {
       type: 'bar',

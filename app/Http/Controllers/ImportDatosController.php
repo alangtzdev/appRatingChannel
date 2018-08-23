@@ -57,7 +57,6 @@ class ImportDatosController extends Controller
             $hh = array_get($flattened, 'hh');
             $aa = array_get($flattened, 'aa');
             $totalhoursviewed = array_get($flattened, 'totalhoursviewed');
-            
             $arrTransmition = array_prepend($arrTransmition,
                                             [
                                                'id_Program' => (int)array_get($flattened, 'id_program'),
@@ -80,7 +79,9 @@ class ImportDatosController extends Controller
          dd($arrTransmition);
 
          if(!empty($arrTransmition)){
-            DB::table('Transmitions')->insert($arrTransmition);
+            //DB::table('Transmitions')->insert($arrTransmition);
+            $transmitions = Transmition::create($arrTransmition);
+            $transmitions->save();
             // $insertValidate = Transmition::insert($arrTransmition);
             // if($insertValidate->fails()){
             //     return back()->with('erro', 'Insert Record successfully.', $arrTransmition);
