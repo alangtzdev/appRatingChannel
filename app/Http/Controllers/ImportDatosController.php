@@ -76,7 +76,7 @@ class ImportDatosController extends Controller
             //echo implode("\n OK",$arrTransmition);
             //dd($arrTransmition);
          }
-         dd($arrTransmition);
+         //         dd($arrTransmition);
 
          if(!empty($arrTransmition)){
             //DB::table('Transmitions')->insert($arrTransmition);
@@ -87,10 +87,9 @@ class ImportDatosController extends Controller
             //     return back()->with('erro', 'Insert Record successfully.', $arrTransmition);
             // }
 
+            return back()->with('success', 'Insert Record successfully.');
          }
       }
-
-      return back()->with('success', 'Insert Record successfully.');
       // FIXME: BORRAR CODIGO DESPUES DE REVISARLO
       // $archivo = $request->file('archivo');
       // $nomOriginal=$archivo->getClientOriginalName();

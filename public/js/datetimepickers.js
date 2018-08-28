@@ -38,16 +38,16 @@ $( document ).ready(function(){
    $('#cboRunTime').selectpicker('selectAll');
    $('#cboPrograms').selectpicker('selectAll');
 
-   $('#btnFilterDateTime').click(function(){
-      var jParams = JSON.stringify({
-         daterange: $('#dateRange').val(),
-         nationalTime: $('#nationalTime').val(),
-         runTime: $('#cboRunTime').val(),
-         programs: $('#cboPrograms').val(),
-      });
-      
-      bindDateTimeFilter(jParams);
-   });
+//   $('#btnFilterDateTime').click(function(){
+//      var jParams = JSON.stringify({
+//         daterange: $('#dateRange').val(),
+//         nationalTime: $('#nationalTime').val(),
+//         runTime: $('#cboRunTime').val(),
+//         programs: $('#cboPrograms').val(),
+//      });
+//      
+//      bindDateTimeFilter(jParams);
+//   });
 });
 
 function datetimepickers(datosGrafica){
