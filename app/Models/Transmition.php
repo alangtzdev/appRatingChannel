@@ -8,7 +8,7 @@ class Transmition extends Model
 {
     protected $table = 'transmitions';
     protected $primarykey = 'id_Transmition';
-    protected $fillable = ['id_Program','id_TypeTransmition',
+    public $fillable = ['id_Program','id_TypeTransmition',
     'day','nationalTime','runTime','RTG','SH','percentReach','AVGpercentViewed',
     'HH','AA','totalHoursViewed'];
    
