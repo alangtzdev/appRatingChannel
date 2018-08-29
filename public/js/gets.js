@@ -36,7 +36,7 @@ function getPrograms(fnBeforeSend, fnSuccess, fnError){
 
 function getDateTimeFilter(jParams, fnBeforeSend, fnSuccess, fnError){
    $.ajax({
-      "url": "/datetime",
+      "url": "/daytime",
       "type": "POST",
       "datatype":"json",
       "contentType": "application/json; charset=utf-8",

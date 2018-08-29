@@ -50,7 +50,7 @@ class TransmitionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-   public function show(Request $request)
+   public function dayTime(Request $request)
    {
       //if($request->ajax()){
       $dates = explode(' - ',$request->daterange);
@@ -71,154 +71,128 @@ class TransmitionController extends Controller
          ->get();
 
       $graphics = collect([]);
+      $dias = collect([]);
 
-      $dias = [
-         0 => 'Domingo',
-         1 => 'Lunes',
-         2 => 'Martes',
-         3 => 'Miercoles',
-         4 => 'Jueves',
-         5 => 'Viernes',
-         6 => 'Sábado'
-      ];
+      $helpDias = [ 0 => 'Domingo', 1 => 'Lunes', 2 => 'Martes', 3 => 'Miercoles', 4 => 'Jueves', 5 => 'Viernes', 6 => 'Sábado' ];
 
       foreach($transmitions as $transmition){
          $day = Carbon::parse($transmition->day);
 
-         if($graphics->isNotEmpty()){
-            if($graphics->contains('DiaInt', $day->dayOfWeek)){
-
-               $byDay = $graphics->Where('DiaInt', $day->dayOfWeek);
-               $keyDay = $byDay->keys();
-               $valKeyDay = array_get($keyDay, 0);
-
-               foreach($byDay as $itemDay){
-                  $Datos = array_get($itemDay, 'Datos');
-                  if($Datos->contains('label', $transmition->program_name)){
-
-                     $byDato = $Datos->Where('label', $transmition->program_name);
-                     $keyDato = $byDato->keys();
-                     $valKeyDato = array_get($keyDato, 0);
-
-                     foreach($byDato as $itemDato){
-
-                        $count = array_get($itemDato, 'count');
-                        $count += 1;
-
-                        $byDatas = array_get($itemDato, 'data');
-                        $keyData = $byDatas->keys();
-                        $valKeyData = array_get($keyData, 0);
-
-                        foreach($byDatas as $data){
-                           $data += $transmition->AA;
-                           $byDatas->put($valKeyData, $data);
-                        }
-                        array_set($itemDato, 'count', $count);
-                        $byDato->put($valKeyDato, $itemDato);
-                     }
-                     array_set($itemDay, 'Datos', $byDato);
-                     $graphics->put($valKeyDay, $itemDay);
-                  }else{
-                     $Datos->push([
-                        'label' => $transmition->program_name,
-                        'data' => collect([$transmition->AA]),
-                        'backgroundColor' => 'rgba(54, 162, 235, 1)',
-                        'count' => 1
-                     ]);
-                  }
-               }
-            }else{
-               $graphics->prepend([
-                  'DiaInt' => $day->dayOfWeek,
-                  'DiaString' => array_get($dias, $day->dayOfWeek),
-                  'DateTrasmintion' => $transmition->day,
-                  'Datos' => collect([
-                     [
-                        'label' => $transmition->program_name,
-                        'data' => collect([$transmition->AA]),
-                        'backgroundColor' => 'rgba(54, 162, 235, 1)',
-                        'count' => 1
-                     ]
-                  ])
-               ]);
+         if($dias->isNotEmpty()){
+            if(!$dias->contains($day->dayOfWeek)){
+               $dias->push($day->dayOfWeek);
             }
          }else{
+            $dias->push($day->dayOfWeek);
+         }
 
+         if($graphics->isNotEmpty()){
+            foreach($graphics as $keyGraphic=>$itemGraphic){
+
+               $datos = array_get($itemGraphic, 'Datos');
+
+               if($datos->contains('label', $transmition->program_name)){
+
+                  foreach($datos as $keyDato=>$itemDato){
+
+                     $label = array_get($itemDato, 'label');
+
+                     if($label == $transmition->program_name){
+
+                        $datas = array_get($itemDato, 'data');
+                        $counts = array_get($itemDato, 'counts');
+                        $days = array_get($itemDato, 'days');
+
+                        foreach($datas as $keyData=>$itemData){
+
+                           if($keyData == $day->dayOfWeek){
+
+                              $itemData += $transmition->AA;
+                              $datas->put($keyData, $itemData);
+
+                           }
+                           else{
+
+                              $datas->put($day->dayOfWeek, $transmition->AA);
+
+                           }
+
+                           break;
+                        }
+
+                        foreach($counts as $keyCount=>$itemCount){
+
+                           if($keyCount == $day->dayOfWeek){
+
+                              $itemCount += 1;
+                              $counts->put($keyCount, $itemCount);
+
+                           }
+                           else{
+
+                              $counts->put($day->dayOfWeek, 1);
+
+                           }
+
+                           break;
+                        }
+
+                        foreach($days as $keyDay=>$itemDay){
+                           $days->push(''.$day->dayOfWeek.': '.$transmition->day.' - '.$transmition->program_name.'');
+
+                           break;
+                        }
+                     }
+                     break;
+                  }
+               }else{
+                  $datos->push([
+                     'label' => $transmition->program_name,
+                     'data' => collect([
+                        $day->dayOfWeek  => $transmition->AA
+                     ]),
+                     'backgroundColor' => 'rgba(54, 162, 235, 1)',
+                     'counts' => collect([
+                        $day->dayOfWeek => 1
+                     ]),
+                     'days' => collect([
+                        ''.$day->dayOfWeek.': '.$transmition->day.' - '.$transmition->program_name.''
+                     ])
+                  ]);
+               }
+
+               break;
+            }
+         }else{
             $graphics->prepend([
-               'DiaInt' => $day->dayOfWeek,
-               'DiaString' => array_get($dias, $day->dayOfWeek),
-               'DateTrasmintion' => $transmition->day,
                'Datos' => collect([
                   [
                      'label' => $transmition->program_name,
-                     'data' => collect([$transmition->AA]),
+                     'data' => collect([
+                        $day->dayOfWeek  => $transmition->AA
+                     ]),
                      'backgroundColor' => 'rgba(54, 162, 235, 1)',
-                     'count' => 1
+                     'counts' => collect([
+                        $day->dayOfWeek => 1
+                     ]),
+                     'days' => collect([
+                        ''.$day->dayOfWeek.': '.$transmition->day.' - '.$transmition->program_name.''
+                     ])
                   ]
                ])
             ]);
          }
-         //         $countG = count($graphics);
-         //
-         //         if($countG > 0){
-         //            foreach($graphics as $key => $graphic)
-         //            {
-         //               $DiaInt = array_get($graphic, 'DiaInt');
-         //               if($DiaInt == $day->dayOfWeek){
-         //                  $datos = array_get($graphic, 'Datos');
-         //                  foreach($datos as $dato){
-         //                     $label = array_get($dato, 'label');
-         //                     if($label == $transmition->program_name){
-         //                        $countDato = array_get($dato, 'count');
-         //                        $countDato += 1;
-         //                        $datas = array_get($dato, 'data');
-         //                        foreach($datas as $data){
-         //                           $data += $transmition->AA;
-         //                           array_set($dato, 'data', [$data]);
-         //                        }
-         //                        array_set($dato, 'count', $countDato);
-         //                        array_set($graphic, 'Datos', $dato);
-         //                        array_set($graphics, $key, $graphic);
-         //                     }
-         //                  }
-         //               }else{
-         //                  $graphics = array_set($graphics, $key, [
-         //                     'DiaInt' => $day->dayOfWeek,
-         //                     'DiaString' => array_get($dias, $day->dayOfWeek),
-         //                     'Datos' => [
-         //                        [
-         //                           'label' => $transmition->program_name,
-         //                           'data' => [$transmition->AA],
-         //                           'backgroundColor' => 'rgba(54, 162, 235, 1)',
-         //                           'count' => 1
-         //                        ]
-         //                     ]
-         //                  ]);
-         //               }
-         //            }
-         //         }else{
-         //            $graphics = array_prepend($graphics, [
-         //               'DiaInt' => $day->dayOfWeek,
-         //               'DiaString' => array_get($dias, $day->dayOfWeek),
-         //               'Datos' => [
-         //                  [
-         //                     'label' => $transmition->program_name,
-         //                     'data' => [$transmition->AA],
-         //                     'backgroundColor' => 'rgba(54, 162, 235, 1)',
-         //                     'count' => 1
-         //                  ]
-         //               ]
-         //            ]);
-         //         }
       }
+      //
+      //      $sorted = $graphics->sortBy('DiaInt');
+      //      dd($sorted->values()->all());
 
-      $sorted = $graphics->sortBy('DiaInt');
-      dd($sorted->values()->all());
-      //      $sorted = array_values(array_sort($graphics, function ($value) {
-      //         return $value['DiaInt'];
-      //      }));
-      //      dd($graphics);
-      //}
+      dd($graphics);
+   }
+
+   public function reportTime(Request $request)
+   {
+      dd('success');
    }
 
    /**

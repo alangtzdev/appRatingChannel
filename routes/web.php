@@ -26,7 +26,8 @@ Route::post('/users', 'UsersController@postUsers');
 Route::post('/registerusers', 'UsersController@postRegisterUsers')->name('registerusers');
 Route::put('/updateuser/{iduser}/{idemployee}', 'UsersController@putUpdateUsers')->name('updateusers');
 Route::get('/destroyusers/{id}', 'UsersController@getDestroyUser')->name('destroyusers');
-Route::post('/datetime', 'TransmitionController@show')->name('datetime');
+Route::post('/daytime', 'TransmitionController@dayTime')->name('daytime');
+Route::post('/reporttime', 'TransmitionController@reportTime')->name('reporttime');
 Route::post('importData', 'ImportDatosController@importarDatosExcel')->name('importarDatosExcel');
 
 Route::prefix('admin')->group(function () {

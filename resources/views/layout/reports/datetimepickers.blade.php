@@ -17,7 +17,7 @@
          </div>
          <div class="portlet-body form">
             <!-- BEGIN FORM-->
-            <form action="{{ route('datetime') }}" class="form-horizontal form-bordered frm_date_time" method="post">
+            <form action="{{ route('daytime') }}" class="form-horizontal form-bordered frm_date_time" method="post">
               <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                <div class="form-body">
                   <div class="form-group">
