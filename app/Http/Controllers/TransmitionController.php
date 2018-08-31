@@ -78,73 +78,98 @@ class TransmitionController extends Controller
       foreach($transmitions as $transmition){
          $day = Carbon::parse($transmition->day);
 
+         //*** --------------------------------------------------------------- ***//
+
+         //*** ADD DAY IN ARRAY DAYS ***//
+
          if($dias->isNotEmpty()){
             if(!$dias->contains($day->dayOfWeek)){
-               $dias->push($day->dayOfWeek);
+               foreach($helpDias as $keyHelpDia=>$itemHelpDia){
+                  if($keyHelpDia == $day->dayOfWeek){
+                     $dias->put($day->dayOfWeek, $itemHelpDia);
+                  }
+               }
             }
          }else{
-            $dias->push($day->dayOfWeek);
+            foreach($helpDias as $keyHelpDia=>$itemHelpDia){
+               if($keyHelpDia == $day->dayOfWeek){
+                  $dias->put($day->dayOfWeek, $itemHelpDia);
+               }
+            }
          }
 
+         //*** --------------------------------------------------------------- ***//
+
+         //*** ADD CONSULT IN ARRAY GRAPHICS ***//
+
+         //*** INIT PUSH AND PUT GRAPHICS ***//
+         //*** INIT IF GRAPHICS->ISNOTEMPTY ***//
          if($graphics->isNotEmpty()){
+            //*** INIT FOREACH GRAPHICS ***//
             foreach($graphics as $keyGraphic=>$itemGraphic){
 
                $datos = array_get($itemGraphic, 'Datos');
-
+               //*** INIT IF DATOS ***//
                if($datos->contains('label', $transmition->program_name)){
 
+                  //*** INIT FOREACH DATOS ***//
                   foreach($datos as $keyDato=>$itemDato){
 
                      $label = array_get($itemDato, 'label');
 
+                     //*** INIT IF LABEL ***//
                      if($label == $transmition->program_name){
 
                         $datas = array_get($itemDato, 'data');
                         $counts = array_get($itemDato, 'counts');
                         $days = array_get($itemDato, 'days');
 
+                        //*** INIT FOREACH DATAS ***//
                         foreach($datas as $keyData=>$itemData){
 
+                           //*** INIT IF DAY-DATA ***//
                            if($keyData == $day->dayOfWeek){
 
                               $itemData += $transmition->AA;
                               $datas->put($keyData, $itemData);
 
                            }
-                           else{
-
-                              $datas->put($day->dayOfWeek, $transmition->AA);
-
-                           }
+                           //*** END IF DAY-DATA ***//
 
                            break;
                         }
+                        //*** END FOREACH DATAS ***//
 
+                        //*** INIT FOREACH COUNT ***//
                         foreach($counts as $keyCount=>$itemCount){
 
+                           //*** INIT IF DAY-COUNT ***//
                            if($keyCount == $day->dayOfWeek){
 
                               $itemCount += 1;
                               $counts->put($keyCount, $itemCount);
 
                            }
-                           else{
-
-                              $counts->put($day->dayOfWeek, 1);
-
-                           }
+                           //*** END IF DAY-COUNT ***//
 
                            break;
                         }
+                        //*** END FOREACH COUNT ***//
 
+                        //*** INIT FOREACH DAYS ***//
                         foreach($days as $keyDay=>$itemDay){
                            $days->push(''.$day->dayOfWeek.': '.$transmition->day.' - '.$transmition->program_name.'');
 
                            break;
                         }
+                        //*** END FOREACH DAYS ***//
+
                      }
+                     //*** END IF LABEL ***//
+
                      break;
                   }
+                  //*** END FOREACH DATOS ***//
                }else{
                   $datos->push([
                      'label' => $transmition->program_name,
@@ -160,9 +185,11 @@ class TransmitionController extends Controller
                      ])
                   ]);
                }
+               //*** END IF DATOS ***//
 
                break;
             }
+            //*** END FOREACH GRAPHICS ***//
          }else{
             $graphics->prepend([
                'Datos' => collect([
@@ -182,12 +209,102 @@ class TransmitionController extends Controller
                ])
             ]);
          }
+         //*** END IF GRAPHICS->ISNOTEMPTY ***//
       }
-      //
-      //      $sorted = $graphics->sortBy('DiaInt');
-      //      dd($sorted->values()->all());
 
-      dd($graphics);
+      //      dd($graphics);
+
+      //*** --------------------------------------------------------------- ***//
+
+      //*** DIVIDE ***//
+
+      //*** INIT FOREACH GRAPHICS ***//
+      foreach($graphics as $keyGraphic=>$itemGraphic){
+
+         $datos = array_get($itemGraphic, 'Datos');
+
+         //*** INIT FOREACH DATOS ***//
+         foreach($datos as $keyDato=>$itemDato){
+
+            $datas = array_get($itemDato, 'data');
+
+            //*** INIT FOREACH DATAS ***//
+            foreach($datas as $keyData=>$itemData){
+
+               //*** INIT FOREACH COUNT ***//
+               foreach($counts as $keyCount=>$itemCount){
+
+                  //*** INIT IF DAY-COUNT ***//
+                  if($keyCount == $keyData){
+
+                     $result = $itemData / $itemCount;
+                     $datas->put($keyData, $result);
+
+                  }
+                  //*** END IF DAY-COUNT ***//
+
+               }
+               //*** END FOREACH COUNT ***//
+
+            }
+            //*** END FOREACH DATAS ***//
+         }
+         //*** END FOREACH DATOS ***//
+
+      }
+      //*** END FOREACH GRAPHICS ***//
+
+      //      dd($graphics);
+
+      //*** --------------------------------------------------------------- ***//
+
+      //*** SORT ARRAY DAYS ***//
+
+      $sortedDias = $dias->sortKeys();
+
+      //*** --------------------------------------------------------------- ***//
+
+      //*** ADD VALUES TO DAYS REST ***//
+
+      //*** INIT FOREACH GRAPHICS ***//
+      foreach($graphics as $keyGraphic=>$itemGraphic){
+
+         $datos = array_get($itemGraphic, 'Datos');
+
+         //*** INIT FOREACH DATOS ***//
+         foreach($datos as $keyDato=>$itemDato){
+
+            $datas = array_get($itemDato, 'data');
+            $sortedDatas = $datas->sortKeys();
+
+            //*** INIT FOREACH DATAS ***//
+            foreach($sortedDatas as $keyData=>$itemData){
+
+               foreach($sortedDias as $keyDia=>$itemDia){
+                  if($keyData != $keyDia){
+                     $datas->put($keyDia, 0);
+                  }
+               }
+
+            }
+            //*** END FOREACH DATAS ***//
+         }
+         //*** END FOREACH DATOS ***//
+
+      }
+      //*** END FOREACH GRAPHICS ***//
+
+      //*** --------------------------------------------------------------- ***//
+
+      //*** ADD ARRAY DAYS IN ARRAY GRAPHICS ***//
+
+      //*** INIT FOREACH GRAPHICS ***//
+      foreach($graphics as $keyGraphic=>$itemGraphic){
+         $itemGraphic = array_prepend($itemGraphic, $sortedDias, 'Dias');
+         $graphics->put($keyGraphic, $itemGraphic);
+      }
+      //*** END FOREACH GRAPHICS ***//
+      dd($graphics->toJson());
    }
 
    public function reportTime(Request $request)
