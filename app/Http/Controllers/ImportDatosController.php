@@ -53,6 +53,7 @@ class ImportDatosController extends Controller
           'HH' => $row['hh'],
           'AA' =>  $row['aa'],
           'totalHoursViewed' => $row['totalhoursviewed'],
+          'created_at' =>  Carbon::today()
           ];
 
                 if(!empty($insert)) {

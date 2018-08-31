@@ -1,6 +1,5 @@
 $(function () {
     var mDia;
-    bindCboPrograms('#cboPrograms');
  
     $('input[name="daterange"]').daterangepicker({
        "opens": 'rigth',
@@ -34,14 +33,10 @@ $(function () {
        dropdownAlignRight: true,
        style: 'multiple-select'
     });
-
-    $('#cboPrograms').selectpicker('selectAll');
  
     $('#btnFilterDateTime').click(function(){
        var jParams = JSON.stringify({
           daterange: $('#dateRange').val(),
-          nationalTime: $('#nationalTime').val(),
-          programs: $('#cboPrograms').val(),
        });
        
        bindDateTimeFilter(jParams);

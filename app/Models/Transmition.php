@@ -10,7 +10,7 @@ class Transmition extends Model
     protected $primarykey = 'id_Transmition';
     public $fillable = ['id_Program','id_TypeTransmition',
     'day','nationalTime','runTime','RTG','SH','percentReach','AVGpercentViewed',
-    'HH','AA','totalHoursViewed'];
+    'HH','AA','totalHoursViewed','created_at','updated_at'];
    
    public function program(){
       return $this->belongsTo('App\Models\Program', 'id_Program');

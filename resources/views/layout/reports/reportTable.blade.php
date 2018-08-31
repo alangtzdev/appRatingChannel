@@ -30,9 +30,6 @@
                      <div class="col-md-3 col-lg-3 text-center hidden-xs hidden-sm">
                         <label><strong>Meses</strong></label>
                      </div>
-                     <div class="col-md-5 col-lg-5 text-center hidden-xs hidden-sm">
-                        <label><strong>Programas</strong></label>
-                     </div>
                   </div>
                   <div class="form-group last">
                      <div class="col-md-3 col-lg-3 text-center">
@@ -44,11 +41,6 @@
                               </button>
                            </span>
                         </div>
-                     </div>
-                     <div class="col-md-5 col-lg-5 text-center">
-                        <label class="hidden-md hidden-lg"><strong>Programas</strong></label>
-                        <select id="cboPrograms" class="form-control selectpicker show-tick" multiple data-selected-text-format="count > 3" data-count-selected-text="{0} seleccionados" name="programs[]">
-                        </select>
                      </div>
                   </div>
                </div>
