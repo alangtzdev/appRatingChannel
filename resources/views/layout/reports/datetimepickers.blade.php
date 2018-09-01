@@ -17,7 +17,7 @@
          </div>
          <div class="portlet-body form">
             <!-- BEGIN FORM-->
-            <form action="{{ route('daytime') }}" class="form-horizontal form-bordered frm_date_time" method="post">
+            <form action="#" class="form-horizontal form-bordered frm_date_time" method="post">
               <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                <div class="form-body">
                   <div class="form-group">
@@ -75,7 +75,7 @@
                <div class="form-actions">
                   <div class="row">
                      <div class="col-md-offset-9 col-md-3 text-right">
-                        <button id="btnFilterDateTime" type="submit" class="btn btn-success">
+                        <button id="btnFilterDateTime" type="button" class="btn btn-success">
                            <i class="fa fa-check"></i> Aceptar
                         </button>
                         <button type="button" class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i> Cancel</button>

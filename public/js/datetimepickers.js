@@ -38,16 +38,16 @@ $( document ).ready(function(){
    $('#cboRunTime').selectpicker('selectAll');
    $('#cboPrograms').selectpicker('selectAll');
 
-//   $('#btnFilterDateTime').click(function(){
-//      var jParams = JSON.stringify({
-//         daterange: $('#dateRange').val(),
-//         nationalTime: $('#nationalTime').val(),
-//         runTime: $('#cboRunTime').val(),
-//         programs: $('#cboPrograms').val(),
-//      });
-//      
-//      bindDateTimeFilter(jParams);
-//   });
+   $('#btnFilterDateTime').click(function(){
+      var jParams = JSON.stringify({
+         daterange: $('#dateRange').val(),
+         nationalTime: $('#nationalTime').val(),
+         runTime: $('#cboRunTime').val(),
+         programs: $('#cboPrograms').val(),
+      });
+
+      bindDateTimeFilter(jParams);
+   });
 });
 
 function datetimepickers(datosGrafica){
@@ -95,37 +95,15 @@ function datetimepickers(datosGrafica){
       }
    };
 
-   mDia = datosGrafica.map(function (m) { return m.DiaString });
-   var mDatos = datosGrafica.map(function (m) { return m.Datos });
-
-   var arrDatos = [];
-
-   for(i of mDatos){
-      for(j of i)
-      {
-         arrDatos.push(j);
-      }
-   };
-
-//   for(i of arrDatos){
-//      for (j in mDia){
-//         var sum = parseInt(j) + 2;
-//         if(sum < mDia.length){
-//            i.data.push(random());
-//         }
-//      }
-//   };
+   var mDia = datosGrafica[0].Dias;
+   var mDatos = datosGrafica[0].Datos;
 
    myChart = new Chart(ctx, {
       type: 'bar',
       data: {
          labels: mDia,
-         datasets: arrDatos
+         datasets: mDatos
       },
       options: options
    });
-}
-
-function random() {
-   return Math.round(Math.random()*10000);    
 }
