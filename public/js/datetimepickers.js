@@ -51,11 +51,12 @@ $( document ).ready(function(){
 });
 
 function datetimepickers(datosGrafica){
-   var ctx = document.getElementById('dateTimePicker').getContext('2d');
-   var myChart = new Chart(ctx, { type: 'bar', data: {}, options: {} });
-   myChart.destroy();
+   $("canvas#dayTime").remove();
+   $("div.day-time").append('<canvas id="dayTime" class="animated fadeIn"></canvas>');
+   
+   let ctx = document.getElementById('dayTime').getContext('2d');
 
-   var options = {
+   let options = {
       responcive: true,
       maintainAspectRatio: true,
       legend: {
@@ -95,15 +96,16 @@ function datetimepickers(datosGrafica){
       }
    };
 
-   var mDia = datosGrafica[0].Dias;
-   var mDatos = datosGrafica[0].Datos;
+   let mDia = datosGrafica[0].Dias;
+   let mDatos = datosGrafica[0].Datos;
 
-   myChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-         labels: mDia,
-         datasets: mDatos
-      },
-      options: options
-   });
+   let data = {
+      labels: mDia,
+      datasets: mDatos
+   };
+
+   let config = { type: 'bar', data: data, options: options };
+   let myChart = new Chart(ctx, config);
+   myChart.clear();
+   myChart = new Chart(ctx, config);
 }

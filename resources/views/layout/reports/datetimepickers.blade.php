@@ -89,8 +89,7 @@
    </div>
 </div>
 <div class="row">
-   <div class="col-md-12 col-lg-12">
-      <canvas id="dateTimePicker"></canvas>
+   <div class="col-md-12 col-lg-12 day-time">
    </div>
 </div>
 @endsection
