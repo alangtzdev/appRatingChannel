@@ -391,7 +391,177 @@ class TransmitionController extends Controller
 
    public function reportTime(Request $request)
    {
-      dd('success');
+      $dates = explode(' - ',$request->daterange);
+      $date_start = Carbon::parse($dates[0]);
+      $date_end = Carbon::parse($dates[1]);
+
+      $transmitions = DB::table('transmitions')
+         ->join('programs', 'transmitions.id_Program', '=', 'programs.id_Program')
+         ->join('typetransmition', 'transmitions.id_TypeTransmition', '=', 'typetransmition.id_TypeTransmition')
+         ->select('programs.name as program_name', 'transmitions.day', 'transmitions.AA',
+                  'transmitions.nationalTime')
+         ->whereDate('transmitions.day', '>=', $date_start)
+         ->whereDate('transmitions.day', '<=', $date_end)
+         ->get();
+
+      $table = collect([]);
+      $helptimes = collect([]);
+      $helpDias = [ 0 => 'Domingo', 1 => 'Lunes', 2 => 'Martes', 3 => 'Miercoles', 4 => 'Jueves', 5 => 'Viernes', 6 => 'Sábado' ];
+
+      foreach($transmitions as $transmition){
+         $dayParse = Carbon::parse($transmition->day);
+         $dayString = '';
+         $time = $transmition->nationalTime;
+
+         foreach($helpDias as $keyDay=>$itemDay){
+            if($keyDay == $dayParse->dayOfWeek){
+               $dayString = $itemDay;
+            }
+         }
+
+         //*** --------------------------------------------------------------- ***//
+
+         //*** ADD TIME IN ARRAY _TIMES ***//
+
+         if($helptimes->isNotEmpty()){
+            if(!$helptimes->contains($time)){
+               $helptimes->push($time);
+            }
+         }else{
+            $helptimes->push($time);
+         }
+
+
+         //*** --------------------------------------------------------------- ***//
+
+         //*** ADD CONSULT IN ARRAY GRAPHICS ***//
+
+         //*** INIT PUSH AND PUT TABLE ***//
+         //*** INIT IF TABLE->ISNOTEMPTY ***//
+         if($table->isNotEmpty()){
+            //*** INIT FOREACH GRAPHICS ***//
+            foreach($table as $keyGraphic=>$itemGraphic){
+
+               $datos = array_get($itemGraphic, 'Datos');
+
+               //*** INIT IF DATOS ***//
+               if($datos->contains('day', $dayParse->dayOfWeek)){
+
+                  //*** INIT FOREACH DATOS ***//
+                  foreach($datos as $keyDato=>$itemDato){
+
+                     $dayDatas = array_get($itemDato, 'dayDatas');
+
+                     //*** INIT IF DAYDATAS ***//
+                     if($dayDatas->contains('time', $time)){
+
+                        //*** INIT FOREACH DAYDATAS ***//
+                        foreach($dayDatas as $keyDayData=>$itemDayData){
+
+                           $timeDatas = array_get($itemDayData, 'timeDatas');
+
+                           //*** INIT IF TIMEDATAS ***//
+                           if($timeDatas->contains('program', $transmition->program_name)){
+
+                              //*** INIT FOREACH TIMEDATAS ***//
+                              foreach($timeDatas as $keyTimeData=>$itemTimeData){
+
+                                 $_program = array_get($itemTimeData, 'program');
+
+                                 if($_program == $transmition->program_name){
+                                    $AA = array_get($itemTimeData, 'AA');
+                                    $count = array_get($itemTimeData, 'count');
+
+                                    $AA += $transmition->AA;
+                                    $count += 1;
+
+                                    break;
+                                 }
+                              }
+                              //*** END FOREACH TIMEDATAS ***//
+
+                           }else{
+                              $timeDatas->push([
+                                 'program' => $transmition->program_name,
+                                 'AA' => $transmition->AA,
+                                 'count' => 1
+                              ]);
+
+                              break;
+                           }
+                           //*** END IF TIMEDATAS ***//
+                        }
+                        //*** END FOREACH DAYDATAS ***//
+
+                        break;
+                     }else{
+                        $dayDatas->push([
+                           'time' => $time,
+                           'timeDatas' => collect([
+                              [
+                                 'program' => $transmition->program_name,
+                                 'AA' => $transmition->AA,
+                                 'count' => 1
+                              ]
+                           ])
+                        ]);
+
+                        break;
+                     }
+                     //*** END IF DAYDATAS ***//
+                  }
+                  //*** END FOREACH DATOS ***//
+               }else{
+                  $datos->push([
+                     'day' => $dayParse->dayOfWeek,
+                     'dayDatas' => collect([
+                        [
+                           'time' => $time,
+                           'timeDatas' => collect([
+                              [
+                                 'program' => $transmition->program_name,
+                                 'AA' => $transmition->AA,
+                                 'count' => 1
+                              ]
+                           ])
+                        ]
+                     ])
+                  ]);
+               }
+               //*** END IF DATOS ***//
+
+               break;
+            }
+            //*** END FOREACH GRAPHICS ***//
+         }else{
+            $table->prepend([
+               'Days' => collect([]),
+               'Times' => collect([]),
+               'Datos' => collect([
+                  [
+                     'day' => $dayParse->dayOfWeek,
+                     'dayDatas' => collect([
+                        [
+                           'time' => $time,
+                           'timeDatas' => collect([
+                              [
+                                 'program' => $transmition->program_name,
+                                 'AA' => $transmition->AA,
+                                 'count' => 1
+                              ]
+                           ])
+                        ]
+                     ])
+                  ]
+               ])
+            ]);
+         }
+         //*** END IF GRAPHICS->ISNOTEMPTY ***//
+      }
+
+      $sortedtimes = $helptimes->sort();
+      dd($table);
+
    }
 
    /**
