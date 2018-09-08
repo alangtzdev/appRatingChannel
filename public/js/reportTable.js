@@ -21,25 +21,4 @@ $(function () {
     }, function(start, end, label) {
        //      console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
     });
- 
-    $('.selectpicker').selectpicker({
-       title: 'Seleccione...',
-       liveSearch: true,
-       actionsBox: true,
-       selectAllText: '<i class="fa fa-check fa-1x" aria-hidden="true"></i>',
-       deselectAllText: '<i class="fa fa-times fa-1x" aria-hidden="true"></i>',
-       size: 5,
-       windowPadding: ['top', 'right', 'bottom', 'left'],
-       dropdownAlignRight: true,
-       style: 'multiple-select'
-    });
- 
-    $('#btnFilterDateTime').click(function(){
-       var jParams = JSON.stringify({
-          daterange: $('#dateRange').val(),
-       });
-       
-       bindDateTimeFilter(jParams);
-    });
-    
 });
