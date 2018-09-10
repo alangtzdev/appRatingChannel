@@ -650,7 +650,7 @@ class TransmitionController extends Controller
             }
          }
          //*** END FOREACH GRAPHICS ***//    
-         return redirect('admin/reports/reportTable')->with('datas', $table);;
+         return redirect('admin/reports/reportTable')->with('datas', $table);
       //      dd($table);
    }
 
