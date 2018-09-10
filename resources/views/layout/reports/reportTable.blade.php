@@ -60,69 +60,52 @@
 		  </div>
 	 </div>
 </div>
+@if (Session::has('datas'))
 <div class="row">
 	 <div class="col-md-12 col-lg-12">
+		 @foreach (Session::get('datas')->all() as $datas)
 		  <div class="table-scrollable">
-				<table class="table table-striped table-bordered table-advance table-hover">
-					 <thead class="" >
-						  <tr>
-								<th class="text-center"> HORA\DIA</th>
-								<th class="text-center">Lunes</th>
-								<th class="text-center">Martes</th>
-								<th class="text-center">Miercoles</th>
-								<th class="text-center">Jueves</th>
-								<th class="text-center">Viernes</th>
-								<th class="text-center">Sabado</th>
-								<th class="text-center">Domingo</th>
-						  </tr>
-					 </thead>
-					 <tbody>
-						  <tr>
-								<td>
-									 <a href="javascript:;"> 7:00 </a>
-								</td>
-								<td class="hidden-xs">
-									 528.48    
-									 <p>Programa pagado</p>
-								</td>
-								<td> 
-									 85.52 
-									 <p>Programa pagado</p>
-									 {{-- <span class="label label-sm label-success label-mini"> Paid </span> --}}
-								</td>
-								<td>
-									 373.42    
-									 <p>Programa pagado</p>
-								</td>
-								<td>
-									 124.90    
-									 <p>Programa pagado</p>
-								</td>
-								<td>
-									 294.48    
-									 <p>Programa pagado</p>
-								</td>
-								<td>
-									 0.0   
-									 <p>Programa pagado</p>
-								</td>
-								<td>
-									 0.0   
-									 <p>Programa pagado</p>
-								</td>
-						  </tr>
-					 </tbody>
+			  <table class="table table-striped table-bordered table-advance table-hover">
+				  <thead class="" >
+					  <tr>
+						  <th class="text-center"> HORA\DIA</th>
+						  @foreach ($datas['Days'] as $day)
+						  <th class="text-center">{{ $day }}</th>
+						  @endforeach
+						</tr>
+					</thead>
+					<tbody>
+						@foreach ($datas['Times'] as $time)
+						<tr>
+							<td>
+								<p><strong> {{ $time }} </strong></p>
+							</td>
+							@foreach ($datas['Datos'] as $datos)
+							<td>
+								@foreach ($datos['dayDatas'] as $dayDatas)
+									@if($dayDatas['time'] == $time)
+										@foreach ($dayDatas['timeDatas'] as $timeDatas)
+											<div class="mt-element-ribbon bg-grey-steel">
+                                                <div class="ribbon ribbon-border-hor ribbon-clip ribbon-color-success uppercase">
+                                                    <div class="ribbon-sub ribbon-clip"></div>{{ $timeDatas['AA'] }}</div>
+                                                <p class="ribbon-content">{{ $timeDatas['program'] }}</p>
+                                            </div>
+										@endforeach
+									@endif
+								@endforeach
+							</td>
+							@endforeach
+						</tr>
+						@endforeach
+					</tbody>
 				</table>
-				@if (session('datas'))
-					@foreach (Session::get('datas')->all() as $data)
-              	 <li>{{ $data }}</li>
-               @endforeach
-				@endif
-		  </div>
-	 </div>
-</div>
-@endsection
-@section('scripts')   
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<script src="{{asset('js/reportTable.js')}}" type="text/javascript"></script>
-@endsection
+			</div>
+			@endforeach
+		</div>
+	</div>
+	@endif
+	@endsection
+	@section('scripts')   
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+	<script src="{{asset('js/reportTable.js')}}" type="text/javascript"></script>
+	@endsection
