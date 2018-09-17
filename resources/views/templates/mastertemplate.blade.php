@@ -182,12 +182,12 @@
                                                             <span class="title">Day Time</span>
                                                       </a>
                                                 </li>
-                                                <li class="nav-item {{Request::is('admin/reports/mapaReport') ? 'start active open' : 'null'}}">
+                                                {{-- <li class="nav-item {{Request::is('admin/reports/mapaReport') ? 'start active open' : 'null'}}">
                                                       <a href="{{ route('mapaReport') }}" class="nav-link ">
                                                             <i class="fa fa-map" aria-hidden="true"></i> 
                                                             <span class="title">Report Map</span>
                                                       </a>
-                                                </li>
+                                                </li> --}}
                                                 <li class="nav-item {{Request::is('admin/reports/reportTable') ? 'start active open' : 'null'}}">
                                                       <a href="{{ route('reportTable') }}" class="nav-link ">
                                                             <i class="fa fa-table" aria-hidden="true"></i> 
