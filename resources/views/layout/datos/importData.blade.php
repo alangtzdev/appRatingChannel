@@ -17,7 +17,7 @@
                 <!-- BEGIN FORM-->
                 <form action="{{ route('importarDatosExcel') }}" class="form-horizontal form-bordered" method="post" enctype="multipart/form-data"> @csrf
  
-                    @if ($errors->any())
+                    {{-- @if ($errors->any())
                         <div class="alert alert-danger">
                             <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
                             <ul>
@@ -25,6 +25,12 @@
                                     <li>{{ $error }}</li>
                                 @endforeach
                             </ul>
+                        </div>
+                    @endif --}}
+                    @if (Session::has('error'))
+                        <div class="alert alert-danger">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                            <p>{{ Session::get('error') }}</p>
                         </div>
                     @endif
      

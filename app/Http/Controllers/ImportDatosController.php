@@ -37,35 +37,45 @@ class ImportDatosController extends Controller
        foreach ($data->toArray() as $key => $row) 
       {
 
-        $id_program_= DB::table('Programs')->select('id_Program')->where("name","=",$row['id_program'])->first()->id_Program;
-        $id_typetransmition_= DB::table('TypeTransmition')->select('id_TypeTransmition')->where("nameTransmition","=",$row['id_typetransmition'])->first()->id_TypeTransmition;
+        //$id_program_= DB::table('Programs')->select('id_Program')->where("name","=",$row['id_program'])->first()->id_Program;
+        $id_program_= DB::table('Programs')->where('name',$row['id_program'])->value('id_Program'); 
+        $id_typetransmition_= DB::table('TypeTransmition')->where("nameTransmition",$row['id_typetransmition'])->value('id_TypeTransmition');
         
-        $insert[] = [
-          'id_Program' => $id_program_,
-          'id_TypeTransmition' => $id_typetransmition_,
-          'day' => $row['day'],
-          'nationalTime' => $row['nationaltime'],
-          'runTime' => $row['runtime'],
-          'RTG' => $row['rtg'],
-          'SH' => $row['sh'],
-          'percentReach' => $row['percentreach'],
-          'AVGpercentViewed' => $row['avgpercentviewed'],
-          'HH' => $row['hh'],
-          'AA' =>  $row['aa'],
-          'totalHoursViewed' => $row['totalhoursviewed'],
-          'created_at' =>  Carbon::today()
-          ];
 
-                if(!empty($insert)) {
-                    $insertData = DB::table('Transmitions')->insert($insert);
-                    if ($insertData) {
-                      return back()->with('success', 'Sus datos se importaron con éxito');
-                    }else {                        
-                      return back()->with('error', 'Error al insertar los datos ...');
-                      return back();
-                    }
-                } 
+        if ($id_program_ && $id_typetransmition_) {
+          $insert[] = [
+            'id_Program' => $id_program_,
+            'id_TypeTransmition' => $id_typetransmition_,
+            'day' => $row['day'],
+            'nationalTime' => $row['nationaltime'],
+            'runTime' => $row['runtime'],
+            'RTG' => $row['rtg'],
+            'SH' => $row['sh'],
+            'percentReach' => $row['percentreach'],
+            'AVGpercentViewed' => $row['avgpercentviewed'],
+            'HH' => $row['hh'],
+            'AA' =>  $row['aa'],
+            'totalHoursViewed' => $row['totalhoursviewed'],
+            'created_at' =>  Carbon::today()
+            ]; 
+        } else {
+          return back()->with('error', 'Error no existe "'.$row['id_program'].'" en nuestra base de datos');
+          return back();
+            # code...
+          }
+      
+        }//each
+        // }  
+        // if ($insertData) {
+        if(!empty($insert)){
+              $insertData = DB::table('Transmitions')->insert($insert);
+        return back()->with('success', 'Sus datos se importaron con éxito');
+        }else {                        
+        return back()->with('error', 'Error al insertar los datos ...');
+        return back();
         }
+       
+       
       } else{
         return back()->with('error', 'Error al importar archivo');
       }
