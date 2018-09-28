@@ -8,6 +8,7 @@ use App\Models\Transmition;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Contracts\Routing\ResponseFactory;
+use App\Models\{Program};
 use Carbon\Carbon;
 use Session;
 class ImportDatosController extends Controller
@@ -34,14 +35,25 @@ class ImportDatosController extends Controller
      $path = $request->file('fileTransmition')->getRealPath();
      $data = Excel::load($path, function($reader) {})->get();
       if(!empty($data) && $data->count()){
-       foreach ($data->toArray() as $key => $row) 
+        foreach ($data->toArray() as $key => $row) 
       {
-
         //$id_program_= DB::table('Programs')->select('id_Program')->where("name","=",$row['id_program'])->first()->id_Program;
         $id_program_= DB::table('Programs')->where('name',$row['id_program'])->value('id_Program'); 
         $id_typetransmition_= DB::table('TypeTransmition')->where("nameTransmition",$row['id_typetransmition'])->value('id_TypeTransmition');
-        
-
+        if (!$id_program_ ) {
+          Program::create([
+            'id_Gender'=>1,
+            'name'=>$row['id_program'],
+            'description'=>''
+          ]);
+        } else {
+          }     
+        }//each
+       foreach ($data->toArray() as $key => $row) 
+      {
+        //$id_program_= DB::table('Programs')->select('id_Program')->where("name","=",$row['id_program'])->first()->id_Program;
+        $id_program_= DB::table('Programs')->where('name',$row['id_program'])->value('id_Program'); 
+        $id_typetransmition_= DB::table('TypeTransmition')->where("nameTransmition",$row['id_typetransmition'])->value('id_TypeTransmition');
         if ($id_program_ && $id_typetransmition_) {
           $insert[] = [
             'id_Program' => $id_program_,
@@ -62,11 +74,8 @@ class ImportDatosController extends Controller
           return back()->with('error', 'Error no existe "'.$row['id_program'].'" en nuestra base de datos');
           return back();
             # code...
-          }
-      
+          }     
         }//each
-        // }  
-        // if ($insertData) {
         if(!empty($insert)){
               $insertData = DB::table('Transmitions')->insert($insert);
         return back()->with('success', 'Sus datos se importaron con éxito');
