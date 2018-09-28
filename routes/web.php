@@ -32,9 +32,9 @@ Route::post('importData', 'ImportDatosController@importarDatosExcel')->name('imp
 
 Route::prefix('admin')->group(function () {
    Route::get('/dashboard', 'Controller@getDashboard')->name('dashboard');
-   Route::get('/users', 'UsersController@getUsers')->name('users');
-   Route::get('usercreate', 'UsersController@getUserCreate')->name('usercreate');
-   Route::get('useredit/{id}', 'UsersController@getUserEdit')->name('useredit');
+   Route::get('users/users', 'UsersController@getUsers')->name('users');
+   Route::get('users/usercreate', 'UsersController@getUserCreate')->name('usercreate');
+   Route::get('users/useredit/{id}', 'UsersController@getUserEdit')->name('useredit');
    Route::get('reports/datetimepickers', 'ReportsController@getDateTimePickers')->name('datetimepickers');
    Route::get('reports/reportTable', 'ReportsController@getReportTable')->name('reportTable');
    Route::get('datos/importData', 'ImportDatosController@getImportData')->name('importData');
