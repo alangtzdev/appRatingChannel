@@ -23,31 +23,46 @@
 				</div>
 				<div class="portlet-body form">
 					 <!-- BEGIN FORM-->
-					 <form action="{{ route('reporttime') }}" class="form-horizontal form-bordered frm_time_table" method="post">
+					 <form action="#" class="form-horizontal form-bordered frm_time_table" method="post">
 						  <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
 						  <div class="form-body">
 								<div class="form-group">
 									 <div class="col-md-3 col-lg-3 text-center hidden-xs hidden-sm">
 										  <label><strong>Meses</strong></label>
 									 </div>
+									 <div class="col-md-3 col-lg-3 text-center hidden-xs hidden-sm">
+										  <label><strong>Rango</strong></label>
+									 </div>
 								</div>
 								<div class="form-group last">
 									 <div class="col-md-3 col-lg-3 text-center">
-										  <div class="input-group">
-												<input id="dateRange" type="text" name="daterange" class="form-control" />
-												<span class="input-group-btn">
-													 <button class="btn default" type="button">
-														  <i class="fa fa-calendar"></i>
-													 </button>
-												</span>
-										  </div>
-									 </div>
+										<div class="input-group">
+											<input id="dateRange" type="text" name="daterange" class="form-control" />
+											<span class="input-group-btn">
+												<button class="btn default" type="button">
+													<i class="fa fa-calendar"></i>
+												</button>
+											</span>
+										</div>
+									</div>
+									<div class="col-md-3 col-lg-3 text-center">
+										<label class="hidden-md hidden-lg"><strong>Duración</strong></label>
+										<select id="cboRangeHours" class="form-control selectpicker show-tick" name="rangeHours">
+											<option value="06:00 - 09:00">Early Morning (6AM – 9AM)</option>
+											<option value="09:00 - 16:00">Daytime (9AM – 4PM)</option>
+											<option value="16:00 - 19:00">Early Fringe (4PM – 7PM)</option>
+											<option value="19:00 - 20:00">Prime Access (7PM – 8PM)</option>
+											<option value="20:00 - 23:00">Prime (8PM – 11PM)</option>
+											<option value="23:00 - 02:00">Late Fringe (11PM – 2AM)</option>
+											<option value="02:00 - 06:00">Overnight (2AM – 6AM)</option>
+										</select>
+									</div>
 								</div>
 						  </div>
 						  <div class="form-actions">
 								<div class="row">
 									 <div class="col-md-offset-9 col-md-3 text-right">
-										  <button id="btnFilterReportTime" type="submit" class="btn btn-success">
+										  <button id="btnFilterReportTime" type="button" class="btn btn-success">
 												<i class="fa fa-check"></i> Aceptar
 										  </button>
 										  <button type="button" class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i> Cancel</button>
@@ -60,13 +75,19 @@
 		  </div>
 	 </div>
 </div>
+<div class="row">
+	<div class="col-md-12 col-lg-12">
+		<div id="divReportTable" class="table-scrollable">
+		</div>
+	</div>
+</div>
 @if (Session::has('datas'))
 <div class="row">
 	 <div class="col-md-12 col-lg-12">
 		 @foreach (Session::get('datas')->all() as $datas)
 		  <div class="table-scrollable">
 			  <table class="table table-striped table-bordered table-advance table-hover">
-				  <thead class="" >
+				  <thead id="theadReportTa" class="" >
 					  <tr>
 						  <th class="text-center"> HORA\DIA</th>
 						  @foreach ($datas['Days'] as $day)
@@ -88,7 +109,7 @@
 											<div class="mt-element-ribbon bg-grey-steel">
                                                 <div class="ribbon ribbon-border-hor ribbon-clip ribbon-color-success uppercase">
                                                     <div class="ribbon-sub ribbon-clip"></div>{{ $timeDatas['AA'] }}</div>
-                                                <p class="ribbon-content">{{ $timeDatas['program'] }}</p>
+                                                <p class="ribbon-content">{{ $timeDatas['program'] }}<4/p>
                                             </div>
 										@endforeach
 									@endif
