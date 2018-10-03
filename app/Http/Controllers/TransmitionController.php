@@ -394,37 +394,46 @@ class TransmitionController extends Controller
     if($request->ajax()){
       $dates = explode(' - ',$request->daterange);
       $hours = explode(' - ',$request->rangeHours);
-
+      
       $date_start = Carbon::parse($dates[0]);
       $date_end = Carbon::parse($dates[1]);
       $hour_start = Carbon::createFromFormat('H:i', $hours[0])->toTimeString();
       $hour_end = Carbon::createFromFormat('H:i', $hours[1])->toTimeString();
-
+      
       $transmitions = DB::table('transmitions')
-          ->join('programs', 'transmitions.id_Program', '=', 'programs.id_Program')
-          ->join('typetransmition', 'transmitions.id_TypeTransmition', '=', 'typetransmition.id_TypeTransmition')
-          ->select('programs.name as program_name', 'transmitions.day', 'transmitions.AA',
+      ->join('programs', 'transmitions.id_Program', '=', 'programs.id_Program')
+      ->join('typetransmition', 'transmitions.id_TypeTransmition', '=', 'typetransmition.id_TypeTransmition')
+      ->select('programs.name as program_name', 'transmitions.day', 'transmitions.AA',
                   'transmitions.nationalTime')
-          ->whereDate('transmitions.day', '>=', $date_start)
-          ->whereDate('transmitions.day', '<=', $date_end)
+                  ->whereDate('transmitions.day', '>=', $date_start)
+                  ->whereDate('transmitions.day', '<=', $date_end)
           ->whereTime('transmitions.nationalTime', '>=', $hour_start)
           ->whereTime('transmitions.nationalTime', '<=', $hour_end)
           ->get();
 
-      $table = collect([]);
+          $table = collect([]);
       $helptimes = collect([]);
-      $helpDias = [ 0 => 'Domingo', 1 => 'Lunes', 2 => 'Martes', 3 => 'Miercoles', 4 => 'Jueves', 5 => 'Viernes', 6 => 'Sábado' ];
-
+      $helpDiasInt = [ 0 => 1, 1 => 2, 2 => 3, 3 => 4, 4 => 5, 5 => 6, 6 => 0 ];
+      $helpDias = [ 0 => 'Lunes', 1 => 'Martes', 2 => 'Miercoles', 3 => 'Jueves', 4 => 'Viernes', 5 => 'Sábado', 6 => 'Domingo' ];
+      
+      
       foreach($transmitions as $transmition){
-          $dayParse = Carbon::parse($transmition->day);
-          $dayString = '';
-          $time = $transmition->nationalTime;
+        $dayParse = Carbon::parse($transmition->day);
+        $_dayString = '';
+        $_dayInt = '';
+        $time = $transmition->nationalTime;
+        
+        foreach($helpDiasInt as $keyDayInt=>$itemDayInt){
+          if($itemDayInt == $dayParse->dayOfWeek){
+            $_dayInt = $keyDayInt;
 
-          foreach($helpDias as $keyDay=>$itemDay){
-            if($keyDay == $dayParse->dayOfWeek){
-                $dayString = $itemDay;
+            foreach($helpDias as $keyDayString=>$itemDayString){
+              if($keyDayString == $_dayInt){
+               $_dayString =  $itemDayString;
+              }
             }
           }
+        }
 
           //*** --------------------------------------------------------------- ***//
 
@@ -449,12 +458,12 @@ class TransmitionController extends Controller
             foreach($table as $keyGraphic=>$itemGraphic){
                 $datos = array_get($itemGraphic, 'Datos');
                 //*** INIT IF DATOS ***//
-                if($datos->contains('day', $dayParse->dayOfWeek)){
+                if($datos->contains('day', $_dayInt)){
                   //*** INIT FOREACH DATOS ***//
                   foreach($datos as $keyDato=>$itemDato){
                       $dayInt = array_get($itemDato, 'day');
                       //*** INIT IF DAYINT ***//
-                      if($dayInt == $dayParse->dayOfWeek){
+                      if($dayInt == $_dayInt){
                         $dayDatas = array_get($itemDato, 'dayDatas');
                         //*** INIT IF DAYDATAS ***//
                         if($dayDatas->contains('time', $time)){
@@ -516,7 +525,8 @@ class TransmitionController extends Controller
                   //*** END FOREACH DATOS ***//
                 }else{
                   $datos->push([
-                      'day' => $dayParse->dayOfWeek,
+                      'day' => $_dayInt,
+                      'dia' => $_dayString,
                       'dayDatas' => collect([
                         [
                             'time' => $time,
@@ -540,7 +550,8 @@ class TransmitionController extends Controller
                 'Times' => collect([]),
                 'Datos' => collect([
                   [
-                      'day' => $dayParse->dayOfWeek,
+                      'day' => $_dayInt,
+                      'dia' => $_dayString,
                       'dayDatas' => collect([
                         [
                             'time' => $time,
@@ -597,35 +608,35 @@ class TransmitionController extends Controller
 
       //*** SORTS BY TIME ***//
 
-      //*** INIT FOREACH GRAPHICS ***//
-      foreach($table as $keyTable=>$itemTable){
-          $datos = array_get($itemTable, 'Datos');
-          //*** INIT FOREACH DATOS ***//
-          foreach($datos as $keyDato=>$itemDato){
-            $dayDatas = array_get($itemDato, 'dayDatas');
-            $sortedTime = $dayDatas->sortBy('time');
+      // //*** INIT FOREACH GRAPHICS ***//
+      // foreach($table as $keyTable=>$itemTable){
+      //     $datos = array_get($itemTable, 'Datos');
+      //     //*** INIT FOREACH DATOS ***//
+      //     foreach($datos as $keyDato=>$itemDato){
+      //       $dayDatas = array_get($itemDato, 'dayDatas');
+      //       $sortedTime = $dayDatas->sortBy('time');
 
-            array_set($itemDato, 'dayDatas', $sortedTime);
-            $datos->put($keyDato, $itemDato);
-          }
+      //       array_set($itemDato, 'dayDatas', $sortedTime);
+      //       $datos->put($keyDato, $itemDato);
+      //     }
           
-          //*** END FOREACH DATOS ***//
-      }
-      //*** END FOREACH GRAPHICS ***//
+      //     //*** END FOREACH DATOS ***//
+      // }
+      // //*** END FOREACH GRAPHICS ***//
 
       //*** --------------------------------------------------------------- ***//
 
       //*** SORTS BY DAY ***//
 
-      //*** INIT FOREACH GRAPHICS ***//
-      foreach($table as $keyTable=>$itemTable){
-          $datos = array_get($itemTable, 'Datos');
-          $sortedDay = $datos->sortBy('day');
-          array_set($itemTable, 'Datos', $sortedDay);
-          $table->put($keyTable, $itemTable);
-          //*** END FOREACH DATOS ***//
-        }
-        //*** END FOREACH GRAPHICS ***//
+      // //*** INIT FOREACH GRAPHICS ***//
+      // foreach($table as $keyTable=>$itemTable){
+      //     $datos = array_get($itemTable, 'Datos');
+      //     $sortedDay = $datos->sortBy('day');
+      //     array_set($itemTable, 'Datos', $sortedDay);
+      //     $table->put($keyTable, $itemTable);
+      //     //*** END FOREACH DATOS ***//
+      //   }
+      //   //*** END FOREACH GRAPHICS ***//
         
         //*** --------------------------------------------------------------- ***//
         

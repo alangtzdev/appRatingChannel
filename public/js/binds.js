@@ -168,7 +168,7 @@ function bindReportTableFilter(jParams) {
                       ).append(`<div class="mt-element-ribbon bg-grey-steel">
                         <div class="ribbon ribbon-border-hor ribbon-clip ribbon-color-success uppercase">
                             <div class="ribbon-sub ribbon-clip"></div>
-                            <p>${timedatas.AA.toFixed(2)}</p>
+                            ${timedatas.AA.toFixed(2)}
                         </div>
                         <p class="ribbon-content">${timedatas.program}</p>
                     </div>`);
