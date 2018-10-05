@@ -404,14 +404,15 @@ class TransmitionController extends Controller
       ->join('programs', 'transmitions.id_Program', '=', 'programs.id_Program')
       ->join('typetransmition', 'transmitions.id_TypeTransmition', '=', 'typetransmition.id_TypeTransmition')
       ->select('programs.name as program_name', 'transmitions.day', 'transmitions.AA',
-                  'transmitions.nationalTime')
+                  'transmitions.nationalTime', 'transmitions.runTime')
                   ->whereDate('transmitions.day', '>=', $date_start)
                   ->whereDate('transmitions.day', '<=', $date_end)
           ->whereTime('transmitions.nationalTime', '>=', $hour_start)
           ->whereTime('transmitions.nationalTime', '<=', $hour_end)
           ->get();
-
-          $table = collect([]);
+          
+      $table = collect([]);
+      $programs = collect([]);
       $helptimes = collect([]);
       $helpDiasInt = [ 0 => 1, 1 => 2, 2 => 3, 3 => 4, 4 => 5, 5 => 6, 6 => 0 ];
       $helpDias = [ 0 => 'Lunes', 1 => 'Martes', 2 => 'Miercoles', 3 => 'Jueves', 4 => 'Viernes', 5 => 'Sábado', 6 => 'Domingo' ];
@@ -475,7 +476,7 @@ class TransmitionController extends Controller
                                   $timeDatas = array_get($itemDayData, 'timeDatas');
                                   //*** INIT IF TIMEDATAS ***//
                                   if($timeDatas->contains('program', $transmition->program_name)){
-                                    //*** INIT FOREACH TIMEDATAS ***//
+                                    //*** INIT FOREACH TIMEDATAS ***//hy
                                     foreach($timeDatas as $keyTimeData=>$itemTimeData){
 
                                         $_program = array_get($itemTimeData, 'program');
@@ -498,6 +499,7 @@ class TransmitionController extends Controller
                                     $timeDatas->push([
                                         'program' => $transmition->program_name,
                                         'AA' => $transmition->AA,
+                                        'runTime' => $transmition->runTime,
                                         'count' => 1
                                     ]);
                                   }
@@ -513,6 +515,7 @@ class TransmitionController extends Controller
                                   [
                                     'program' => $transmition->program_name,
                                     'AA' => $transmition->AA,
+                                    'runTime' => $transmition->runTime,
                                     'count' => 1
                                   ]
                               ])
@@ -534,6 +537,7 @@ class TransmitionController extends Controller
                               [
                                   'program' => $transmition->program_name,
                                   'AA' => $transmition->AA,
+                                  'runTime' => $transmition->runTime,
                                   'count' => 1
                               ]
                             ])
@@ -546,6 +550,7 @@ class TransmitionController extends Controller
             //*** END FOREACH GRAPHICS ***//
           }else{
             $table->prepend([
+                'MorePrograms' => collect([]),
                 'Days' => collect([]),
                 'Times' => collect([]),
                 'Datos' => collect([
@@ -559,6 +564,7 @@ class TransmitionController extends Controller
                               [
                                   'program' => $transmition->program_name,
                                   'AA' => $transmition->AA,
+                                  'runTime' => $transmition->runTime,
                                   'count' => 1
                               ]
                             ])
@@ -584,25 +590,165 @@ class TransmitionController extends Controller
             $dayDatas = array_get($itemDato, 'dayDatas');
             //*** INIT FOREACH DAYDATAS ***//
             foreach($dayDatas as $keyDayData=>$itemDayData){
-                $timeDatas = array_get($itemDayData, 'timeDatas');
-                //*** INIT FOREACH TIMEDATAS ***//
-                foreach($timeDatas as $keyTimeData=>$itemTimeData){
-                  $AA = array_get($itemTimeData, 'AA');
-                  $count = array_get($itemTimeData, 'count');
+              $timeDatas = array_get($itemDayData, 'timeDatas');
+              //*** INIT FOREACH TIMEDATAS ***//
+              foreach($timeDatas as $keyTimeData=>$itemTimeData){
+                $AA = array_get($itemTimeData, 'AA');
+                $count = array_get($itemTimeData, 'count');
 
-                  $result = $AA / $count;
+                $result = $AA / $count;
 
-                  array_set($itemTimeData, 'AA', $result);
+                array_set($itemTimeData, 'AA', $result);
 
-                  $timeDatas->put($keyTimeData, $itemTimeData);
-                }
-                //*** END FOREACH TIMEDATAS ***//
+                $timeDatas->put($keyTimeData, $itemTimeData);
+              }
+              //*** END FOREACH TIMEDATAS ***//
             }
             //*** END FOREACH DAYDATAS ***//
           }
           //*** END FOREACH DATOS ***//
       }
       //*** END FOREACH GRAPHICS ***//
+
+      //*** --------------------------------------------------------------- ***//
+
+      //*** ADD PROGRAMS WITH MORE 30MIN IN OTHER ARRAY ***//
+
+      //*** INIT FOREACH GRAPHICS ***//
+      foreach($table as $keyTable=>$itemTable){
+        $datos = array_get($itemTable, 'Datos');
+        //*** INIT FOREACH DATOS ***//
+        foreach($datos as $keyDato=>$itemDato){
+          $dayInt = array_get($itemDato, 'day');
+          $dayString = array_get($itemDato, 'dia');
+          $dayDatas = array_get($itemDato, 'dayDatas');
+          //*** INIT FOREACH DAYDATAS ***//
+          foreach($dayDatas as $keyDayData=>$itemDayData){
+
+            $time = array_get($itemDayData, 'time');
+            $timeDatas = array_get($itemDayData, 'timeDatas');
+            //*** INIT FOREACH TIMEDATAS ***//
+            foreach($timeDatas as $keyTimeData=>$itemTimeData){
+              $_runTime = array_get($itemTimeData, 'runTime');
+              
+              if($_runTime > 30){
+                $numRep = ($_runTime / 30) - 1;
+                $AA = array_get($itemTimeData, 'AA');
+                $count = array_get($itemTimeData, 'count');
+                $program = array_get($itemTimeData, 'program');
+                
+                for($i=1; $i<=$numRep; $i++){
+                  $resMin = 30 * $i;
+                  $timeParse = Carbon::createFromFormat('H:i:s', $time)->addMinutes($resMin)->toTimeString();
+                  array_set($itemTimeData, 'timeRep', $timeParse);
+
+                  $programs->prepend([
+                    'day' => $dayInt,
+                    'dia' => $dayString,
+                    'time' => $timeParse,
+                    'program' => $program,
+                    'AA' => $AA,
+                    'runTime' => $_runTime,
+                    'count' => $count
+                  ]);
+                }
+              }
+            }
+            //*** END FOREACH TIMEDATAS ***//
+          }
+          //*** END FOREACH DAYDATAS ***//
+        }
+        //*** END FOREACH DATOS ***//
+      }
+      //*** END FOREACH GRAPHICS ***//
+
+      //*** --------------------------------------------------------------- ***//
+
+      //*** ADD PROGRAMS IN ARRAY TABLE ***//
+
+      //*** INIT FOREACH GRAPHICS ***//
+      foreach($table as $keyTable=>$itemTable){
+        $datos = array_get($itemTable, 'Datos');
+        //*** INIT FOREACH DATOS ***//
+        foreach($datos as $keyDato=>$itemDato){
+          //*** INIT FOREACH PROGRAMS ***//
+          foreach($programs as $keyPrograms=>$itemPrograms){
+
+            $dayIntProgram = array_get($itemPrograms, 'day');
+            $dayStringProgram = array_get($itemPrograms, 'dia');
+            $timeProgram = array_get($itemPrograms, 'time');
+            $programProgram = array_get($itemPrograms, 'program');
+            $runTimeProgram = array_get($itemPrograms, 'runTime');
+            $AAProgram = array_get($itemPrograms, 'AA');
+            $countProgram = array_get($itemPrograms, 'count');
+
+            $dayIntTable = array_get($itemDato, 'day');
+            $dayStringTable = array_get($itemDato, 'dia');
+            $dayDatasTable = array_get($itemDato, 'dayDatas');
+            //*** INIT IF DAYINTPROGRAM EQUAL DAYINTTABLE ***//
+            if($dayIntProgram == $dayIntTable){
+              //*** INIT IF DAYDATAS ***//
+              if($dayDatasTable->contains('time', $timeProgram)){
+                //*** INIT FOREACH DAYDATAS ***//
+                foreach($dayDatasTable as $keyDayData=>$itemDayData){
+                  $timeTable = array_get($itemDayData, 'time');
+                
+                  //*** INIT IF TIMEPROGRAM EQUAL TIMETABLE ***//
+                  if($timeProgram == $timeTable){
+                    $timeDatasTable = array_get($itemDayData, 'timeDatas');
+
+                    $timeDatasTable->push([
+                      'program' => $programProgram,
+                      'AA' => $AAProgram,
+                      'runTime' => $runTimeProgram,
+                      'count' => $countProgram
+                    ]);
+                    //*** END FOREACH TIMEDATAS ***//
+                  }
+                  //*** END IF TIMEPROGRAM EQUAL TIMETABLE ***//
+                }
+                //*** END FOREACH DAYDATAS ***//
+              }
+              else{
+                if(!$helptimes->contains($timeProgram)){
+                  $helptimes->push($timeProgram);
+                }
+                $dayDatasTable->push([
+                  'time' => $timeProgram,
+                  'timeDatas' => collect([
+                    [
+                      'program' => $programProgram,
+                      'AA' => $AAProgram,
+                      'runTime' => $runTimeProgram,
+                      'count' => $countProgram
+                    ]
+                  ])
+                ]);
+              }
+              //*** INIT IF DAYINTPROGRAM EQUAL DAYINTTABLE ***//
+            }
+            //*** END IF DAYINTPROGRAM EQUAL DAYINTTABLE ***//
+          }
+          //*** END FOREACH PROGRAMS ***//
+        }
+        //*** END FOREACH DATOS ***//
+      }
+      //*** END FOREACH GRAPHICS ***//
+
+      //*** --------------------------------------------------------------- ***//
+
+      //*** ADD ARRAY PROGRAMS IN ARRAY MOREPROGRAMS ***//
+        
+        //*** INIT FOREACH GRAPHICS ***//
+        foreach($table as $keyTable=>$itemTable){
+          
+          $morePrograms = array_get($itemTable, 'MorePrograms');
+          
+          foreach($programs as $keyPrograms=>$itemPrograms){
+            $morePrograms->push($itemPrograms);
+          }
+      }
+      //*** END FOREACH GRAPHICS ***//    
 
       //*** --------------------------------------------------------------- ***//
 

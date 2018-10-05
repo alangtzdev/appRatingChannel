@@ -170,7 +170,9 @@ function bindReportTableFilter(jParams) {
                             <div class="ribbon-sub ribbon-clip"></div>
                             ${timedatas.AA.toFixed(2)}
                         </div>
-                        <p class="ribbon-content">${timedatas.program}</p>
+                        <p class="ribbon-content">${
+                          timedatas.program
+                        } - <strong>${timedatas.runTime}</strong></p>
                     </div>`);
                     }
                   );

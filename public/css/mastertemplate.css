@@ -1,18 +1,24 @@
 .form-horizontal .form-body .form-group.form-md-line-input {
-   padding-top: 0px;
+  padding-top: 0px;
 }
 
-.multiple-select{
-   border: 0 !important;
-   border-bottom: 1px solid #327ad5 !important;
-   color: #555 !important;
-   background-color: white;
+.multiple-select {
+  border: 0 !important;
+  border-bottom: 1px solid #327ad5 !important;
+  color: #555 !important;
+  background-color: white;
 }
 
-.btn-group>.btn:not(.md-skip) {
-   box-shadow: none;
+.btn-group > .btn:not(.md-skip) {
+  box-shadow: none;
 }
 
 .portlet .tools > a.collapse {
-   color: white;
+  color: white;
+}
+
+.mt-element-ribbon .ribbon-content {
+  margin: 0;
+  padding: 8px !important;
+  clear: both;
 }
