@@ -29,30 +29,34 @@ class ImportDatosController extends Controller
       return view('layout.datos.importData');
    }
 
-   public function importarDatosExcel(Request $request){
+   public function imp_ortarDatosExcel__(Request $request){
      $request->validate(['fileTransmition'=>'required']);
      
      $path = $request->file('fileTransmition')->getRealPath();
-     $data = Excel::load($path, function($reader) {})->get();
+     $data = Excel::load($path, function($reader) {$reader->ignoreEmpty();})->get();
       if(!empty($data) && $data->count()){
         foreach ($data->toArray() as $key => $row) 
       {
-        //$id_program_= DB::table('Programs')->select('id_Program')->where("name","=",$row['id_program'])->first()->id_Program;
-        $id_program_= DB::table('Programs')->where('name',$row['id_program'])->value('id_Program'); 
+        $id_program_= DB::table('Programs')->where($this->eliminar_simbolos("name"),$this->eliminar_simbolos($row['id_program']))->value('id_Program');
+        // $id_program_= DB::table('Programs')->where('name',$row['id_program'])->value('id_Program'); 
         $id_typetransmition_= DB::table('TypeTransmition')->where("nameTransmition",$row['id_typetransmition'])->value('id_TypeTransmition');
-        if (!$id_program_ ) {
+        if ($id_program_ == NULL  || $id_program_ == 0) {
+          //dd($row['id_program']);
           Program::create([
             'id_Gender'=>1,
             'name'=>$row['id_program'],
             'description'=>''
           ]);
         } else {
+          // dd($row,$id_program_);
+         
           }     
         }//each
        foreach ($data->toArray() as $key => $row) 
       {
         //$id_program_= DB::table('Programs')->select('id_Program')->where("name","=",$row['id_program'])->first()->id_Program;
-        $id_program_= DB::table('Programs')->where('name',$row['id_program'])->value('id_Program'); 
+        // $id_program_= DB::table('Programs')->where('name',$row['id_program'])->value('id_Program'); 
+        $id_program_= DB::table('Programs')->where($this->eliminar_simbolos("name"),$this->eliminar_simbolos($row['id_program']))->value('id_Program'); 
         $id_typetransmition_= DB::table('TypeTransmition')->where("nameTransmition",$row['id_typetransmition'])->value('id_TypeTransmition');
         if ($id_program_ && $id_typetransmition_) {
           $insert[] = [
@@ -71,6 +75,7 @@ class ImportDatosController extends Controller
             'created_at' =>  Carbon::today()
             ]; 
         } else {
+          dd($row,$row['id_program'],$id_program_);
           return back()->with('error', 'Error no existe "'.$row['id_program'].'" en nuestra base de datos');
           return back();
             # code...
@@ -92,72 +97,132 @@ class ImportDatosController extends Controller
       
    
    }
+   
+   protected function eliminar_simbolos($string){
+ 
+    $string = trim($string);
+    
+ 
+    $string = str_replace(
+        array('á', 'à', 'ä', 'â', 'ª', 'Á', 'À', 'Â', 'Ä'),
+        array('a', 'a', 'a', 'a', 'a', 'A', 'A', 'A', 'A'),
+        $string
+    );
+ 
+    $string = str_replace(
+        array('é', 'è', 'ë', 'ê', 'É', 'È', 'Ê', 'Ë'),
+        array('e', 'e', 'e', 'e', 'E', 'E', 'E', 'E'),
+        $string
+    );
+ 
+    $string = str_replace(
+        array('í', 'ì', 'ï', 'î', 'Í', 'Ì', 'Ï', 'Î'),
+        array('i', 'i', 'i', 'i', 'I', 'I', 'I', 'I'),
+        $string
+    );
+ 
+    $string = str_replace(
+        array('ó', 'ò', 'ö', 'ô', 'Ó', 'Ò', 'Ö', 'Ô'),
+        array('o', 'o', 'o', 'o', 'O', 'O', 'O', 'O'),
+        $string
+    );
+ 
+    $string = str_replace(
+        array('ú', 'ù', 'ü', 'û', 'Ú', 'Ù', 'Û', 'Ü'),
+        array('u', 'u', 'u', 'u', 'U', 'U', 'U', 'U'),
+        $string
+    );
+ 
+    $string = str_replace(
+        array('ñ', 'Ñ', 'ç', 'Ç'),
+        array('n', 'N', 'c', 'C',),
+        $string
+    );
+ 
+    $string = str_replace(
+        array("\\", "¨", "º", "-", "~",
+             "#", "@", "|", "!", "\"",
+             "·", "$", "%", "&", "/",
+             "(", ")", "?", "'", "¡",
+             "¿", "[", "^", "<code>", "]",
+             "+", "}", "{", "¨", "´",
+             ">", "< ", ";", ",", ":",
+             ".", " "),' ',
+        $string
+    );
+    $string = str_replace(' ', '',$string);
 
-   //////////////////////////
-   public function importFile(Request $request){
-     // FIXME: OR DELETEME
-    $request->validate([
-      'fileTransmition' => 'required'
-   ]);
+   return strtoupper($string);
+  } 
+ 
+  public function importarDatosExcel(Request $request){
+    $request->validate(['fileTransmition'=>'required']);
+    $path = $request->file('fileTransmition')->getRealPath();
+    $data = Excel::load($path, function($reader) {$reader->ignoreEmpty();})->get();
 
+     if(!empty($data) && $data->count()){
+       foreach ($data->toArray() as $key => $row) 
+       {
+         $idNewProgram = 0;        
+         $id_program_= DB::table('Programs')->where($this->eliminar_simbolos("name"),$this->eliminar_simbolos($row['id_program']))->value('id_Program');
+         $id_typetransmition_= DB::table('TypeTransmition')->where("nameTransmition",$row['id_typetransmition'])->value('id_TypeTransmition');
 
-   $path = $request->file('fileTransmition')->getRealPath();
-   //$data = Excel::load($path)->get();
-   $data = \Excel::load($path)->get();
-   $parseData = $data->all();  
-   $arrTransmition = [];
-   //dd($data);
-   if($data->count()){
-      //dd($parseData);
-      foreach ($parseData as $key => $row) {
-         $flattened = array_dot($row);
+         if ($id_program_ !== NULL  || $id_program_ !== 0) {
+          $idNewProgram = $id_program_;
+          //dd($idNewProgram);
+         } else {
+          // $idGet = DB::table('Programs')->insertGetId(
+          //   ['id_Gender'=>1,
+          //   'name'=>$row['id_program'],
+          //   'description'=>'']);
+          //   $idNewProgram = $idGet->id_Program;
+        //  $newProgram =  Program::create([
+        //     'id_Gender'=>1,
+        //     'name'=>$row['id_program'],
+        //     'description'=>''
+        //   ]);
+        //  $idNewProgram = $newProgram->id_Program;
+        $id = DB::table('Programs')->insertGetId(
+          ['id_Gender'=>1,
+          'name'=>$row['id_program'],
+          'description'=>'']);
+          dd($id,$row);
+         }
+        //  dd($idNewProgram);
+         $insert[] = [
+          'id_Program' => $idNewProgram,
+          'id_TypeTransmition' => $id_typetransmition_,
+          'day' => $row['day'],
+          'nationalTime' => $row['nationaltime'],
+          'runTime' => $row['runtime'],
+          'RTG' => $row['rtg'],
+          'SH' => $row['sh'],
+          'percentReach' => $row['percentreach'],
+          'AVGpercentViewed' => $row['avgpercentviewed'],
+          'HH' => $row['hh'],
+          'AA' =>  $row['aa'],
+          'totalHoursViewed' => $row['totalhoursviewed'],
+          'created_at' =>  Carbon::today()
+          ]; 
+        
+       }//end-->each
 
-         $id_program = array_get($flattened, 'id_program');
-         $id_typetransmition = array_get($flattened, 'id_typetransmition');
-         $day = array_get($row, 'day');
-         $nationaltime = array_get($flattened, 'nationaltime');
-         $runtime = array_get($flattened, 'runtime');
-         $rtg = array_get($flattened, 'rtg');
-         $sh = array_get($flattened, 'sh');
-         $percentreach = array_get($flattened, 'percentreach');
-         $avgpercentview = array_get($flattened, 'avgpercentview');
-         $hh = array_get($flattened, 'hh');
-         $aa = array_get($flattened, 'aa');
-         $totalhoursviewed = array_get($flattened, 'totalhoursviewed');
-         $arrTransmition = array_prepend($arrTransmition,
-                                         [
-                                            'id_Program' => (int)array_get($flattened, 'id_program'),
-                                            'id_TypeTransmition' => (int)array_get($flattened, 'id_typetransmition'),
-                                            'day' => array_get($row, 'day'),
-                                            'nationalTime' => $nationaltime,
-                                            'runTime' => array_get($flattened, 'runtime'),
-                                            'RTG' => array_get($flattened, 'rtg'),
-                                            'SH' => array_get($flattened, 'sh'),
-                                            'percentReach' => array_get($flattened, 'percentreach'),
-                                            'AVGpercentViewed' => array_get($flattened, 'avgpercentviewed'),
-                                            'HH' => array_get($flattened, 'hh'),
-                                            'AA' => array_get($flattened, 'aa'),
-                                            'totalHoursViewed' => array_get($flattened, 'totalhoursviewed')
-                                         ]);
+       if(!empty($insert)){
+             $insertData = DB::table('Transmitions')->insert($insert);
+       return back()->with('success', 'Sus datos se importaron con éxito');
+       }else {                        
+       return back()->with('error', 'Error al insertar los datos ...');
+       return back();
+       }
+      
+      
+     } else{
+       return back()->with('error', 'Error al importar archivo');
+     }
 
-         //echo implode("\n OK",$arrTransmition);
-         //dd($arrTransmition);
-      }
-      //         dd($arrTransmition);
+     
+  
+  }
 
-      if(!empty($arrTransmition)){
-         //DB::table('Transmitions')->insert($arrTransmition);
-         $transmitions = Transmition::create($arrTransmition);
-         $transmitions->save();
-         // $insertValidate = Transmition::insert($arrTransmition);
-         // if($insertValidate->fails()){
-         //     return back()->with('erro', 'Insert Record successfully.', $arrTransmition);
-         // }
-
-         return back()->with('success', 'Insert Record successfully.');
-      }
-   }
-
-   }
 
 }
