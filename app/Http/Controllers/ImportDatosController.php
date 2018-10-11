@@ -159,15 +159,21 @@ class ImportDatosController extends Controller
     $request->validate(['fileTransmition'=>'required']);
     $path = $request->file('fileTransmition')->getRealPath();
     $data = Excel::load($path, function($reader) {$reader->ignoreEmpty();})->get();
+    $arrData = $data->toArray();
 
      if(!empty($data) && $data->count()){
-       foreach ($data->toArray() as $key => $row) 
+       foreach ($arrData as $key => $row) 
        {
+        //  dd($arrData);
          $idNewProgram = 0;        
-         $id_program_= DB::table('Programs')->where($this->eliminar_simbolos("name"),$this->eliminar_simbolos($row['id_program']))->value('id_Program');
+         $namePrograma_= DB::table('Programs')->whereRaw($this->eliminar_simbolos("name"),$this->eliminar_simbolos($row['id_program']))->value('id_Program');
+        //  $query->whereRaw('LOWER(`newsTitle`) LIKE ? ',[trim(strtolower($newsTitle)).'%']);
+        //  User::where(DB::raw($this->eliminar_simbolos("name"),'=',$this->eliminar_simbolos('Ahí viene la Marimba'))->value('id_Program'));
+         
+         $id_program_= DB::table('Programs')->where($this->eliminar_simbolos("name"),'=',$this->eliminar_simbolos($row['id_program']))->value('id_Program');
          $id_typetransmition_= DB::table('TypeTransmition')->where("nameTransmition",$row['id_typetransmition'])->value('id_TypeTransmition');
-
-         if ($id_program_ !== NULL  || $id_program_ !== 0) {
+         dd($this->eliminar_simbolos($row['id_program']),$namePrograma_);
+        if (!is_null($id_program_)  || $id_program_ != 0 || !empty($id_program_)) {
           $idNewProgram = $id_program_;
           //dd($idNewProgram);
          } else {
@@ -182,11 +188,12 @@ class ImportDatosController extends Controller
         //     'description'=>''
         //   ]);
         //  $idNewProgram = $newProgram->id_Program;
-        $id = DB::table('Programs')->insertGetId(
+        // DB::table('Transmitions')->insert($insert);
+        $idNewProgram = DB::table('Programs')->insertGetId(
           ['id_Gender'=>1,
           'name'=>$row['id_program'],
           'description'=>'']);
-          dd($id,$row);
+          dd($row, $idNewProgram);
          }
         //  dd($idNewProgram);
          $insert[] = [
