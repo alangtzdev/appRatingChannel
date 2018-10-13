@@ -164,36 +164,21 @@ class ImportDatosController extends Controller
      if(!empty($data) && $data->count()){
        foreach ($arrData as $key => $row) 
        {
-        //  dd($arrData);
-         $idNewProgram = 0;        
-         $namePrograma_= DB::table('Programs')->whereRaw($this->eliminar_simbolos("name"),$this->eliminar_simbolos($row['id_program']))->value('id_Program');
-        //  $query->whereRaw('LOWER(`newsTitle`) LIKE ? ',[trim(strtolower($newsTitle)).'%']);
-        //  User::where(DB::raw($this->eliminar_simbolos("name"),'=',$this->eliminar_simbolos('Ahí viene la Marimba'))->value('id_Program'));
-         
-         $id_program_= DB::table('Programs')->where($this->eliminar_simbolos("name"),'=',$this->eliminar_simbolos($row['id_program']))->value('id_Program');
+         $idNewProgram = 0;
+         $insert[]=array();        
+        //  $namePrograma_= DB::table('Programs')->whereRaw($this->eliminar_simbolos("name"),$this->eliminar_simbolos($row['id_program']))->value('id_Program');         
+         $id_program_= DB::table('Programs')->whereRaw($this->eliminar_simbolos("name"),$this->eliminar_simbolos($row['id_program']))->value('id_Program');
          $id_typetransmition_= DB::table('TypeTransmition')->where("nameTransmition",$row['id_typetransmition'])->value('id_TypeTransmition');
-         dd($this->eliminar_simbolos($row['id_program']),$namePrograma_);
+        //  dd($this->eliminar_simbolos($row['id_program']),$namePrograma_);
         if (!is_null($id_program_)  || $id_program_ != 0 || !empty($id_program_)) {
           $idNewProgram = $id_program_;
           //dd($idNewProgram);
          } else {
-          // $idGet = DB::table('Programs')->insertGetId(
-          //   ['id_Gender'=>1,
-          //   'name'=>$row['id_program'],
-          //   'description'=>'']);
-          //   $idNewProgram = $idGet->id_Program;
-        //  $newProgram =  Program::create([
-        //     'id_Gender'=>1,
-        //     'name'=>$row['id_program'],
-        //     'description'=>''
-        //   ]);
-        //  $idNewProgram = $newProgram->id_Program;
-        // DB::table('Transmitions')->insert($insert);
         $idNewProgram = DB::table('Programs')->insertGetId(
           ['id_Gender'=>1,
           'name'=>$row['id_program'],
           'description'=>'']);
-          dd($row, $idNewProgram);
+          // dd($row, $idNewProgram);
          }
         //  dd($idNewProgram);
          $insert[] = [
@@ -215,6 +200,7 @@ class ImportDatosController extends Controller
        }//end-->each
 
        if(!empty($insert)){
+          dd($insert);
              $insertData = DB::table('Transmitions')->insert($insert);
        return back()->with('success', 'Sus datos se importaron con éxito');
        }else {                        
