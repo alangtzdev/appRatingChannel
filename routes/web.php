@@ -17,7 +17,6 @@ Auth::routes();
 
 Route::get('/login', 'Auth\LoginController@getLogin')->name('getLogin');
 Route::post('postLogin', 'Auth\LoginController@postLogin')->name('postLogin');
-//Route::get('/restorepassword', 'Controller@getRestorePassword');
 
 Route::get('/transmitionsVw', 'TransmitionController@index');
 Route::post('/roles', 'RolesController@store');

@@ -80,10 +80,10 @@
                                           <i class="fa fa-angle-down"></i>
                                           </a>
                                           <ul class="dropdown-menu dropdown-menu-default">
-                                          <li>
+                                          {{--  <li>
                                                 <a href="userprofile">
                                                 <i class="icon-user"></i> Mi perfil</a>
-                                          </li>
+                                          </li>  --}}
                                           <li class="divider"> </li>
                                           <li>
                                                 <a href="{{route('logout')}}">
@@ -219,7 +219,7 @@
                                     <div class="page-bar">
                                     <ul class="page-breadcrumb">
                                           <li>
-                                          <a href="dashboard">Dashboard</a>
+                                          <a href="{{ route('dashboard') }}">Dashboard</a>
                                           <i class="fa fa-angle-right"></i>
                                           </li>
                                     </ul>
