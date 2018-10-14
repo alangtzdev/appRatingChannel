@@ -4,33 +4,53 @@ function bindCboRoles(idCbo, idRol) {
     .find("option")
     .remove();
 
-  let fnBeforeSend = () => {};
+  let fnBeforeSend = () => {
+    swal.showLoading();
+  };
 
   let fnSuccess = data => {
-    $(idCbo).addClass("edited");
-    $.each(data, function(i, val) {
-      $(idCbo).append(
-        $("<option>")
-          .text(val.name)
-          .attr("value", val.id_Rol)
-      );
-    });
+    if (data.length != 0) {
+      $(idCbo).addClass("edited");
+      $.each(data, function(i, val) {
+        $(idCbo).append(
+          $("<option>")
+            .text(val.name)
+            .attr("value", val.id_Rol)
+        );
+      });
 
-    if (idRol) {
-      $(idCbo).val(idRol);
+      if (idRol) {
+        $(idCbo).val(idRol);
+      }
+
+      swal.hideLoading();
+      swal({
+        position: "top-end",
+        type: "success",
+        title: "Roles cargados correctamente.",
+        showConfirmButton: false,
+        timer: 1500
+      });
+    } else {
+      swal.hideLoading();
+      swal({
+        position: "top-end",
+        type: "warning",
+        title: "Roles no encontrados.",
+        showConfirmButton: false,
+        timer: 1500
+      });
     }
   };
 
   let fnError = data => {
-    $.bootstrapGrowl("Error: roles no cargados.", {
-      ele: "body", // which element to append to
-      type: "danger", // (null, 'info', 'danger', 'success')
-      offset: { from: "top", amount: 20 }, // 'top', or 'bottom'
-      align: "right", // ('left', 'right', or 'center')
-      width: 250, // (integer, or 'auto')
-      delay: 4000, // Time while the message will be displayed. It's not equivalent to the *demo* timeOut!
-      allow_dismiss: true, // If true then will display a cross to close the popup.
-      stackup_spacing: 10 // spacing between consecutively stacked growls.
+    swal.hideLoading();
+    swal({
+      position: "top-end",
+      type: "error",
+      title: "Error al cargar los roles.",
+      showConfirmButton: false,
+      timer: 1500
     });
   };
 
@@ -61,31 +81,50 @@ function bindCboPrograms(idCbo, idProgram) {
     .find("option")
     .remove();
 
-  let fnBeforeSend = () => {};
+  let fnBeforeSend = () => {
+    swal.showLoading();
+  };
 
   let fnSuccess = data => {
-    $.each(data, function(i, val) {
-      $(idCbo).append(
-        $("<option>")
-          .text(val.name)
-          .attr("value", val.id_Program)
-      );
-    });
+    if (data.length != 0) {
+      $.each(data, function(i, val) {
+        $(idCbo).append(
+          $("<option>")
+            .text(val.name)
+            .attr("value", val.id_Program)
+        );
+      });
+      swal.hideLoading();
+      swal({
+        position: "top-end",
+        type: "success",
+        title: "Programas cargados correctamente.",
+        showConfirmButton: false,
+        timer: 1500
+      });
+    } else {
+      swal.hideLoading();
+      swal({
+        position: "top-end",
+        type: "warning",
+        title: "Programas no encontrados.",
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }
 
     $(".selectpicker").selectpicker("refresh");
     $("#cboRunTime").selectpicker("selectAll");
   };
 
   let fnError = data => {
-    $.bootstrapGrowl("Error: programas no cargados.", {
-      ele: "body", // which element to append to
-      type: "danger", // (null, 'info', 'danger', 'success')
-      offset: { from: "top", amount: 20 }, // 'top', or 'bottom'
-      align: "right", // ('left', 'right', or 'center')
-      width: 250, // (integer, or 'auto')
-      delay: 4000, // Time while the message will be displayed. It's not equivalent to the *demo* timeOut!
-      allow_dismiss: true, // If true then will display a cross to close the popup.
-      stackup_spacing: 10 // spacing between consecutively stacked growls.
+    swal.hideLoading();
+    swal({
+      position: "top-end",
+      type: "error",
+      title: "Error al cargar los programas.",
+      showConfirmButton: false,
+      timer: 1500
     });
   };
 
@@ -93,24 +132,24 @@ function bindCboPrograms(idCbo, idProgram) {
 }
 
 function bindDateTimeFilter(jParams) {
-  let fnBeforeSend = () => {};
+  let fnBeforeSend = () => {
+    swal.showLoading();
+  };
 
   let fnSuccess = data => {
-    console.log(data);
-    datetimepickers(data);
+    swal.hideLoading();
+    $("canvas#dayTime").remove();
+    if (data.length != 0) {
+      swal("¡Excelente!", "Tu grafica fue cargada correctamente.", "success");
+      datetimepickers(data);
+    } else {
+      swal("¡Advertencia!", "Tus datos no fueron encontrados.", "warning");
+    }
   };
 
   let fnError = data => {
-    $.bootstrapGrowl("Error: datos para la grafica no cargados.", {
-      ele: "body", // which element to append to
-      type: "danger", // (null, 'info', 'danger', 'success')
-      offset: { from: "top", amount: 20 }, // 'top', or 'bottom'
-      align: "right", // ('left', 'right', or 'center')
-      width: 250, // (integer, or 'auto')
-      delay: 4000, // Time while the message will be displayed. It's not equivalent to the *demo* timeOut!
-      allow_dismiss: true, // If true then will display a cross to close the popup.
-      stackup_spacing: 10 // spacing between consecutively stacked growls.
-    });
+    swal.hideLoading();
+    swal("¡Algo salio mal!", "Tu grafica no fue cargada.", "error");
   };
 
   getDateTimeFilter(jParams, fnBeforeSend, fnSuccess, fnError);
@@ -118,85 +157,89 @@ function bindDateTimeFilter(jParams) {
 
 function bindReportTableFilter(jParams) {
   let fnBeforeSend = () => {
-    spinner_show("#divReportTable");
+    swal.showLoading();
   };
 
   let fnSuccess = datasReport => {
-    spinner_hide("#divReportTable");
-    let data = datasReport;
-    console.log(data);
-    $("#divReportTable").html("");
+    swal.hideLoading();
+    if (datasReport.length != 0) {
+      swal(
+        "¡Excelente!",
+        "Tus datos fueron cargados correctamente.",
+        "success"
+      );
 
-    let htmlReport = `
-        <table class="table table-striped table-bordered table-advance table-hover">
-            <thead class="" >
-                <tr id="trHeadReportTable">
-                    <th class="text-center">HORA/DIA</th>
-                </tr>
-            </thead>
-            <tbody id="tBodyReporTable">
-            </tbody>
-        </table>
-    `;
+      let data = datasReport;
+      console.log(data);
+      $("#divReportTable").html("");
 
-    $("#divReportTable").append(htmlReport);
+      let htmlReport = `
+      <table class="table table-striped table-bordered table-advance table-hover">
+      <thead class="" >
+      <tr id="trHeadReportTable">
+      <th class="text-center">HORA/DIA</th>
+      </tr>
+      </thead>
+      <tbody id="tBodyReporTable">
+      </tbody>
+      </table>
+      `;
 
-    data.forEach(datas => {
-      datas.Days.forEach(days => {
-        $("#trHeadReportTable").append(`<th class="text-center">${days}</th>`);
-      });
-    });
+      $("#divReportTable").append(htmlReport);
 
-    data.forEach(datas => {
-      let countTr = 0;
-      datas.Times.forEach(times => {
-        $("#tBodyReporTable").append(
-          `<tr class="trBodyReporTable${countTr}"><td>${times}</td></tr>`
-        );
-        datas.Days.forEach((days, index) => {
-          $(`.trBodyReporTable${countTr}`).append(
-            `<td class="tdBodyReportTable${index}"></td>`
+      data.forEach(datas => {
+        datas.Days.forEach(days => {
+          $("#trHeadReportTable").append(
+            `<th class="text-center">${days}</th>`
           );
-          for (var datos in datas.Datos) {
-            if (datas.Datos[datos].day === index) {
-              for (var daydatas in datas.Datos[datos].dayDatas) {
-                if (datas.Datos[datos].dayDatas[daydatas].time === times) {
-                  datas.Datos[datos].dayDatas[daydatas].timeDatas.forEach(
-                    timedatas => {
-                      $(
-                        `.trBodyReporTable${countTr} td.tdBodyReportTable${index}`
-                      ).append(`<div class="mt-element-ribbon bg-grey-steel">
-                        <div class="ribbon ribbon-border-hor ribbon-clip ribbon-color-success uppercase">
-                            <div class="ribbon-sub ribbon-clip"></div>
-                            ${timedatas.AA.toFixed(2)}
-                        </div>
-                        <p class="ribbon-content">${
-                          timedatas.program
-                        } - <strong>${timedatas.runTime}</strong></p>
-                    </div>`);
-                    }
-                  );
+        });
+      });
+
+      data.forEach(datas => {
+        let countTr = 0;
+        datas.Times.forEach(times => {
+          $("#tBodyReporTable").append(
+            `<tr class="trBodyReporTable${countTr}"><td>${times}</td></tr>`
+          );
+          datas.Days.forEach((days, index) => {
+            $(`.trBodyReporTable${countTr}`).append(
+              `<td class="tdBodyReportTable${index}"></td>`
+            );
+            for (var datos in datas.Datos) {
+              if (datas.Datos[datos].day === index) {
+                for (var daydatas in datas.Datos[datos].dayDatas) {
+                  if (datas.Datos[datos].dayDatas[daydatas].time === times) {
+                    datas.Datos[datos].dayDatas[daydatas].timeDatas.forEach(
+                      timedatas => {
+                        $(
+                          `.trBodyReporTable${countTr} td.tdBodyReportTable${index}`
+                        ).append(`<div class="mt-element-ribbon bg-grey-steel">
+                              <div class="ribbon ribbon-border-hor ribbon-clip ribbon-color-success uppercase">
+                              <div class="ribbon-sub ribbon-clip"></div>
+                              ${timedatas.AA.toFixed(2)}
+                              </div>
+                              <p class="ribbon-content">${
+                                timedatas.program
+                              } - <strong>${timedatas.runTime}</strong></p>
+                              </div>`);
+                      }
+                    );
+                  }
                 }
               }
             }
-          }
+          });
+          countTr += 1;
         });
-        countTr += 1;
       });
-    });
+    } else {
+      swal("¡Advertencia!", "Tus datos no fueron encontrados.", "warning");
+    }
   };
 
   let fnError = data => {
-    $.bootstrapGrowl("Error: datos para la tabla no cargados.", {
-      ele: "body", // which element to append to
-      type: "danger", // (null, 'info', 'danger', 'success')
-      offset: { from: "top", amount: 20 }, // 'top', or 'bottom'
-      align: "right", // ('left', 'right', or 'center')
-      width: 250, // (integer, or 'auto')
-      delay: 4000, // Time while the message will be displayed. It's not equivalent to the *demo* timeOut!
-      allow_dismiss: true, // If true then will display a cross to close the popup.
-      stackup_spacing: 10 // spacing between consecutively stacked growls.
-    });
+    swal.hideLoading();
+    swal("¡Algo salio mal!", "Tus datos no fueron cargados.", "error");
   };
 
   getReportTableFilter(jParams, fnBeforeSend, fnSuccess, fnError);

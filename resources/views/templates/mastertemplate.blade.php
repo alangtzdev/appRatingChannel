@@ -23,6 +23,7 @@
                         <!-- BEGIN PAGE LEVEL PLUGINS -->
                         {{--<link rel="stylesheet" href="{{'css/pageLevelPluginStyle.css'}}">--}}
                         @yield('css')
+                        <link href="https://cdn.jsdelivr.net/npm/sweetalert2@7.26.10/dist/sweetalert2.min.css" rel="stylesheet" type="text/css" />
                         <link href="{{asset('assets/global/plugins/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
                         <link href="{{asset('assets/global/plugins/select2/css/select2-bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
                         <!-- END PAGE LEVEL PLUGINS -->
@@ -298,9 +299,11 @@
                         <script src="{{asset('js/frameload.js')}}" type="text/javascript"></script>
                         <script src="{{asset('js/gets.js')}}" type="text/javascript"></script>
                         <script src="{{asset('js/binds.js')}}" type="text/javascript"></script>
+                        <script src="{{asset('js/saves.js')}}" type="text/javascript"></script>
                         <script src="{{asset('js/tables/enum_columns.js')}}" type="text/javascript"></script>
                         <script src="{{asset('js/tables/enum_tables.js')}}" type="text/javascript"></script>
                         <script src="{{asset('js/tables/table-datatables-managed.js')}}" type="text/javascript"></script>
+                        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.26.10/dist/sweetalert2.min.js"></script>
                         @yield('scripts')
                   </body>
                   </html>

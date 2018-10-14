@@ -230,7 +230,8 @@ class TransmitionController extends Controller
             foreach($datos as $keyDato=>$itemDato){
 
                $Auxdatas = array_get($itemDato, 'Auxdata');
-
+               $counts = array_get($itemDato, 'counts');
+               
                //*** INIT FOREACH DATAS ***//
                foreach($Auxdatas as $keyData=>$itemData){
 

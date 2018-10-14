@@ -93,87 +93,84 @@ class ImportDatosController extends Controller
     } 
     
     public function importarDatosExcel(Request $request){
-        $request->validate(['fileTransmition'=>'required']);
-        $path = $request->file('fileTransmition')->getRealPath();
-        $data = Excel::load($path, function($reader) {$reader->ignoreEmpty();})->get();
+        if($request->ajax()){
+            $request->validate(["fileTransmition"=>"required"]);
+            $path = $request->file('fileTransmition')->getRealPath();
+            $data = Excel::load($path, function($reader) {$reader->ignoreEmpty();})->get();
 
-        $arrData = $data->toArray();
-        $insert = collect([]);        
-        
-        if(!empty($data) && $data->count()){
-            foreach ($arrData as $key => $row) 
-            {
-                $id_program = 0;
-                $id_typetransmition = 0;
+            $arrData = $data->toArray();
+            $insert = collect([]);        
+            
+            if(!empty($data) && $data->count()){
+                foreach ($arrData as $key => $row) 
+                {
+                    $id_program = 0;
+                    $id_typetransmition = 0;
 
-                $programs = DB::table('Programs')->select('id_Program', 'name')->get();
+                    $programs = DB::table('Programs')->select('id_Program', 'name')->get();
 
-                $typetransmitions = DB::table('TypeTransmition')->select('id_TypeTransmition', 'nameTransmition')->get();
+                    $typetransmitions = DB::table('TypeTransmition')->select('id_TypeTransmition', 'nameTransmition')->get();
 
-                if(!empty($programs)){
-                    foreach($programs as $program){
-                        $pTablePrograms = $this->eliminar_simbolos($program->name);
-                        $pExcelPrograms = $this->eliminar_simbolos($row['id_program']);
+                    if(!empty($programs)){
+                        foreach($programs as $program){
+                            $pTablePrograms = $this->eliminar_simbolos($program->name);
+                            $pExcelPrograms = $this->eliminar_simbolos($row['id_program']);
 
-                        if($pTablePrograms == $pExcelPrograms){
-                            $id_program = $program->id_Program;
+                            if($pTablePrograms == $pExcelPrograms){
+                                $id_program = $program->id_Program;
+                            }
                         }
                     }
-                }
 
-                if(!empty($typetransmitions)){
-                    foreach($typetransmitions as $typetransmition){
-                        $pTableTypeTransmitions = $this->eliminar_simbolos($typetransmition->nameTransmition);
-                        $pExcelTypeTransmitions = $this->eliminar_simbolos($row['id_typetransmition']);
+                    if(!empty($typetransmitions)){
+                        foreach($typetransmitions as $typetransmition){
+                            $pTableTypeTransmitions = $this->eliminar_simbolos($typetransmition->nameTransmition);
+                            $pExcelTypeTransmitions = $this->eliminar_simbolos($row['id_typetransmition']);
 
-                        if($pTableTypeTransmitions == $pExcelTypeTransmitions){
-                            $id_typetransmition = $typetransmition->id_TypeTransmition;
+                            if($pTableTypeTransmitions == $pExcelTypeTransmitions){
+                                $id_typetransmition = $typetransmition->id_TypeTransmition;
+                            }
                         }
                     }
-                }
-            
-                if ($id_program == 0) {
-                    $id_program = DB::table('Programs')->insertGetId(['id_Gender' => 1, 'name' => $row['id_program'], 'description'=>'']);
+                
+                    if ($id_program == 0) {
+                        $id_program = DB::table('Programs')->insertGetId(['id_Gender' => 1, 'name' => $row['id_program'], 'description'=>'']);
+                    }
+
+                    if ($id_typetransmition == 0) {
+                        $id_typetransmition = DB::table('TypeTransmition')->insertGetId(['nameTransmition' => $row['id_typetransmition']]);
+                    }
+
+                    $insert->prepend(
+                        [
+                            'id_Program' => $id_program,
+                            'id_TypeTransmition' => $id_typetransmition,
+                            'day' => $row['day'],
+                            'nationalTime' => $row['nationaltime'],
+                            'runTime' => $row['runtime'],
+                            'RTG' => $row['rtg'],
+                            'SH' => $row['sh'],
+                            'percentReach' => $row['percentreach'],
+                            'AVGpercentViewed' => $row['avgpercentviewed'],
+                            'HH' => $row['hh'],
+                            'AA' =>  $row['aa'],
+                            'totalHoursViewed' => $row['totalhoursviewed'],
+                            'created_at' =>  Carbon::today()
+                        ]
+                    ); 
+                
+                }//end-->each
+
+                if(!empty($insert)){
+                    $insertData = DB::table('Transmitions')->insert($insert->toArray());
+                    return 'Sus datos se importaron con éxito';
+                } else {                        
+                    return 'Error al insertar los datos.';
                 }
 
-                if ($id_typetransmition == 0) {
-                    $id_typetransmition = DB::table('TypeTransmition')->insertGetId(['nameTransmition' => $row['id_typetransmition']]);
-                }
-
-                $insert->prepend(
-                    [
-                        'id_Program' => $id_program,
-                        'id_TypeTransmition' => $id_typetransmition,
-                        'day' => $row['day'],
-                        'nationalTime' => $row['nationaltime'],
-                        'runTime' => $row['runtime'],
-                        'RTG' => $row['rtg'],
-                        'SH' => $row['sh'],
-                        'percentReach' => $row['percentreach'],
-                        'AVGpercentViewed' => $row['avgpercentviewed'],
-                        'HH' => $row['hh'],
-                        'AA' =>  $row['aa'],
-                        'totalHoursViewed' => $row['totalhoursviewed'],
-                        'created_at' =>  Carbon::today()
-                    ]
-                ); 
-            
-            }//end-->each
-
-        if(!empty($insert)){
-                $insertData = DB::table('Transmitions')->insert($insert->toArray());
-        return back()->with('success', 'Sus datos se importaron con éxito');
-        }else {                        
-        return back()->with('error', 'Error al insertar los datos ...');
-        return back();
+            } else {
+                return "Error al importar datos.";
+            }
         }
-        
-        
-        } else{
-        return back()->with('error', 'Error al importar archivo');
-        }
-
-        
-        
     }
 }

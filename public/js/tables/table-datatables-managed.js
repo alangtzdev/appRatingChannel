@@ -31,34 +31,54 @@ function bindTable(idTable, typeTable) {
     bindTableHeaders($table, typeTable.columns);
   }
 
-  let fnBeforeSend = () => {};
+  let fnBeforeSend = () => {
+    swal.showLoading();
+  };
 
   let fnSuccess = data => {
-    let jsonOptions = $.extend({}, typeTable);
+    if (data.length != 0) {
+      let jsonOptions = $.extend({}, typeTable);
 
-    jsonOptions.data = data;
-    jsonOptions.createdRow = function(row, data, dataIndex) {};
+      jsonOptions.data = data;
+      jsonOptions.createdRow = function(row, data, dataIndex) {};
 
-    addDefaultsOptions(jsonOptions);
+      addDefaultsOptions(jsonOptions);
 
-    try {
-      $table.DataTable().destroy();
-      $table.DataTable(jsonOptions);
-    } catch (e) {
-      console.log(e);
+      try {
+        $table.DataTable().destroy();
+        $table.DataTable(jsonOptions);
+      } catch (e) {
+        console.log(e);
+      }
+
+      swal.hideLoading();
+      swal({
+        position: "top-end",
+        type: "success",
+        title: "Usuarios cargados correctamente.",
+        showConfirmButton: false,
+        timer: 1500
+      });
+    } else {
+      swal.hideLoading();
+      swal({
+        position: "top-end",
+        type: "warning",
+        title: "Usuarios no encontrados.",
+        showConfirmButton: false,
+        timer: 1500
+      });
     }
   };
 
   let fnError = data => {
-    $.bootstrapGrowl("Error: usuarios no cargados.", {
-      ele: "body", // which element to append to
-      type: "danger", // (null, 'info', 'danger', 'success')
-      offset: { from: "top", amount: 20 }, // 'top', or 'bottom'
-      align: "right", // ('left', 'right', or 'center')
-      width: 250, // (integer, or 'auto')
-      delay: 4000, // Time while the message will be displayed. It's not equivalent to the *demo* timeOut!
-      allow_dismiss: true, // If true then will display a cross to close the popup.
-      stackup_spacing: 10 // spacing between consecutively stacked growls.
+    swal.hideLoading();
+    swal({
+      position: "top-end",
+      type: "error",
+      title: "Error al cargar los usuarios.",
+      showConfirmButton: false,
+      timer: 1500
     });
   };
 

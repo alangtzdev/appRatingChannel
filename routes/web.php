@@ -28,7 +28,7 @@ Route::put('/updateuser/{iduser}/{idemployee}', 'UsersController@putUpdateUsers'
 Route::get('/destroyusers/{id}', 'UsersController@getDestroyUser')->name('destroyusers');
 Route::post('/daytime', 'TransmitionController@dayTime')->name('daytime');
 Route::post('/reporttime', 'TransmitionController@reportTime')->name('reporttime');
-Route::post('importData', 'ImportDatosController@importarDatosExcel')->name('importarDatosExcel');
+Route::post('/importData', 'ImportDatosController@importarDatosExcel')->name('importarDatosExcel');
 
 Route::prefix('admin')->group(function () {
    Route::get('/dashboard', 'Controller@getDashboard')->name('dashboard');

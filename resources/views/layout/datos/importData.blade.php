@@ -15,31 +15,8 @@
             </div>
             <div class="portlet-body form">
                 <!-- BEGIN FORM-->
-                <form action="{{ route('importarDatosExcel') }}" class="form-horizontal form-bordered" method="post" enctype="multipart/form-data"> @csrf
- 
-                    {{-- @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif --}}
-                    @if (Session::has('error'))
-                        <div class="alert alert-danger">
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                            <p>{{ Session::get('error') }}</p>
-                        </div>
-                    @endif
-     
-                    @if (Session::has('success'))
-                        <div class="alert alert-success">
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                            <p>{{ Session::get('success') }}</p>
-                        </div>
-                    @endif
+                <form action="#" class="form-horizontal form-bordered" method="post">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                     <div class="form-body">
                         <div class="form-group">
                             <label class="control-label col-md-3">Agregar archivo de excel</label>
@@ -53,7 +30,9 @@
                                         <span class="input-group-addon btn default btn-file">
                                             <span class="fileinput-new">Seleccionar archivo...</span>
                                             <span class="fileinput-exists"> Cambiar </span>
-                                            <input type="file" name="fileTransmition" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" /> </span>
+                                            <input type="file"
+                                            id="fileTransmition"
+                                            name="fileTransmition" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" /> </span>
                                         <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput">Remover </a>
                                     </div>
                                 </div>
@@ -62,10 +41,10 @@
                     </div>
                     <div class="form-actions">
                         <div class="row">
-                            <div class="col-md-offset-5 col-md-4">
-                                <button href="javascript:;" class="btn green">
+                            <div class="col-md-offset-9 col-md-3 text-right">
+                                <button id="btnImportDatos" type="button" class="btn btn-success">
                                     <i class="fa fa-check"></i> Subir archivo</button>
-                                <a href="javascript:;" class="btn btn-outline grey-salsa">Cancelar</a>
+                                <button type="button" class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i> Cancel</button>
                             </div>
                         </div>
                     </div>
@@ -77,6 +56,7 @@
 @endsection
 @section('scripts')  
 <script src="{{asset('assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js')}}" type="text/javascript"></script> 
+<script src="{{asset('js/importDatos.js')}}" type="text/javascript"></script>
     <!-- <link href="{{asset('assets/global/plugins/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css"/> -->
 <!-- more scripts -->
 @endsection
