@@ -14,7 +14,7 @@
                     <i class="fa fa-star"></i>Cargar los datos de ratings</div>
             </div>
             <div class="portlet-body form">//--//
-                <!-- BEGIN FORM-->
+                <!-- BEGIN FORM-->//---
                 <form action="#" class="form-horizontal form-bordered" method="post">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                     <div class="form-body">
