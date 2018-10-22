@@ -141,6 +141,7 @@ function bindDateTimeFilter(jParams) {
     $("canvas#dayTime").remove();
     if (data.length != 0) {
       swal("¡Excelente!", "Tu grafica fue cargada correctamente.", "success");
+      console.log(data);
       datetimepickers(data);
     } else {
       swal("¡Advertencia!", "Tus datos no fueron encontrados.", "warning");

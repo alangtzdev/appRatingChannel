@@ -71,33 +71,27 @@ class TransmitionController extends Controller
             ->get();
 
          $graphics = collect([]);
-         $dias = collect([]);
 
-         $helpDias = [ 0 => 'Domingo', 1 => 'Lunes', 2 => 'Martes', 3 => 'Miercoles', 4 => 'Jueves', 5 => 'Viernes', 6 => 'Sábado' ];
+         $helpDiasInt = [ 0 => 1, 1 => 2, 2 => 3, 3 => 4, 4 => 5, 5 => 6, 6 => 0 ];
+         $helpDias = [ 0 => 'Lunes', 1 => 'Martes', 2 => 'Miercoles', 3 => 'Jueves', 4 => 'Viernes', 5 => 'Sábado', 6 => 'Domingo' ];
 
          foreach($transmitions as $transmition){
-            $day = Carbon::parse($transmition->day);
+            $dayParse = Carbon::parse($transmition->day);
 
-            //*** --------------------------------------------------------------- ***//
+            $_dayString = '';
+            $_dayInt = '';
+            
+            foreach($helpDiasInt as $keyDayInt=>$itemDayInt){
+              if($itemDayInt == $dayParse->dayOfWeek){
+                $_dayInt = $keyDayInt;
 
-            //*** ADD DAY IN ARRAY DAYS ***//
-
-            if($dias->isNotEmpty()){
-               if(!$dias->contains($day->dayOfWeek)){
-                  foreach($helpDias as $keyHelpDia=>$itemHelpDia){
-                     if($keyHelpDia == $day->dayOfWeek){
-                        $dias->put($day->dayOfWeek, $itemHelpDia);
-                     }
+                foreach($helpDias as $keyDayString=>$itemDayString){
+                  if($keyDayString == $_dayInt){
+                  $_dayString =  $itemDayString;
                   }
-               }
-            }else{
-               foreach($helpDias as $keyHelpDia=>$itemHelpDia){
-                  if($keyHelpDia == $day->dayOfWeek){
-                     $dias->put($day->dayOfWeek, $itemHelpDia);
-                  }
-               }
+                }
+              }
             }
-
             //*** --------------------------------------------------------------- ***//
 
             //*** ADD CONSULT IN ARRAY GRAPHICS ***//
@@ -128,7 +122,7 @@ class TransmitionController extends Controller
                            foreach($Auxdatas as $keyData=>$itemData){
 
                               //*** INIT IF DAY-DATA ***//
-                              if($keyData == $day->dayOfWeek){
+                              if($keyData == $_dayInt){
 
                                  $itemData += $transmition->AA;
                                  $Auxdatas->put($keyData, $itemData);
@@ -144,7 +138,7 @@ class TransmitionController extends Controller
                            foreach($counts as $keyCount=>$itemCount){
 
                               //*** INIT IF DAY-COUNT ***//
-                              if($keyCount == $day->dayOfWeek){
+                              if($keyCount == $_dayInt){
 
                                  $itemCount += 1;
                                  $counts->put($keyCount, $itemCount);
@@ -158,7 +152,7 @@ class TransmitionController extends Controller
 
                            //*** INIT FOREACH DAYS ***//
                            foreach($days as $keyDay=>$itemDay){
-                              $days->push(''.$day->dayOfWeek.': '.$transmition->day.' - '.$transmition->program_name.'');
+                              $days->push(''.$_dayInt.': '.$transmition->day.' - '.$transmition->program_name.'');
 
                               break;
                            }
@@ -174,15 +168,15 @@ class TransmitionController extends Controller
                      $datos->push([
                         'label' => $transmition->program_name,
                         'Auxdata' => collect([
-                           $day->dayOfWeek => $transmition->AA
+                           $_dayInt => $transmition->AA
                         ]),
                         'data' => collect([]),
                         'backgroundColor' => 'rgba(54, 162, 235, 1)',
                         'counts' => collect([
-                           $day->dayOfWeek => 1
+                           $_dayInt => 1
                         ]),
                         'days' => collect([
-                           ''.$day->dayOfWeek.': '.$transmition->day.' - '.$transmition->program_name.''
+                           ''.$_dayInt.': '.$transmition->day.' - '.$transmition->program_name.''
                         ])
                      ]);
                   }
@@ -198,15 +192,15 @@ class TransmitionController extends Controller
                      [
                         'label' => $transmition->program_name,
                         'Auxdata' => collect([
-                           $day->dayOfWeek => $transmition->AA
+                           $_dayInt => $transmition->AA
                         ]),
                         'data' => collect([]),
                         'backgroundColor' => 'rgba(54, 162, 235, 1)',
                         'counts' => collect([
-                           $day->dayOfWeek => 1
+                           $_dayInt => 1
                         ]),
                         'days' => collect([
-                           ''.$day->dayOfWeek.': '.$transmition->day.' - '.$transmition->program_name.''
+                           ''.$_dayInt.': '.$transmition->day.' - '.$transmition->program_name.''
                         ])
                      ]
                   ])
@@ -262,12 +256,6 @@ class TransmitionController extends Controller
 
          //*** --------------------------------------------------------------- ***//
 
-         //*** SORT ARRAY DAYS ***//
-
-         $sortedDias = $dias->sortKeys();
-
-         //*** --------------------------------------------------------------- ***//
-
          //*** ADD VALUES TO DAYS REST ***//
 
          //*** INIT FOREACH GRAPHICS ***//
@@ -284,9 +272,9 @@ class TransmitionController extends Controller
                //*** INIT FOREACH DATAS ***//
                foreach($sortedDatas as $keyData=>$itemData){
 
-                  foreach($sortedDias as $keyDia=>$itemDia){
-                     if($keyData != $keyDia){
-                        $Auxdatas->put($keyDia, 0);
+                  foreach($helpDiasInt as $keyDia=>$itemDia){
+                     if($keyData != $itemDia){
+                        $Auxdatas->put($itemDia, 0);
                      }
                   }
 
@@ -376,12 +364,12 @@ class TransmitionController extends Controller
 
          //*** INIT FOREACH GRAPHICS ***//
          foreach($graphics as $keyGraphic=>$itemGraphic){
-
-            $dias = array_get($itemGraphic, 'Dias');
-
-            foreach($sortedDias as $keyDias=>$itemDias){
-               $dias->push($itemDias);
-            }
+          
+          $dias = array_get($itemGraphic, 'Dias');
+          
+          foreach($helpDias as $keyDias=>$itemDias){
+            $dias->push($itemDias);
+          }
          }
          //*** END FOREACH GRAPHICS ***//
          return $graphics;
