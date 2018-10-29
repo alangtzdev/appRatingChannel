@@ -476,13 +476,13 @@ class TransmitionController extends Controller
                               if($_time == $time){
                                   $timeDatas = array_get($itemDayData, 'timeDatas');
                                   //*** INIT IF TIMEDATAS ***//
-                                  if($timeDatas->contains('program', $transmition->program_name)){
+                                  // if($timeDatas->contains('program', $transmition->program_name)){
                                     //*** INIT FOREACH TIMEDATAS ***//hy
                                     foreach($timeDatas as $keyTimeData=>$itemTimeData){
 
-                                        $_program = array_get($itemTimeData, 'program');
+                                        // $_program = array_get($itemTimeData, 'program');
 
-                                        if($_program == $transmition->program_name){
+                                        // if($_program == $transmition->program_name){
                                           $AA = array_get($itemTimeData, 'AA');
                                           $count = array_get($itemTimeData, 'count');
 
@@ -493,17 +493,17 @@ class TransmitionController extends Controller
                                           array_set($itemTimeData, 'count', $count);
 
                                           $timeDatas->put($keyTimeData, $itemTimeData);
-                                        }
+                                        // }
                                     }
                                     //*** END FOREACH TIMEDATAS ***//
-                                  }else{
-                                    $timeDatas->push([
-                                        'program' => $transmition->program_name,
-                                        'AA' => $transmition->AA,
-                                        'runTime' => $transmition->runTime,
-                                        'count' => 1
-                                    ]);
-                                  }
+                                  // }else{
+                                  //   $timeDatas->push([
+                                  //       'program' => $transmition->program_name,
+                                  //       'AA' => $transmition->AA,
+                                  //       'runTime' => $transmition->runTime,
+                                  //       'count' => 1
+                                  //   ]);
+                                  // }
                                   //*** END IF TIMEDATAS ***//
                               }
                               //*** END IF TIME ***//
@@ -514,10 +514,11 @@ class TransmitionController extends Controller
                               'time' => $time,
                               'timeDatas' => collect([
                                   [
-                                    'program' => $transmition->program_name,
+                                    'program' => 'Varios programas',//$transmition->program_name,
                                     'AA' => $transmition->AA,
                                     'runTime' => $transmition->runTime,
-                                    'count' => 1
+                                    'count' => 1,
+                                    'numPrograms' => 1
                                   ]
                               ])
                             ]);
@@ -536,10 +537,11 @@ class TransmitionController extends Controller
                             'time' => $time,
                             'timeDatas' => collect([
                               [
-                                  'program' => $transmition->program_name,
+                                  'program' => 'Varios programas',//$transmition->program_name,
                                   'AA' => $transmition->AA,
                                   'runTime' => $transmition->runTime,
-                                  'count' => 1
+                                  'count' => 1,
+                                  'numPrograms' => 1
                               ]
                             ])
                         ]
@@ -563,10 +565,11 @@ class TransmitionController extends Controller
                             'time' => $time,
                             'timeDatas' => collect([
                               [
-                                  'program' => $transmition->program_name,
+                                  'program' => 'Varios programas',//$transmition->program_name,
                                   'AA' => $transmition->AA,
                                   'runTime' => $transmition->runTime,
-                                  'count' => 1
+                                  'count' => 1,
+                                  'numPrograms' => 1
                               ]
                             ])
                         ]
