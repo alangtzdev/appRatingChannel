@@ -383,11 +383,22 @@ class TransmitionController extends Controller
     if($request->ajax()){
       $dates = explode(' - ',$request->daterange);
       $hours = explode(' - ',$request->rangeHours);
-      
       $date_start = Carbon::parse($dates[0]);
       $date_end = Carbon::parse($dates[1]);
       $hour_start = Carbon::createFromFormat('H:i', $hours[0])->toTimeString();
-      $hour_end = Carbon::createFromFormat('H:i', $hours[1])->toTimeString();
+      $hour_med_one = Carbon::createFromFormat('H:i', $hours[1])->toTimeString();
+      $hour_med_two = Carbon::createFromFormat('H:i', $hours[2])->toTimeString();
+      $hour_end = Carbon::createFromFormat('H:i', $hours[3])->toTimeString();
+
+      $firts = DB::table('transmitions')
+      ->join('programs', 'transmitions.id_Program', '=', 'programs.id_Program')
+      ->join('typetransmition', 'transmitions.id_TypeTransmition', '=', 'typetransmition.id_TypeTransmition')
+      ->select('programs.name as program_name', 'transmitions.day', 'transmitions.AA',
+                  'transmitions.nationalTime', 'transmitions.runTime')
+                  ->whereDate('transmitions.day', '>=', $date_start)
+                  ->whereDate('transmitions.day', '<=', $date_end)
+                  ->whereTime('transmitions.nationalTime', '>=', $hour_start)
+                  ->whereTime('transmitions.nationalTime', '<=', $hour_med_one);
       
       $transmitions = DB::table('transmitions')
       ->join('programs', 'transmitions.id_Program', '=', 'programs.id_Program')
@@ -396,9 +407,10 @@ class TransmitionController extends Controller
                   'transmitions.nationalTime', 'transmitions.runTime')
                   ->whereDate('transmitions.day', '>=', $date_start)
                   ->whereDate('transmitions.day', '<=', $date_end)
-          ->whereTime('transmitions.nationalTime', '>=', $hour_start)
-          ->whereTime('transmitions.nationalTime', '<=', $hour_end)
-          ->get();
+                  ->whereTime('transmitions.nationalTime', '>=', $hour_med_two)
+                  ->whereTime('transmitions.nationalTime', '<=', $hour_end)
+                  ->union($firts)
+                  ->get();
           
       $table = collect([]);
       $programs = collect([]);

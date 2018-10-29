@@ -48,13 +48,13 @@
 									<div class="col-md-3 col-lg-3 text-center">
 										<label class="hidden-md hidden-lg"><strong>Duración</strong></label>
 										<select id="cboRangeHours" class="form-control selectpicker show-tick" name="rangeHours">
-											<option value="06:00 - 09:00">Early Morning (6AM – 9AM)</option>
-											<option value="09:00 - 16:00">Daytime (9AM – 4PM)</option>
-											<option value="16:00 - 19:00">Early Fringe (4PM – 7PM)</option>
-											<option value="19:00 - 20:00">Prime Access (7PM – 8PM)</option>
-											<option value="20:00 - 23:00">Prime (8PM – 11PM)</option>
-											<option value="23:00 - 02:00">Late Fringe (11PM – 2AM)</option>
-											<option value="02:00 - 06:00">Overnight (2AM – 6AM)</option>
+											<option value="06:00 - 07:30 - 07:31 - 09:00">Early Morning (6AM – 9AM)</option>
+											<option value="09:00 - 12:00 - 12:01 - 16:00">Daytime (9AM – 4PM)</option>
+											<option value="16:00 - 17:30 - 17:31 - 19:00">Early Fringe (4PM – 7PM)</option>
+											<option value="19:00 - 19:30 - 19:31 - 20:00">Prime Access (7PM – 8PM)</option>
+											<option value="20:00 - 21:30 - 21:31 - 23:00">Prime (8PM – 11PM)</option>
+											<option value="23:00 - 00:30 - 00:31 - 02:00">Late Fringe (11PM – 2AM)</option>
+											<option value="02:00 - 04:00 - 04:01 - 06:00">Overnight (2AM – 6AM)</option>
 										</select>
 									</div>
 								</div>
