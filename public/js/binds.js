@@ -210,21 +210,36 @@ function bindReportTableFilter(jParams) {
               if (datas.Datos[datos].day === index) {
                 for (var daydatas in datas.Datos[datos].dayDatas) {
                   if (datas.Datos[datos].dayDatas[daydatas].time === times) {
-                    datas.Datos[datos].dayDatas[daydatas].timeDatas.forEach(
-                      timedatas => {
-                        $(
-                          `.trBodyReporTable${countTr} td.tdBodyReportTable${index}`
-                        ).append(`<div class="mt-element-ribbon bg-grey-steel">
-                              <div class="ribbon ribbon-border-hor ribbon-clip ribbon-color-success uppercase">
-                              <div class="ribbon-sub ribbon-clip"></div>
-                              ${timedatas.AA.toFixed(2)}
-                              </div>
-                              <p class="ribbon-content">${
-                                timedatas.program
-                              } - <strong>${timedatas.runTime}</strong></p>
-                              </div>`);
-                      }
-                    );
+                    if(datas.Datos[datos].dayDatas[daydatas].timeDatas.length == 1)
+                    {
+                      datas.Datos[datos].dayDatas[daydatas].timeDatas.forEach(
+                        timedatas => {
+                          $(
+                            `.trBodyReporTable${countTr} td.tdBodyReportTable${index}`
+                          ).append(`<div class="mt-element-ribbon bg-grey-steel">
+                                <div class="ribbon ribbon-border-hor ribbon-clip ribbon-color-success uppercase">
+                                <div class="ribbon-sub ribbon-clip"></div>
+                                ${timedatas.AA.toFixed(2)}
+                                </div>
+                                <p class="ribbon-content">${
+                                  timedatas.program
+                                } - <strong>${timedatas.runTime}</strong></p>
+                                </div>`);
+                        }
+                      );
+                    }
+                    else
+                    {
+                      $(
+                        `.trBodyReporTable${countTr} td.tdBodyReportTable${index}`
+                      ).append(`<div class="mt-element-ribbon bg-grey-steel">
+                            <div class="ribbon ribbon-border-hor ribbon-clip ribbon-color-success uppercase">
+                            <div class="ribbon-sub ribbon-clip"></div>
+                            --
+                            </div>
+                            <p class="ribbon-content">Varios programas</p>
+                            </div>`);
+                    }
                   }
                 }
               }
