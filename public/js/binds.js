@@ -11,7 +11,7 @@ function bindCboRoles(idCbo, idRol) {
   let fnSuccess = data => {
     if (data.length != 0) {
       $(idCbo).addClass("edited");
-      $.each(data, function(i, val) {
+      $.each(data, function (i, val) {
         $(idCbo).append(
           $("<option>")
             .text(val.name)
@@ -58,7 +58,7 @@ function bindCboRoles(idCbo, idRol) {
 }
 
 function bindUserEdit() {
-  $.each(arrayUserEdit, function(i, val) {
+  $.each(arrayUserEdit, function (i, val) {
     $("input").addClass("edited");
 
     $("#usuario").val(val.username);
@@ -87,7 +87,7 @@ function bindCboPrograms(idCbo, idProgram) {
 
   let fnSuccess = data => {
     if (data.length != 0) {
-      $.each(data, function(i, val) {
+      $.each(data, function (i, val) {
         $(idCbo).append(
           $("<option>")
             .text(val.name)
@@ -210,8 +210,7 @@ function bindReportTableFilter(jParams) {
               if (datas.Datos[datos].day === index) {
                 for (var daydatas in datas.Datos[datos].dayDatas) {
                   if (datas.Datos[datos].dayDatas[daydatas].time === times) {
-                    if(datas.Datos[datos].dayDatas[daydatas].timeDatas.length == 1)
-                    {
+                    if (datas.Datos[datos].dayDatas[daydatas].timeDatas.length == 1) {
                       datas.Datos[datos].dayDatas[daydatas].timeDatas.forEach(
                         timedatas => {
                           $(
@@ -222,14 +221,13 @@ function bindReportTableFilter(jParams) {
                                 ${timedatas.AA.toFixed(2)}
                                 </div>
                                 <p class="ribbon-content">${
-                                  timedatas.program
-                                } - <strong>${timedatas.runTime}</strong></p>
+                            timedatas.program
+                            } - <strong>${timedatas.runTime}</strong></p>
                                 </div>`);
                         }
                       );
                     }
-                    else
-                    {
+                    else {
                       $(
                         `.trBodyReporTable${countTr} td.tdBodyReportTable${index}`
                       ).append(`<div class="mt-element-ribbon bg-grey-steel">
